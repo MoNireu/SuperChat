@@ -9,8 +9,11 @@
 import Foundation
 
 class ChatRoomVO {
-    var isGroupChat: Bool?
     var name: String?
+    var chatRommID: String?
+    var isGroupChat: Bool?
     var lastChat: String?
     var lastChatTime: String?
+    var member: [AccountVO]?
+    var chat: [ChatVO]?
 }

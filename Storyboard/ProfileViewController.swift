@@ -31,6 +31,7 @@ class ProfileViewController: UIViewController {
         if let chatRoomVC = self.storyboard?.instantiateViewController(identifier: "chatRoomVC") as? ChatRoomViewController {
             
             chatRoomVC.accountVO = self.accountVO
+            chatRoomVC.myAccount = delegate?.myAccount
             
             self.dismiss(animated: false) {
                 self.delegate?.navigationController?.pushViewController(chatRoomVC, animated: true)

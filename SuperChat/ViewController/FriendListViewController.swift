@@ -22,7 +22,8 @@ class FriendListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        self.navigationItem.largeTitleDisplayMode = .always
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        
         
         let friendListData = FriendListData()
         myAccount = friendListData.myAccount()
@@ -31,16 +32,7 @@ class FriendListViewController: UIViewController {
         friendList?.append(contentsOf: friendListData.data())
 
         tableView.reloadData()
-        scrollToBottom()
     }
-    
-    func scrollToBottom() {
-        DispatchQueue.main.async {
-            let lastIndex = IndexPath(item: self.friendList!.count-1, section: 0)
-            self.tableView.scrollToRow(at: lastIndex, at: .bottom, animated: true)
-        }
-    }
-    
 }
 
 extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -51,6 +43,7 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "myAccountTableViewCell", for: indexPath) as? MyAccountTableViewCell
             
             cell?.profileImg.image = friendList?[indexPath.row].profileImg ?? UIImage(named: "default_user_profile.png")
@@ -60,7 +53,8 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
             
             return cell!
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "friendTableViewCell", for: indexPath) as? FriendTableViewCell
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "friendTableViewCell", for: indexPath) as? FriendListTableViewCell
             
             cell?.profileImg.image = friendList?[indexPath.row].profileImg ?? UIImage(named: "default_user_profile.png")
             cell?.name.text        = friendList?[indexPath.row].name

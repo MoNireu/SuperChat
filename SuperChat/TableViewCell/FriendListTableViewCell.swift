@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FriendTableViewCell: UITableViewCell {
+class FriendListTableViewCell: UITableViewCell {
 
     @IBOutlet var profileImg: UIImageView!
     @IBOutlet var name: UILabel!

@@ -9,7 +9,7 @@
 import Foundation
 
 class ChatVO {
-    var time: Date?
+    var time: String?
     var content: Any?
     var sender: String?
 }
