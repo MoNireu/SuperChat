@@ -18,8 +18,10 @@ class ProfileViewController: UIViewController {
     @IBOutlet var button2: UIButton!
     @IBOutlet var button3: UIButton!
     
+    
+    
     var accountVO: AccountVO?
-    var delegate: FriendListViewController?
+    weak var delegate: FriendListViewController?
     
     @IBAction func closeAction(_ sender: Any) {
         self.dismiss(animated: true) {
@@ -29,22 +31,23 @@ class ProfileViewController: UIViewController {
     
     @IBAction func openChatRoom(_ sender: Any) {
         if let chatRoomVC = self.storyboard?.instantiateViewController(identifier: "chatRoomVC") as? ChatRoomViewController {
-            
             chatRoomVC.accountVO = self.accountVO
             chatRoomVC.myAccount = delegate?.myAccount
             
             self.dismiss(animated: false) {
-                self.delegate?.navigationController?.pushViewController(chatRoomVC, animated: true)
+                self.delegate?.navigationController!.pushViewController(chatRoomVC, animated: true)
+                self.delegate?.hidesBottomBarWhenPushed = false
+                
             }
         }
-        
-        
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        
         profileImg.makeRoundImage()
         button1.imageView?.makeRoundImage()
         button2.imageView?.makeRoundImage()
@@ -76,5 +79,4 @@ class ProfileViewController: UIViewController {
             self.delegate?.tableView.reloadData()
         }
     }
-    
 }

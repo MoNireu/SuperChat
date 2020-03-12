@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class FriendListViewController: UIViewController {
     
     var myAccount: AccountVO?
@@ -15,6 +16,7 @@ class FriendListViewController: UIViewController {
     
     
     @IBOutlet var tableView: UITableView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +27,7 @@ class FriendListViewController: UIViewController {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
         
+        
         let friendListData = FriendListData()
         myAccount = friendListData.myAccount()
         friendList = [AccountVO]()
@@ -32,6 +35,10 @@ class FriendListViewController: UIViewController {
         friendList?.append(contentsOf: friendListData.data())
 
         tableView.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.hidesBottomBarWhenPushed = true
     }
 }
 
@@ -79,4 +86,5 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
             tableView.cellForRow(at: indexPath)?.isSelected = false
         }
     }
+    
 }

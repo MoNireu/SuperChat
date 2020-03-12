@@ -15,4 +15,5 @@ class AccountVO{
     var statusMsg: String?
     var profileImg: UIImage?
     var backgroundImg: UIImage?
+    var chatRomm: ChatRoomVO?
 }

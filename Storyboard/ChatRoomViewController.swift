@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ChatRoomViewController: UIViewController {
+class ChatRoomViewController: UIViewController, UIApplicationDelegate, UIWindowSceneDelegate {
 
     @IBOutlet var tableView: UITableView!
     @IBOutlet var bottomBar: ChatRoomBottomBar!
-    
+    @IBOutlet var emptyBar: UIView!
     
     var myAccount: AccountVO?
     var accountVO: AccountVO?
@@ -21,6 +21,8 @@ class ChatRoomViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(endEditing(_:)), name: UIScene.willDeactivateNotification, object: nil)
         
         tableView.delegate   = self
         tableView.dataSource = self
@@ -36,7 +38,6 @@ class ChatRoomViewController: UIViewController {
         // NavigationController UI
         self.navigationItem.largeTitleDisplayMode = .never
         self.navigationItem.title                 = accountVO?.name
-        self.tabBarController?.tabBar.isHidden    = true
         
         let gestureRecognizer = UITapGestureRecognizer()
         gestureRecognizer.addTarget(self, action: #selector(endEditing(_:)))
@@ -44,24 +45,22 @@ class ChatRoomViewController: UIViewController {
         
         // Custom ToolBar UI
         bottomBar.setup()
-        scrollToBottom()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationItem.largeTitleDisplayMode = .always
-        self.tabBarController?.tabBar.isHidden = false
+        bottomBar.delegate = self
+        scrollToBottom(animate: false)
     }
     
     
-    func scrollToBottom() {
-         DispatchQueue.main.async {
-             let lastIndex = IndexPath(item: self.chatVO!.count-1, section: 0)
-             self.tableView.scrollToRow(at: lastIndex, at: .bottom, animated: false)
+    
+    func scrollToBottom(animate: Bool) {
+        DispatchQueue.main.async {
+            let lastIndex = IndexPath(item: self.chatVO!.count-1, section: 0)
+            self.tableView.scrollToRow(at: lastIndex, at: .bottom, animated: animate)
          }
      }
     
     // MARK: Action Methods
     @objc func endEditing(_ sender: UIGestureRecognizer) {
+        print("end editing")
         bottomBar.endEditing(true)
     }
 }

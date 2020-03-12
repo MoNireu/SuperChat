@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>518940488588-hq5a11ulif7a1d4d6fldfkaj6bo5pbv5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.518940488588-hq5a11ulif7a1d4d6fldfkaj6bo5pbv5</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCu24cHLIQ--WU2fZ2Hm62w5kpaWbIMq54</string>
+	<key>GCM_SENDER_ID</key>
+	<string>518940488588</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>monireu.SuperChat</string>
+	<key>PROJECT_ID</key>
+	<string>superchat-4b736</string>
+	<key>STORAGE_BUCKET</key>
+	<string>superchat-4b736.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:518940488588:ios:e32c518d3e7425ee70dca9</string>
+	<key>DATABASE_URL</key>
+	<string>https://superchat-4b736.firebaseio.com</string>
+</dict>
+</plist>

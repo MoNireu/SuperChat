@@ -8,30 +8,26 @@
 
 import UIKit
 
-class ChatRoomBottomBar: UIView, UITextFieldDelegate {
+class ChatRoomBottomBar: UIView, UITextViewDelegate {
 
     @IBOutlet var addBtn: UIButton!
-    @IBOutlet var messageField: UITextField!
     @IBOutlet var sendBtn: UIButton!
+    @IBOutlet var messageField: UITextView!
     
+    weak var delegate: ChatRoomViewController?
     
-//
-//    override func layoutSubviews() {
-//        print("run")
-//        messageField.placeholder = "메시지를 입력하세요."
-//    }
-//
-//    func changePH() {
-//        messageField.placeholder = "변경"
-//        print("change")
-//    }
-//
+    var msgHeightConst: NSLayoutConstraint?
+    
     func setup() {
-        messageField.placeholder = "메시지를 입력하세요."
         messageField.delegate = self
+        messageField.heightAnchor.constraint(lessThanOrEqualToConstant: 100).isActive = true
         addKeyboardNotifications()
+        messageField.translatesAutoresizingMaskIntoConstraints = false
+        messageField.sizeToFit()
+        messageField.isScrollEnabled = false
+        msgHeightConst = messageField.heightAnchor.constraint(equalToConstant: 33)
+        msgHeightConst!.isActive = true
     }
-    
     
     func addKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -44,7 +40,7 @@ class ChatRoomBottomBar: UIView, UITextFieldDelegate {
             let keyboardHeight = keyboardRect.height
             
             if self.superview?.frame.origin.y == 0 {
-                self.superview?.frame.origin.y -= keyboardHeight
+                self.superview?.frame.origin.y -= keyboardHeight - (delegate?.emptyBar.frame.height)!
             }
         }
     }
@@ -53,7 +49,53 @@ class ChatRoomBottomBar: UIView, UITextFieldDelegate {
         self.superview?.frame.origin.y = 0
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    
+    func textViewDidChange(_ textView: UITextView) {
+            changeTextViewHeight()
+        delegate?.scrollToBottom(animate: false)
+    }
+    
+    func changeTextViewHeight() {
+        let fixedWidth = messageField.frame.width
+        let newMsgSize = messageField.sizeThatFits(CGSize(width: fixedWidth, height: 100))
+        
+        let barWidth = self.frame.width
+        
+        guard newMsgSize.height < 100  else {
+            self.messageField.isScrollEnabled = true
+            print("scroll Enable")
+            return
+        }
+        
+        self.messageField.isScrollEnabled = false
+        print("scroll Disable")
+        
+        
+        //            self.msgHeightConst?.isActive = false
+        //            self.msgHeightConst = self.messageField.heightAnchor.constraint(equalToConstant: newMsgSize.height)
+        self.msgHeightConst?.constant = newMsgSize.height
+        //            self.msgHeightConst?.isActive = true
+        self.delegate?.tableView.layoutIfNeeded()
+        
+//        messageField.frame.size = newMsgSize
+//        self.frame.size = newBarSize
+        
+        
+        
+        print(messageField.frame.height)
+        print(newMsgSize.height)
+        print(self.frame.height)
+        print(delegate?.tableView.frame.height)
+        
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        print("End")
+        self.messageField.isScrollEnabled = true
+    }
+    
+    func textViewShouldReturn(_ textField: UITextField) -> Bool {
+        print(messageField.frame.height)
         return true
     }
 }
