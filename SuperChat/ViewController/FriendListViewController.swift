@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 
 class FriendListViewController: UIViewController {
@@ -16,6 +17,12 @@ class FriendListViewController: UIViewController {
     
     
     @IBOutlet var tableView: UITableView!
+    @IBAction func signOut(_ sender: Any) {
+        let appdelegate = UIApplication.shared.delegate as? AppDelegate
+        appdelegate?.isSignedIn = false
+        
+        try! Auth.auth().signOut()
+    }
     
     
     override func viewDidLoad() {

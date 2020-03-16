@@ -43,6 +43,7 @@
 		E1D59ACE2403D41400CCEC37 /* Eunbi.png in Resources */ = {isa = PBXBuildFile; fileRef = E1D59ACB2403D41400CCEC37 /* Eunbi.png */; };
 		E1D59ACF2403D41400CCEC37 /* Sakura.png in Resources */ = {isa = PBXBuildFile; fileRef = E1D59ACC2403D41400CCEC37 /* Sakura.png */; };
 		E1D9A711241637890018E90C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1D9A710241637890018E90C /* GoogleService-Info.plist */; };
+		E1FF8E96241F70A400A39077 /* SetProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FF8E95241F70A400A39077 /* SetProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		E1D59ACB2403D41400CCEC37 /* Eunbi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Eunbi.png; sourceTree = "<group>"; };
 		E1D59ACC2403D41400CCEC37 /* Sakura.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sakura.png; sourceTree = "<group>"; };
 		E1D9A710241637890018E90C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E1FF8E95241F70A400A39077 /* SetProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SetProfileViewController.swift; path = Shared/SetProfileViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 		E14ED6982403B39F0050310B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				E1FF8E95241F70A400A39077 /* SetProfileViewController.swift */,
 				E161D5D52404F39F008024B9 /* ProfileViewController.swift */,
 				E14ED6962403B1D80050310B /* FriendListViewController.swift */,
 				E1BF9CB024064CBD00F0998E /* ChatRoomViewController.swift */,
@@ -371,6 +374,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E14ED6922403A93F0050310B /* ChatVO.swift in Sources */,
+				E1FF8E96241F70A400A39077 /* SetProfileViewController.swift in Sources */,
 				E17575552403919200558033 /* SuperChat.xcdatamodeld in Sources */,
 				E1BF9CB3240656F900F0998E /* ChatRoomBottomBar.swift in Sources */,
 				E1D45B2524067E6C00D8AFFA /* FriendChatTableViewCell.swift in Sources */,

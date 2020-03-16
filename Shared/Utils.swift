@@ -17,3 +17,11 @@ extension UIImageView {
         self.clipsToBounds = true
     }
 }
+
+extension UIViewController {
+    func errorAlert(_ msg: String?) {
+        let alert = UIAlertController(title: "오류", message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        self.present(alert, animated: true)
+    }
+}

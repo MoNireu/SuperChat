@@ -44,9 +44,15 @@ class SignInViewController: UIViewController {
                         print(user?.user.email)
 //                        let uid = user?.user.uid
                         let uid = "monireu"
-                        self.getDocumentFrom(uid)
+                        self.getDocumentFrom(uid) {
+                            if let setProfileVC = self.storyboard?.instantiateViewController(identifier: "setProfileViewController") as? SetProfileViewController {
+                                setProfileVC.modalPresentationStyle = .fullScreen
+                                self.present(setProfileVC, animated: true)
+                            }
+                        }
                     } else {            // 로그인 실패
                         print(error)
+                        self.errorAlert("로그인에 실패했습니다.\n다시 로그인해주세요.")
                     }
                     self.checkRegister()
                 }
@@ -63,9 +69,7 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         checkRegister()
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,8 +90,9 @@ class SignInViewController: UIViewController {
         }
     }
     
-    func getDocumentFrom(_ uid: String) {
+    func getDocumentFrom(_ uid: String, complete: @escaping () -> ()) {
         let docRef = self.appdelegate?.db?.collection("Users").document(uid)
+        
         docRef?.getDocument { (document, error) in
             if let document = document, document.exists {
                 //                print(document.data())
@@ -99,8 +104,11 @@ class SignInViewController: UIViewController {
                 account.profileImg = result!["profileImg"] as? UIImage
                 account.backgroundImg = result!["backgroundImg"] as? UIImage
                 account.chatRoom = result!["chatRoom"] as? [String]
-                    
+                
                 self.appdelegate?.myAccount = account
+                
+                complete()
+                
                 print(account.email)
                 print(account.name)
                 print(account.statusMsg)
@@ -111,6 +119,7 @@ class SignInViewController: UIViewController {
                 print("ERROR!")
             }
         }
+        
     }
 }
 

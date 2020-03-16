@@ -10,18 +10,24 @@ import UIKit
 import CoreData
 import Firebase
 import FirebaseFirestore
+import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var db: Firestore?
     var myAccount: AccountVO?
+    var isSignedIn: Bool?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         
         db = Firestore.firestore()
+        
+        isSignedIn = Auth.auth().currentUser != nil ? true : false
+        print("Check SignedIn Complete")
+        print(isSignedIn)
         
         return true
     }
@@ -84,6 +90,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    
+    // MARK: - Outher Methods
 
 }
 
