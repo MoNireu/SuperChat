@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dJS-bv-8rh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="c7H-0x-19r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -79,10 +79,30 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aoN-Pi-6xP"/>
                     </view>
+                    <connections>
+                        <outlet property="emailTextField" destination="gKh-5J-h3M" id="eTZ-pc-H3b"/>
+                        <outlet property="passwordTextField" destination="cm1-7r-ais" id="Qbn-ni-GW0"/>
+                        <outlet property="signInBtn" destination="DSZ-nJ-kZv" id="z0U-ur-YhP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J4h-JU-KOl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2233.3333333333335" y="148.66071428571428"/>
+            <point key="canvasLocation" x="-2741" y="149"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="SN5-rh-bsd">
+            <objects>
+                <viewController id="DYF-ap-C10" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WTZ-zU-Pwh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="haL-8C-5vh"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YaA-bL-UBS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2007" y="149"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="G8D-sk-7WW">

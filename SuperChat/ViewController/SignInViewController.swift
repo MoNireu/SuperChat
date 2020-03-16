@@ -9,13 +9,52 @@
 import UIKit
 import FirebaseAuth
 
+enum RegisterStatus: String {
+    case signedIn = "로그아웃"
+    case signedOut = "로그인"
+}
+
+
 class SignInViewController: UIViewController {
 
+    @IBOutlet var emailTextField: UITextField!
+    @IBOutlet var passwordTextField: UITextField!
+    
+    @IBOutlet var signInBtn: UIButton!
     
     var handle: AuthStateDidChangeListenerHandle?
+    var registerStatus: RegisterStatus?
+    var appdelegate = UIApplication.shared.delegate as? AppDelegate
     
     @IBAction func signIn(_ sender: Any) {
+        checkRegister()
         
+        switch registerStatus {
+        case .signedIn:
+            try! Auth.auth().signOut()
+            print("signed out")
+            checkRegister()
+        case .signedOut:
+            let email = emailTextField.text
+            let password =  passwordTextField.text
+            
+            if email != nil && password != nil {
+                Auth.auth().signIn(withEmail: email!, password: password!) { (user, error) in
+                    if user != nil {    // 로그인 성공
+                        print(user?.user.email)
+//                        let uid = user?.user.uid
+                        let uid = "monireu"
+                        self.getDocumentFrom(uid)
+                    } else {            // 로그인 실패
+                        print(error)
+                    }
+                    self.checkRegister()
+                }
+            }
+        default:
+            return
+        }
+        checkRegister()
     }
     
     @IBAction func signUp(_ sender: Any) {
@@ -25,6 +64,7 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        checkRegister()
         // Do any additional setup after loading the view.
     }
     
@@ -34,6 +74,45 @@ class SignInViewController: UIViewController {
             
         }
     }
+    
+    func checkRegister() {
+        // Signed In
+        if Auth.auth().currentUser != nil {
+            registerStatus = .signedIn
+            signInBtn.setTitle(registerStatus?.rawValue, for: .normal)
+        } else {
+            registerStatus = .signedOut
+            signInBtn.setTitle(registerStatus?.rawValue, for: .normal)
+        }
+    }
+    
+    func getDocumentFrom(_ uid: String) {
+        let docRef = self.appdelegate?.db?.collection("Users").document(uid)
+        docRef?.getDocument { (document, error) in
+            if let document = document, document.exists {
+                //                print(document.data())
+                let result = document.data()
+                let account = AccountVO()
+                account.email = result!["email"] as? String
+                account.name = result!["name"] as? String
+                account.statusMsg = result!["statusMsg"] as? String
+                account.profileImg = result!["profileImg"] as? UIImage
+                account.backgroundImg = result!["backgroundImg"] as? UIImage
+                account.chatRoom = result!["chatRoom"] as? [String]
+                    
+                self.appdelegate?.myAccount = account
+                print(account.email)
+                print(account.name)
+                print(account.statusMsg)
+                print(account.profileImg)
+                print(account.backgroundImg)
+                print(account.chatRoom)
+            } else {
+                print("ERROR!")
+            }
+        }
+    }
+}
 
     /*
     // MARK: - Navigation
@@ -45,4 +124,3 @@ class SignInViewController: UIViewController {
     }
     */
 
-}

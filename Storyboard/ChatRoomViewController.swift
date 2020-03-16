@@ -72,7 +72,7 @@ extension ChatRoomViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if chatVO?[indexPath.row].sender == myAccount?.id {
+        if chatVO?[indexPath.row].sender == myAccount?.email {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "myChatCell") as? MyChatTableViewCell
 

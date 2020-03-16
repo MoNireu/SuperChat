@@ -10,10 +10,10 @@ import Foundation
 import UIKit
 
 class AccountVO{
-    var id: String?
+    var email: String?
     var name: String?
     var statusMsg: String?
     var profileImg: UIImage?
     var backgroundImg: UIImage?
-    var chatRomm: ChatRoomVO?
+    var chatRoom: [String]?
 }
