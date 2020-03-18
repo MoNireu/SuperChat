@@ -96,6 +96,7 @@ class SignInViewController: UIViewController {
                 let result  = document.data()
                 let account = AccountVO()
                 
+                account.id            = userID
                 account.email         = result!["email"] as? String
                 account.name          = result!["name"] as? String
                 account.statusMsg     = result!["statusMsg"] as? String

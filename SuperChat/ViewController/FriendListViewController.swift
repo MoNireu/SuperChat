@@ -44,12 +44,12 @@ class FriendListViewController: UIViewController {
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
+        let appdelegate = UIApplication.shared.delegate as? AppDelegate
+        myAccount = appdelegate?.myAccount
         
         
         let friendListData = FriendListData()
-        myAccount = friendListData.myAccount()
         friendList = [AccountVO]()
-        friendList?.append(myAccount!)
         friendList?.append(contentsOf: friendListData.data())
 
         tableView.reloadData()
@@ -73,9 +73,9 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "myAccountTableViewCell", for: indexPath) as? MyAccountTableViewCell
             
-            cell?.profileImg.image = friendList?[indexPath.row].profileImg ?? UIImage(named: "default_user_profile.png")
-            cell?.name.text        = friendList?[indexPath.row].name
-            cell?.statMsg.text     = friendList?[indexPath.row].statusMsg ?? ""
+            cell?.profileImg.image = myAccount?.profileImg ?? UIImage(named: "default_user_profile.png")
+            cell?.name.text        = myAccount?.name!
+            cell?.statMsg.text     = myAccount?.statusMsg!
             cell?.isSelected       = false
             
             return cell!
@@ -93,11 +93,17 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let row = friendList?[indexPath.row]
+        
+        var accountVO: AccountVO?
+        if indexPath.row == 0 {
+            accountVO = myAccount
+        } else {
+            accountVO = friendList?[indexPath.row]
+        }
         
         if let profileVC = self.storyboard?.instantiateViewController(identifier: "profileVC") as? ProfileViewController {
             
-            profileVC.accountVO = row
+            profileVC.accountVO = accountVO
             profileVC.delegate = self
             
             profileVC.modalPresentationStyle = .fullScreen

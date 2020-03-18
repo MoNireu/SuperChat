@@ -19,7 +19,11 @@ class SetProfileViewController: UIViewController {
     
     @IBAction func finishSetting(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
-//        let userRef = appDelegate?.db?.collection("Users").document(myAccount!.id!)
+        let userRef = appDelegate?.db?.collection("Users").document(myAccount!.id!)
+        userRef?.updateData([
+            "name" : nameTextField.text,
+            "statusMsg" : statusMsgTextField.text
+        ])
         
         let pvc = self.presentingViewController
         
