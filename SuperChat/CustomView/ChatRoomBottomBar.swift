@@ -52,7 +52,7 @@ class ChatRoomBottomBar: UIView, UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
             changeTextViewHeight()
-        delegate?.scrollToBottom(animate: false)
+        delegate?.scrollToBottom(animate: true)
     }
     
     func changeTextViewHeight() {

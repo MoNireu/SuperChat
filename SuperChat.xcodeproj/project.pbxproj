@@ -132,11 +132,11 @@
 		E14ED6982403B39F0050310B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E1FF8E95241F70A400A39077 /* SetProfileViewController.swift */,
-				E161D5D52404F39F008024B9 /* ProfileViewController.swift */,
-				E14ED6962403B1D80050310B /* FriendListViewController.swift */,
-				E1BF9CB024064CBD00F0998E /* ChatRoomViewController.swift */,
 				E1D2F2932418DE5200AC9FFA /* SignInViewController.swift */,
+				E1FF8E95241F70A400A39077 /* SetProfileViewController.swift */,
+				E14ED6962403B1D80050310B /* FriendListViewController.swift */,
+				E161D5D52404F39F008024B9 /* ProfileViewController.swift */,
+				E1BF9CB024064CBD00F0998E /* ChatRoomViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";

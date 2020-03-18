@@ -9,11 +9,6 @@
 import UIKit
 import FirebaseAuth
 
-enum RegisterStatus: String {
-    case signedIn = "로그아웃"
-    case signedOut = "로그인"
-}
-
 
 class SignInViewController: UIViewController {
 
@@ -21,46 +16,38 @@ class SignInViewController: UIViewController {
     @IBOutlet var passwordTextField: UITextField!
     
     @IBOutlet var signInBtn: UIButton!
+    @IBOutlet var actIndicator: UIActivityIndicatorView!
     
     var handle: AuthStateDidChangeListenerHandle?
-    var registerStatus: RegisterStatus?
     var appdelegate = UIApplication.shared.delegate as? AppDelegate
     
     @IBAction func signIn(_ sender: Any) {
-        checkRegister()
+        actIndicator.startAnimating()
+        let email = emailTextField.text
+        let password =  passwordTextField.text
         
-        switch registerStatus {
-        case .signedIn:
-            try! Auth.auth().signOut()
-            print("signed out")
-            checkRegister()
-        case .signedOut:
-            let email = emailTextField.text
-            let password =  passwordTextField.text
-            
-            if email != nil && password != nil {
-                Auth.auth().signIn(withEmail: email!, password: password!) { (user, error) in
-                    if user != nil {    // 로그인 성공
-                        print(user?.user.email)
-//                        let uid = user?.user.uid
-                        let uid = "monireu"
-                        self.getDocumentFrom(uid) {
-                            if let setProfileVC = self.storyboard?.instantiateViewController(identifier: "setProfileViewController") as? SetProfileViewController {
-                                setProfileVC.modalPresentationStyle = .fullScreen
-                                self.present(setProfileVC, animated: true)
-                            }
+        if email != nil && password != nil {
+            Auth.auth().signIn(withEmail: email!, password: password!) { (user, error) in
+                if user != nil {    // 로그인 성공
+                    
+                    guard let uid = user?.user.uid else {return}
+                    
+                    
+                    self.getDocumentFrom(uid) {
+                        if let setProfileVC = self.storyboard?.instantiateViewController(identifier: "setProfileViewController") {
+                            setProfileVC.modalPresentationStyle = .fullScreen
+                            self.actIndicator.stopAnimating()
+                            self.present(setProfileVC, animated: true)
                         }
-                    } else {            // 로그인 실패
-                        print(error)
-                        self.errorAlert("로그인에 실패했습니다.\n다시 로그인해주세요.")
+                        
                     }
-                    self.checkRegister()
+                } else {            // 로그인 실패
+                    print(error) // TestCode
+                    self.actIndicator.stopAnimating()
+                    self.errorAlert("로그인에 실패했습니다.\n다시 시도해주세요.")
                 }
             }
-        default:
-            return
         }
-        checkRegister()
     }
     
     @IBAction func signUp(_ sender: Any) {
@@ -69,57 +56,67 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkRegister()
+        actIndicator.hidesWhenStopped = true
+        print("SignInViewDidLoad!!!") // TestCode
+        emailTextField.text = "coreahr@naver.com" //TestCode
+        passwordTextField.text = "123456" // TestCode
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        handle = Auth.auth().addStateDidChangeListener { (auth, user) in
-            
-        }
     }
     
-    func checkRegister() {
-        // Signed In
-        if Auth.auth().currentUser != nil {
-            registerStatus = .signedIn
-            signInBtn.setTitle(registerStatus?.rawValue, for: .normal)
-        } else {
-            registerStatus = .signedOut
-            signInBtn.setTitle(registerStatus?.rawValue, for: .normal)
-        }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     func getDocumentFrom(_ uid: String, complete: @escaping () -> ()) {
-        let docRef = self.appdelegate?.db?.collection("Users").document(uid)
+        let uidRef = self.appdelegate?.db?.collection("UID").document(uid)
+        var userID: String?
+        uidRef?.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let result = document.data()
+                userID = result?["id"] as? String ?? nil
+                self.getUserID(userID!, complete: complete)
+            } else {
+                self.errorAlert(error as? String)
+            }
+        }
+    }
+    
+    func getUserID(_ userID: String, complete: @escaping () -> ()) {
+        
+        guard userID != nil else {return}
+        
+        let docRef = self.appdelegate?.db?.collection("Users").document(userID)
         
         docRef?.getDocument { (document, error) in
             if let document = document, document.exists {
-                //                print(document.data())
-                let result = document.data()
+                
+                let result  = document.data()
                 let account = AccountVO()
-                account.email = result!["email"] as? String
-                account.name = result!["name"] as? String
-                account.statusMsg = result!["statusMsg"] as? String
-                account.profileImg = result!["profileImg"] as? UIImage
+                
+                account.email         = result!["email"] as? String
+                account.name          = result!["name"] as? String
+                account.statusMsg     = result!["statusMsg"] as? String
+                account.profileImg    = result!["profileImg"] as? UIImage
                 account.backgroundImg = result!["backgroundImg"] as? UIImage
-                account.chatRoom = result!["chatRoom"] as? [String]
+                account.chatRoom      = result!["chatRoom"] as? [String]
                 
                 self.appdelegate?.myAccount = account
                 
                 complete()
                 
-                print(account.email)
-                print(account.name)
-                print(account.statusMsg)
-                print(account.profileImg)
-                print(account.backgroundImg)
-                print(account.chatRoom)
+                print(account.email)            // TestCode
+                print(account.name)             // TestCode
+                print(account.statusMsg)        // TestCode
+                print(account.profileImg)       // TestCode
+                print(account.backgroundImg)    // TestCode
+                print(account.chatRoom)         // TestCode
             } else {
                 print("ERROR!")
             }
         }
-        
     }
 }
 

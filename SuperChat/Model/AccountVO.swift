@@ -11,6 +11,7 @@ import UIKit
 
 class AccountVO{
     var email: String?
+    var id: String?
     var name: String?
     var statusMsg: String?
     var profileImg: UIImage?

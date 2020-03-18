@@ -22,8 +22,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = setRootVC()
         window?.makeKeyAndVisible()
-        
-        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -61,7 +59,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func setRootVC() -> UIViewController {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-        let friendListVC = storyboard.instantiateViewController(withIdentifier: "tabBarContorller")
+        let friendListVC = storyboard.instantiateViewController(withIdentifier: "tabBarController")
         let signInVC     = storyboard.instantiateViewController(withIdentifier: "signInViewController")
         let rootVC = appDelegate?.isSignedIn == true ? friendListVC : signInVC
         print("Set Root VC")

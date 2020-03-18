@@ -22,12 +22,23 @@ class FriendListViewController: UIViewController {
         appdelegate?.isSignedIn = false
         
         try! Auth.auth().signOut()
+        
+        guard self.presentingViewController == nil else {
+            self.dismiss(animated: true)
+            return
+        }
+        let currentVC = self
+        self.dismiss(animated: true) {
+            let signInVC = self.storyboard?.instantiateViewController(identifier: "signInViewController")
+            currentVC.view.window?.rootViewController = signInVC
+        }
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("FriendListVC is Presented by \(self.presentingViewController)") // TestCode
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -42,6 +53,8 @@ class FriendListViewController: UIViewController {
         friendList?.append(contentsOf: friendListData.data())
 
         tableView.reloadData()
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -63,7 +76,7 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
             cell?.profileImg.image = friendList?[indexPath.row].profileImg ?? UIImage(named: "default_user_profile.png")
             cell?.name.text        = friendList?[indexPath.row].name
             cell?.statMsg.text     = friendList?[indexPath.row].statusMsg ?? ""
-            cell?.isSelected = false
+            cell?.isSelected       = false
             
             return cell!
         } else {
@@ -73,7 +86,7 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
             cell?.profileImg.image = friendList?[indexPath.row].profileImg ?? UIImage(named: "default_user_profile.png")
             cell?.name.text        = friendList?[indexPath.row].name
             cell?.statMsg.text     = friendList?[indexPath.row].statusMsg ?? ""
-            cell?.isSelected = false
+            cell?.isSelected       = false
             
             return cell!
         }

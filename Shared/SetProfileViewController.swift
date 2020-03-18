@@ -18,6 +18,18 @@ class SetProfileViewController: UIViewController {
     @IBOutlet var statusMsgTextField: UITextView!
     
     @IBAction func finishSetting(_ sender: Any) {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+//        let userRef = appDelegate?.db?.collection("Users").document(myAccount!.id!)
+        
+        let pvc = self.presentingViewController
+        
+        self.presentingViewController?.dismiss(animated: true) {
+            if let tabBarController = self.storyboard?.instantiateViewController(identifier: "tabBarController") {
+                tabBarController.modalPresentationStyle = .fullScreen
+                tabBarController.modalTransitionStyle = .coverVertical
+                pvc?.view.window?.rootViewController = tabBarController
+            }
+        }
     }
     
     
@@ -26,12 +38,17 @@ class SetProfileViewController: UIViewController {
 
         // UI init
         profileImg.makeRoundImage()
-        nameTextField.placeholder = "이름을 입력하세요."
-        statusMsgTextField.text = "상태 메시지를 입력해주세요."
-        statusMsgTextField.textColor = .lightGray
-        statusMsgTextField.layer.borderColor = UIColor.lightGray.cgColor
-        statusMsgTextField.layer.borderWidth = 1.0
-        statusMsgTextField.layer.cornerRadius = 2
+        
+        nameTextField.placeholder       = "이름을 입력하세요."
+        nameTextField.layer.borderColor = UIColor.lightGray.cgColor
+        nameTextField.layer.borderWidth = 1.0
+        
+        statusMsgTextField.text               = "상태 메시지를 입력해주세요."
+        statusMsgTextField.textColor          = .lightGray
+        statusMsgTextField.layer.borderColor  = UIColor.lightGray.cgColor
+        statusMsgTextField.layer.borderWidth  = 1.0
+        statusMsgTextField.layer.cornerRadius = 3
+        statusMsgTextField.sizeToFit()
         
         // Data init
         let appdelegate = UIApplication.shared.delegate as? AppDelegate
@@ -41,15 +58,9 @@ class SetProfileViewController: UIViewController {
         statusMsgTextField.text = myAccount?.statusMsg
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
-    */
+    
 
 }

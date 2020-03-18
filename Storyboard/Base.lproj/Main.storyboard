@@ -62,12 +62,17 @@
                                     <action selector="signUp:" destination="c7H-0x-19r" eventType="touchUpInside" id="Tai-lK-AtG"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="gpa-MM-u9i">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="aoN-Pi-6xP" firstAttribute="trailing" secondItem="cm1-7r-ais" secondAttribute="trailing" constant="40" id="2l2-2h-jmw"/>
+                            <constraint firstItem="gpa-MM-u9i" firstAttribute="centerX" secondItem="lDr-na-Dsd" secondAttribute="centerX" id="EoF-MP-dE2"/>
                             <constraint firstItem="h5C-sg-xpO" firstAttribute="top" secondItem="DSZ-nJ-kZv" secondAttribute="bottom" constant="8" id="GkT-Da-uau"/>
                             <constraint firstItem="aoN-Pi-6xP" firstAttribute="trailing" secondItem="gKh-5J-h3M" secondAttribute="trailing" constant="40" id="J6B-zx-oLd"/>
+                            <constraint firstItem="gpa-MM-u9i" firstAttribute="centerY" secondItem="lDr-na-Dsd" secondAttribute="centerY" id="SvZ-ue-wkp"/>
                             <constraint firstItem="DSZ-nJ-kZv" firstAttribute="centerX" secondItem="lDr-na-Dsd" secondAttribute="centerX" id="Vbi-gQ-Rkg"/>
                             <constraint firstItem="cm1-7r-ais" firstAttribute="centerX" secondItem="lDr-na-Dsd" secondAttribute="centerX" id="Xdz-wr-LDF"/>
                             <constraint firstItem="cm1-7r-ais" firstAttribute="leading" secondItem="aoN-Pi-6xP" secondAttribute="leading" constant="40" id="YlA-OZ-rtf"/>
@@ -80,6 +85,7 @@
                         <viewLayoutGuide key="safeArea" id="aoN-Pi-6xP"/>
                     </view>
                     <connections>
+                        <outlet property="actIndicator" destination="gpa-MM-u9i" id="v8o-ml-enG"/>
                         <outlet property="emailTextField" destination="gKh-5J-h3M" id="eTZ-pc-H3b"/>
                         <outlet property="passwordTextField" destination="cm1-7r-ais" id="Qbn-ni-GW0"/>
                         <outlet property="signInBtn" destination="DSZ-nJ-kZv" id="z0U-ur-YhP"/>
@@ -87,7 +93,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J4h-JU-KOl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2741" y="149"/>
+            <point key="canvasLocation" x="-2742.0289855072465" y="148.66071428571428"/>
         </scene>
         <!--Set Profile View Controller-->
         <scene sceneID="SN5-rh-bsd">
@@ -115,9 +121,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Wuk-wn-fJG">
-                                <rect key="frame" x="40" y="523" width="334" height="128"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Wuk-wn-fJG">
+                                <rect key="frame" x="40" y="517" width="334" height="110"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="110" id="su8-hB-Zwn"/>
+                                </constraints>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -142,10 +151,10 @@
                             <constraint firstItem="e6N-O4-3HX" firstAttribute="top" secondItem="haL-8C-5vh" secondAttribute="top" id="3Zf-PO-QZx"/>
                             <constraint firstItem="haL-8C-5vh" firstAttribute="trailing" secondItem="Wuk-wn-fJG" secondAttribute="trailing" constant="40" id="4Gc-UE-R73"/>
                             <constraint firstItem="haL-8C-5vh" firstAttribute="trailing" secondItem="wKc-eS-ZcW" secondAttribute="trailing" constant="40" id="9bI-yz-pUM"/>
-                            <constraint firstItem="Wuk-wn-fJG" firstAttribute="top" secondItem="pwK-mH-4xr" secondAttribute="bottom" constant="8" id="CHT-cw-KXF"/>
                             <constraint firstItem="wKc-eS-ZcW" firstAttribute="top" secondItem="7sx-vo-fDz" secondAttribute="bottom" constant="8" id="MKm-Ce-oSz"/>
                             <constraint firstItem="haL-8C-5vh" firstAttribute="trailing" secondItem="e6N-O4-3HX" secondAttribute="trailing" constant="48" id="Nkm-4u-ULi"/>
                             <constraint firstItem="wKc-eS-ZcW" firstAttribute="leading" secondItem="haL-8C-5vh" secondAttribute="leading" constant="40" id="RpQ-Ar-0Ww"/>
+                            <constraint firstItem="Wuk-wn-fJG" firstAttribute="top" secondItem="pwK-mH-4xr" secondAttribute="bottom" constant="8" id="m4J-sG-xYx"/>
                             <constraint firstItem="Wuk-wn-fJG" firstAttribute="leading" secondItem="haL-8C-5vh" secondAttribute="leading" constant="40" id="pao-YC-t2n"/>
                             <constraint firstItem="pwK-mH-4xr" firstAttribute="top" secondItem="wKc-eS-ZcW" secondAttribute="bottom" constant="20" id="qYS-jQ-GPm"/>
                             <constraint firstItem="wKc-eS-ZcW" firstAttribute="leading" secondItem="7sx-vo-fDz" secondAttribute="leading" id="r1k-if-5wc"/>
@@ -168,7 +177,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="G8D-sk-7WW">
             <objects>
-                <tabBarController storyboardIdentifier="tabBarContorller" automaticallyAdjustsScrollViewInsets="NO" id="dJS-bv-8rh" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBarController" automaticallyAdjustsScrollViewInsets="NO" id="dJS-bv-8rh" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Bqd-5R-3M1"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zXP-lr-zJF">
