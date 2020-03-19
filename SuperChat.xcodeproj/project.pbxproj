@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		603D940C3FB8AE04092EF4B4 /* Pods_SuperChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBB802542CCA92EA32EBA55 /* Pods_SuperChat.framework */; };
 		E103D6FB2407AC6A009C158A /* ChatDummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E103D6FA2407AC6A009C158A /* ChatDummyData.swift */; };
+		E1227A0624224E89000EC15C /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1227A0524224E89000EC15C /* SignUpViewController.swift */; };
 		E14ED6902403A8AE0050310B /* ChatRoomVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14ED68F2403A8AE0050310B /* ChatRoomVO.swift */; };
 		E14ED6922403A93F0050310B /* ChatVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14ED6912403A93F0050310B /* ChatVO.swift */; };
 		E14ED6952403AC2B0050310B /* AccountVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14ED6942403AC2B0050310B /* AccountVO.swift */; };
@@ -51,6 +52,7 @@
 		8C21E88AFBB2C959C252CF39 /* Pods-SuperChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuperChat.release.xcconfig"; path = "Target Support Files/Pods-SuperChat/Pods-SuperChat.release.xcconfig"; sourceTree = "<group>"; };
 		ABBB802542CCA92EA32EBA55 /* Pods_SuperChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SuperChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E103D6FA2407AC6A009C158A /* ChatDummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDummyData.swift; sourceTree = "<group>"; };
+		E1227A0524224E89000EC15C /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		E14ED68F2403A8AE0050310B /* ChatRoomVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomVO.swift; sourceTree = "<group>"; };
 		E14ED6912403A93F0050310B /* ChatVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVO.swift; sourceTree = "<group>"; };
 		E14ED6942403AC2B0050310B /* AccountVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVO.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				E1D2F2932418DE5200AC9FFA /* SignInViewController.swift */,
+				E1227A0524224E89000EC15C /* SignUpViewController.swift */,
 				E1FF8E95241F70A400A39077 /* SetProfileViewController.swift */,
 				E14ED6962403B1D80050310B /* FriendListViewController.swift */,
 				E161D5D52404F39F008024B9 /* ProfileViewController.swift */,
@@ -388,6 +391,7 @@
 				E1BF9CB124064CBD00F0998E /* ChatRoomViewController.swift in Sources */,
 				E14ED69B2403B4010050310B /* FriendListData.swift in Sources */,
 				E161D5D62404F39F008024B9 /* ProfileViewController.swift in Sources */,
+				E1227A0624224E89000EC15C /* SignUpViewController.swift in Sources */,
 				E175754D2403919200558033 /* SceneDelegate.swift in Sources */,
 				E161D5C22404DEF7008024B9 /* Utils.swift in Sources */,
 				E14ED69F2403B78D0050310B /* FriendListTableViewCell.swift in Sources */,

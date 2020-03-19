@@ -51,7 +51,10 @@ class SignInViewController: UIViewController {
     }
     
     @IBAction func signUp(_ sender: Any) {
-        
+        if let signUpVC = storyboard?.instantiateViewController(identifier: "signUpViewController") {
+            signUpVC.modalPresentationStyle = .automatic
+            self.present(signUpVC, animated: true)
+        }
     }
     
     override func viewDidLoad() {

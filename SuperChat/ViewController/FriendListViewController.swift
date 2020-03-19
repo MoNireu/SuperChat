@@ -13,6 +13,12 @@ import FirebaseAuth
 class FriendListViewController: UIViewController {
     
     var myAccount: AccountVO?
+//    {
+//        willSet(newValue) {
+//            self.myAccount = newValue
+//            self.tableView.reloadData()
+//        }
+//    }
     var friendList: [AccountVO]?
     
     
@@ -37,8 +43,7 @@ class FriendListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("FriendListVC is Presented by \(self.presentingViewController)") // TestCode
+        print("Hello from viewcon") //TestCode
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -46,6 +51,7 @@ class FriendListViewController: UIViewController {
         
         let appdelegate = UIApplication.shared.delegate as? AppDelegate
         myAccount = appdelegate?.myAccount
+        print("myaccount name = \(myAccount?.name)")
         
         
         let friendListData = FriendListData()

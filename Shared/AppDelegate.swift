@@ -26,10 +26,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         db = Firestore.firestore()
         
         isSignedIn = Auth.auth().currentUser != nil ? true : false
-        print("Check SignedIn Complete")
         print(isSignedIn)
-        
-        
+        if isSignedIn! {
+            print("Signed In")
+            let uidRef = db?.collection("UID").document(Auth.auth().currentUser!.uid)
+            uidRef?.getDocument() { result, error in
+                if error == nil {
+                    if let result = result?.data()?["id"] as? String {
+                        self.getMyAccount(userID: result)
+                    }
+                } else {
+                    self.signOut()
+                    print("1")
+                }
+            }
+        }
+        print("Hello from appdelegate")
         return true
     }
 
@@ -94,6 +106,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     // MARK: - Outher Methods
-
+    func signOut() {
+        try? Auth.auth().signOut()
+        isSignedIn = false
+        print("SignOut")
+    }
+    
+    func getMyAccount(userID: String?) {
+        guard userID != nil else {self.signOut(); print("2"); return}
+        let docRef = db?.collection("Users").document(userID!)
+        docRef?.getDocument { (result, error) in
+            if error == nil { // Success
+                let data = result?.data()
+                self.myAccount?.id = userID
+                self.myAccount?.name = data!["name"] as? String
+                print("appdelegate name = \(self.myAccount?.name)") // TestCode
+                self.myAccount?.statusMsg = data!["statusMsg"] as? String
+                if let profileImgString = data!["profileImg"] as? String {
+                    let profileImgData = Data(base64Encoded: profileImgString)
+                    let profileImg = UIImage(data: profileImgData!)
+                    self.myAccount?.profileImg = profileImg
+                }
+                if let backgroundImgString = data!["backgroundImg"] as? String {
+                    let backgroundImgData = Data(base64Encoded: backgroundImgString)
+                    let backgroundImg = UIImage(data: backgroundImgData!)
+                    self.myAccount?.backgroundImg = backgroundImg
+                }
+            } else { // Fail
+                print(error)
+            }
+        }
+    }
 }
 

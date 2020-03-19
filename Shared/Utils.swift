@@ -19,9 +19,19 @@ extension UIImageView {
 }
 
 extension UIViewController {
-    func errorAlert(_ msg: String?) {
+    func errorAlert(_ msg: String?, complete: (() -> Void)? = nil) {
         let alert = UIAlertController(title: "오류", message: msg, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        alert.addAction(UIAlertAction(title: "확인", style: .default){ _ in
+            complete?()
+        })
+        self.present(alert, animated: true)
+    }
+    
+    func infoAlert(_ msg: String, complete: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: "안내", message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default){ _ in
+            complete?()
+        })
         self.present(alert, animated: true)
     }
 }
