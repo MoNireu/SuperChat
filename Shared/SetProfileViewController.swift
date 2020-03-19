@@ -23,7 +23,7 @@ class SetProfileViewController: UIViewController {
         userRef?.updateData([
             "name" : nameTextField.text,
             "statusMsg" : statusMsgTextField.text ?? "",
-            "profileImg" : profileImg.image?.pngData()?.base64EncodedString()
+            "profileImg" : profileImg.image?.jpegData(compressionQuality: 0.5)?.base64EncodedString()
         ]) { error in
             if error == nil {   // Success
                 self.myAccount?.name = self.nameTextField.text
@@ -41,6 +41,7 @@ class SetProfileViewController: UIViewController {
                 }
             } else { // Fail
                 self.errorAlert("프로필 설정 도중 문제가 발생했습니다.\n다시 시도해주세요.")
+                print(error)
             }
         }
     }
@@ -66,7 +67,6 @@ class SetProfileViewController: UIViewController {
         statusMsgTextField.sizeToFit()
         
         let tapGestureRecognizer = UITapGestureRecognizer()
-        
         tapGestureRecognizer.addTarget(self, action: #selector(selectImg(_:)))
         profileImg.addGestureRecognizer(tapGestureRecognizer)
         
@@ -124,8 +124,8 @@ extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigatio
         
         
         picker.dismiss(animated: true) {
-            if let selectedImg = info[UIImagePickerController.InfoKey.imageURL] as? String {
-                self.profileImg.image = UIImage(contentsOfFile: selectedImg)
+            if let selectedImg = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+                self.profileImg.image = selectedImg
             }
         }
         

@@ -103,8 +103,16 @@ class SignInViewController: UIViewController {
                 account.email         = result!["email"] as? String
                 account.name          = result!["name"] as? String
                 account.statusMsg     = result!["statusMsg"] as? String
-                account.profileImg    = result!["profileImg"] as? UIImage
-                account.backgroundImg = result!["backgroundImg"] as? UIImage
+                if let profileImgString = result!["profileImg"] as? String {
+                    let profileImgData = Data(base64Encoded: profileImgString)
+                    let profileImg = UIImage(data: profileImgData!)
+                    account.profileImg = profileImg
+                }
+                if let backgroundImgString = result!["backgroundImg"] as? String {
+                    let backgroundImgData = Data(base64Encoded: backgroundImgString)
+                    let backgroundImg = UIImage(data: backgroundImgData!)
+                    account.backgroundImg = backgroundImg
+                }
                 account.chatRoom      = result!["chatRoom"] as? [String]
                 
                 self.appdelegate?.myAccount = account
