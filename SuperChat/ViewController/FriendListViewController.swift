@@ -13,12 +13,6 @@ import FirebaseAuth
 class FriendListViewController: UIViewController {
     
     var myAccount: AccountVO?
-//    {
-//        willSet(newValue) {
-//            self.myAccount = newValue
-//            self.tableView.reloadData()
-//        }
-//    }
     var friendList: [AccountVO]?
     
     

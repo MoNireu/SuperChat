@@ -887,7 +887,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y45-op-5HB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="TNo-uA-omK" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1767" y="-220"/>
+            <point key="canvasLocation" x="1604" y="-220"/>
         </scene>
         <!--대화목록-->
         <scene sceneID="wAw-l0-2LM">
