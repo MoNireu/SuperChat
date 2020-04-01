@@ -26,6 +26,8 @@ class SetProfileViewController: UIViewController {
             "profileImg" : profileImg.image?.jpegData(compressionQuality: 0.5)?.base64EncodedString()
         ]) { error in
             if error == nil {   // Success
+                appDelegate?.myAccount = self.myAccount
+                appDelegate?.saveMyAccount()
                 self.myAccount?.name = self.nameTextField.text
                 self.myAccount?.statusMsg = self.statusMsgTextField.text
                 self.myAccount?.profileImg = self.profileImg.image

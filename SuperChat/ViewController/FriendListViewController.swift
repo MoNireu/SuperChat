@@ -12,21 +12,32 @@ import FirebaseAuth
 
 class FriendListViewController: UIViewController {
     
-    var myAccount: AccountVO?
+    let appdelegate = UIApplication.shared.delegate as? AppDelegate
+    
+    var myAccount: AccountVO? = {
+        let appdelegate = UIApplication.shared.delegate as? AppDelegate
+        return appdelegate?.myAccount
+    }()
     var friendList: [AccountVO]?
     
     
     @IBOutlet var tableView: UITableView!
     @IBAction func signOut(_ sender: Any) {
-        let appdelegate = UIApplication.shared.delegate as? AppDelegate
         appdelegate?.isSignedIn = false
         
-        try! Auth.auth().signOut()
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print(error)
+        }
+        
+        appdelegate?.removeMyAccount()
         
         guard self.presentingViewController == nil else {
             self.dismiss(animated: true)
             return
         }
+        
         let currentVC = self
         self.dismiss(animated: true) {
             let signInVC = self.storyboard?.instantiateViewController(identifier: "signInViewController")
@@ -43,7 +54,10 @@ class FriendListViewController: UIViewController {
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
-        let appdelegate = UIApplication.shared.delegate as? AppDelegate
+//        let userDefaultsUtils = UserDefaultsUtils()
+        
+        appdelegate?.myAccount = appdelegate?.fetchMyAccount()
+        
         myAccount = appdelegate?.myAccount
         print("myaccount name = \(myAccount?.name)")
         
@@ -72,7 +86,7 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "myAccountTableViewCell", for: indexPath) as? MyAccountTableViewCell
-            
+            let myAccount = appdelegate?.myAccount
             cell?.profileImg.image = myAccount?.profileImg ?? UIImage(named: "default_user_profile.png")
             cell?.name.text        = myAccount?.name!
             cell?.statMsg.text     = myAccount?.statusMsg!
