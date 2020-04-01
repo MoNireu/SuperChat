@@ -26,11 +26,13 @@ class SetProfileViewController: UIViewController {
             "profileImg" : profileImg.image?.jpegData(compressionQuality: 0.5)?.base64EncodedString()
         ]) { error in
             if error == nil {   // Success
+                
+                self.myAccount?.name       = self.nameTextField.text
+                self.myAccount?.statusMsg  = self.statusMsgTextField.text
+                self.myAccount?.profileImg = self.profileImg.image
+                
                 appDelegate?.myAccount = self.myAccount
                 appDelegate?.saveMyAccount()
-                self.myAccount?.name = self.nameTextField.text
-                self.myAccount?.statusMsg = self.statusMsgTextField.text
-                self.myAccount?.profileImg = self.profileImg.image
                 
                 let pvc = self.presentingViewController
                 
@@ -54,7 +56,7 @@ class SetProfileViewController: UIViewController {
 
         // UI init
         profileImg.makeRoundImage()
-        profileImg.contentMode = .scaleToFill
+        profileImg.contentMode = .scaleAspectFill
         
         nameTextField.placeholder       = "이름을 입력하세요."
         nameTextField.layer.borderColor = UIColor.lightGray.cgColor
