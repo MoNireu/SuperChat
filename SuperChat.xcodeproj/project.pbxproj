@@ -34,6 +34,8 @@
 		E17575552403919200558033 /* SuperChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E17575532403919200558033 /* SuperChat.xcdatamodeld */; };
 		E17575572403919400558033 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E17575562403919400558033 /* Assets.xcassets */; };
 		E175755A2403919400558033 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E17575582403919400558033 /* LaunchScreen.storyboard */; };
+		E18E16BD24361CCF00F1FD15 /* SearchUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E16BC24361CCF00F1FD15 /* SearchUserViewController.swift */; };
+		E18E16BF2436269200F1FD15 /* SearchUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E16BE2436269200F1FD15 /* SearchUserTableViewCell.swift */; };
 		E1BF9CB124064CBD00F0998E /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BF9CB024064CBD00F0998E /* ChatRoomViewController.swift */; };
 		E1BF9CB3240656F900F0998E /* ChatRoomBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BF9CB2240656F900F0998E /* ChatRoomBottomBar.swift */; };
 		E1C2AC02240E668900EA2A72 /* FriendChatContinueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C2AC01240E668900EA2A72 /* FriendChatContinueTableViewCell.swift */; };
@@ -79,6 +81,8 @@
 		E17575562403919400558033 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E17575592403919400558033 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E175755B2403919400558033 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E18E16BC24361CCF00F1FD15 /* SearchUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserViewController.swift; sourceTree = SOURCE_ROOT; };
+		E18E16BE2436269200F1FD15 /* SearchUserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchUserTableViewCell.swift; path = Pods/SearchUserTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		E1BF9CB024064CBD00F0998E /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChatRoomViewController.swift; path = Storyboard/ChatRoomViewController.swift; sourceTree = SOURCE_ROOT; };
 		E1BF9CB2240656F900F0998E /* ChatRoomBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChatRoomBottomBar.swift; path = SuperChat/CustomView/ChatRoomBottomBar.swift; sourceTree = SOURCE_ROOT; };
 		E1C2AC01240E668900EA2A72 /* FriendChatContinueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendChatContinueTableViewCell.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 		E14ED6982403B39F0050310B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				E18E16BC24361CCF00F1FD15 /* SearchUserViewController.swift */,
 				E1D2F2932418DE5200AC9FFA /* SignInViewController.swift */,
 				E1227A0524224E89000EC15C /* SignUpViewController.swift */,
 				E1FF8E95241F70A400A39077 /* SetProfileViewController.swift */,
@@ -239,6 +244,7 @@
 		E1CFD8D4240E60E2004A7883 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				E18E16BE2436269200F1FD15 /* SearchUserTableViewCell.swift */,
 				E14ED69C2403B6920050310B /* MyAccountTableViewCell.swift */,
 				E14ED69E2403B78D0050310B /* FriendListTableViewCell.swift */,
 				E1D45B2224067E5D00D8AFFA /* MyChatTableViewCell.swift */,
@@ -391,6 +397,8 @@
 				E1BF9CB124064CBD00F0998E /* ChatRoomViewController.swift in Sources */,
 				E14ED69B2403B4010050310B /* FriendListData.swift in Sources */,
 				E161D5D62404F39F008024B9 /* ProfileViewController.swift in Sources */,
+				E18E16BF2436269200F1FD15 /* SearchUserTableViewCell.swift in Sources */,
+				E18E16BD24361CCF00F1FD15 /* SearchUserViewController.swift in Sources */,
 				E1227A0624224E89000EC15C /* SignUpViewController.swift in Sources */,
 				E175754D2403919200558033 /* SceneDelegate.swift in Sources */,
 				E161D5C22404DEF7008024B9 /* Utils.swift in Sources */,

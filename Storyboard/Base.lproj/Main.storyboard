@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="c7H-0x-19r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="c7H-0x-19r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -349,7 +349,7 @@
                     <tabBarItem key="tabBarItem" title="친구목록" id="s7D-Jt-V58"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="3Xe-fB-o4d">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -483,6 +483,11 @@
                         <viewLayoutGuide key="safeArea" id="57T-Gc-y2e"/>
                     </view>
                     <navigationItem key="navigationItem" title="친구목록" largeTitleDisplayMode="always" id="uRv-vm-ygg">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="magnifyingglass" catalog="system" id="BjN-qw-NDC">
+                            <connections>
+                                <action selector="searchUser:" destination="lex-p0-Q4i" id="7Ur-7d-B9E"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="로그아웃" id="AO2-sy-i9C">
                             <connections>
                                 <action selector="signOut:" destination="lex-p0-Q4i" id="Ub4-Fd-3On"/>
@@ -496,6 +501,103 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dt7-S0-hnX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="782.60869565217399" y="-220.3125"/>
+        </scene>
+        <!--Search User View Controller-->
+        <scene sceneID="SmZ-zF-vqR">
+            <objects>
+                <viewController storyboardIdentifier="searchUserVC" id="NfF-m3-tGS" customClass="SearchUserViewController" customModule="SuperChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="D1E-Jg-pIX">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="WFO-tN-rUs">
+                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CfF-Mr-O0G">
+                                <rect key="frame" x="0.0" y="100" width="414" height="762"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="searchUserCell" rowHeight="60" id="nqy-uT-lYj" customClass="SearchUserTableViewCell" customModule="SuperChat" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="60"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nqy-uT-lYj" id="mLG-re-hu5">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2p-r0-UCV">
+                                                    <rect key="frame" x="70" y="21" width="37.5" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vf0-Qx-pR7">
+                                                    <rect key="frame" x="345" y="15" width="52" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="친구추가"/>
+                                                    <connections>
+                                                        <action selector="addFriendWithSender:" destination="nqy-uT-lYj" eventType="touchUpInside" id="JCS-sc-ojg"/>
+                                                    </connections>
+                                                </button>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xAf-8B-nw9">
+                                                    <rect key="frame" x="20" y="10" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="xAf-8B-nw9" secondAttribute="height" multiplier="1:1" id="2gz-rb-z9f"/>
+                                                        <constraint firstAttribute="width" constant="40" id="JaB-8L-SFe"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="xAf-8B-nw9" secondAttribute="bottom" constant="10" id="AAU-ac-8SJ"/>
+                                                <constraint firstItem="D2p-r0-UCV" firstAttribute="centerY" secondItem="mLG-re-hu5" secondAttribute="centerY" id="Kom-IG-rYn"/>
+                                                <constraint firstItem="xAf-8B-nw9" firstAttribute="top" secondItem="mLG-re-hu5" secondAttribute="top" constant="10" id="Uhq-ec-4iI"/>
+                                                <constraint firstItem="xAf-8B-nw9" firstAttribute="leading" secondItem="mLG-re-hu5" secondAttribute="leading" constant="20" id="Xab-ma-aDw"/>
+                                                <constraint firstItem="D2p-r0-UCV" firstAttribute="leading" secondItem="xAf-8B-nw9" secondAttribute="trailing" constant="10" id="vxL-Og-zTP"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="name" destination="D2p-r0-UCV" id="IUq-nL-swu"/>
+                                            <outlet property="profileImg" destination="xAf-8B-nw9" id="Jrh-OB-yye"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nuo-f9-nQz">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <items>
+                                    <navigationItem title="친구 검색" id="TDS-s5-YhJ">
+                                        <barButtonItem key="rightBarButtonItem" title="취소" id="kZz-o3-q2a">
+                                            <connections>
+                                                <action selector="dismiss:" destination="NfF-m3-tGS" id="ebw-nd-85M"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="WFO-tN-rUs" firstAttribute="top" secondItem="nuo-f9-nQz" secondAttribute="bottom" id="8D4-Lz-SkF"/>
+                            <constraint firstItem="WFO-tN-rUs" firstAttribute="leading" secondItem="ZB8-Kp-8dj" secondAttribute="leading" id="FBo-bj-a9c"/>
+                            <constraint firstItem="WFO-tN-rUs" firstAttribute="trailing" secondItem="ZB8-Kp-8dj" secondAttribute="trailing" id="Tef-b9-He5"/>
+                            <constraint firstItem="CfF-Mr-O0G" firstAttribute="bottom" secondItem="ZB8-Kp-8dj" secondAttribute="bottom" id="UhE-vQ-aWT"/>
+                            <constraint firstItem="CfF-Mr-O0G" firstAttribute="trailing" secondItem="ZB8-Kp-8dj" secondAttribute="trailing" id="Um5-Wd-JSV"/>
+                            <constraint firstItem="CfF-Mr-O0G" firstAttribute="leading" secondItem="ZB8-Kp-8dj" secondAttribute="leading" id="X4a-45-TMb"/>
+                            <constraint firstItem="CfF-Mr-O0G" firstAttribute="top" secondItem="WFO-tN-rUs" secondAttribute="bottom" id="ZWr-PU-3Jk"/>
+                            <constraint firstItem="nuo-f9-nQz" firstAttribute="leading" secondItem="D1E-Jg-pIX" secondAttribute="leading" id="cUw-7m-mBH"/>
+                            <constraint firstItem="nuo-f9-nQz" firstAttribute="top" secondItem="D1E-Jg-pIX" secondAttribute="top" id="e8F-fQ-7nD"/>
+                            <constraint firstAttribute="trailing" secondItem="nuo-f9-nQz" secondAttribute="trailing" id="iF1-pE-Oi9"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ZB8-Kp-8dj"/>
+                    </view>
+                    <connections>
+                        <outlet property="searchBar" destination="WFO-tN-rUs" id="ZqX-41-foY"/>
+                        <outlet property="tableView" destination="CfF-Mr-O0G" id="5ml-zV-G79"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JJH-Qf-0vU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="460.86956521739131" y="-908.03571428571422"/>
         </scene>
         <!--ProfileVC-->
         <scene sceneID="xIZ-KJ-XHv">
@@ -630,7 +732,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6wb-rA-jZb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="886" y="-905"/>
+            <point key="canvasLocation" x="1261" y="-908"/>
         </scene>
         <!--Chat Room View Controller-->
         <scene sceneID="qHs-g2-cx7">
@@ -911,6 +1013,7 @@
     </scenes>
     <resources>
         <image name="default_user_profile.png" width="80" height="80"/>
-        <image name="multiply" catalog="system" width="64" height="54"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="multiply" catalog="system" width="128" height="111"/>
     </resources>
 </document>
