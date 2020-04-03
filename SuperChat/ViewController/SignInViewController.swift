@@ -60,9 +60,13 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         actIndicator.hidesWhenStopped = true
+        
+        emailTextField.clearButtonMode    = .whileEditing
+        passwordTextField.clearButtonMode = .whileEditing
+        
         print("SignInViewDidLoad!!!") // TestCode
-        emailTextField.text = "coreahr@naver.com" //TestCode
-        passwordTextField.text = "123456" // TestCode
+//        emailTextField.text = "coreahr@naver.com" //TestCode
+        passwordTextField.text = "000000" // TestCode
     }
     
     override func viewWillAppear(_ animated: Bool) {
