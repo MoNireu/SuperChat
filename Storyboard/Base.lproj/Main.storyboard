@@ -292,6 +292,9 @@
                                     <action selector="finishSetting:" destination="DYF-ap-C10" eventType="touchUpInside" id="neM-dA-RSV"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="42y-gY-iYt">
+                                <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -299,9 +302,11 @@
                             <constraint firstItem="e6N-O4-3HX" firstAttribute="top" secondItem="haL-8C-5vh" secondAttribute="top" id="3Zf-PO-QZx"/>
                             <constraint firstItem="haL-8C-5vh" firstAttribute="trailing" secondItem="Wuk-wn-fJG" secondAttribute="trailing" constant="40" id="4Gc-UE-R73"/>
                             <constraint firstItem="haL-8C-5vh" firstAttribute="trailing" secondItem="wKc-eS-ZcW" secondAttribute="trailing" constant="40" id="9bI-yz-pUM"/>
+                            <constraint firstItem="42y-gY-iYt" firstAttribute="centerX" secondItem="WTZ-zU-Pwh" secondAttribute="centerX" id="Lxo-5o-vY1"/>
                             <constraint firstItem="wKc-eS-ZcW" firstAttribute="top" secondItem="7sx-vo-fDz" secondAttribute="bottom" constant="8" id="MKm-Ce-oSz"/>
                             <constraint firstItem="haL-8C-5vh" firstAttribute="trailing" secondItem="e6N-O4-3HX" secondAttribute="trailing" constant="48" id="Nkm-4u-ULi"/>
                             <constraint firstItem="wKc-eS-ZcW" firstAttribute="leading" secondItem="haL-8C-5vh" secondAttribute="leading" constant="40" id="RpQ-Ar-0Ww"/>
+                            <constraint firstItem="42y-gY-iYt" firstAttribute="centerY" secondItem="WTZ-zU-Pwh" secondAttribute="centerY" id="ijU-gk-ueR"/>
                             <constraint firstItem="Wuk-wn-fJG" firstAttribute="top" secondItem="pwK-mH-4xr" secondAttribute="bottom" constant="8" id="m4J-sG-xYx"/>
                             <constraint firstItem="Wuk-wn-fJG" firstAttribute="leading" secondItem="haL-8C-5vh" secondAttribute="leading" constant="40" id="pao-YC-t2n"/>
                             <constraint firstItem="pwK-mH-4xr" firstAttribute="top" secondItem="wKc-eS-ZcW" secondAttribute="bottom" constant="20" id="qYS-jQ-GPm"/>
@@ -313,6 +318,7 @@
                         <viewLayoutGuide key="safeArea" id="haL-8C-5vh"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="42y-gY-iYt" id="zjl-lf-Nkj"/>
                         <outlet property="nameTextField" destination="wKc-eS-ZcW" id="VVP-40-hGu"/>
                         <outlet property="profileImg" destination="4NR-tE-gvf" id="l9s-N7-4QQ"/>
                         <outlet property="statusMsgTextField" destination="Wuk-wn-fJG" id="OBs-SG-Y2S"/>
@@ -349,7 +355,7 @@
                     <tabBarItem key="tabBarItem" title="친구목록" id="s7D-Jt-V58"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="3Xe-fB-o4d">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

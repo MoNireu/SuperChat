@@ -16,9 +16,14 @@ class SetProfileViewController: UIViewController {
     @IBOutlet var profileImg: UIImageView!
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var statusMsgTextField: UITextView!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    
     
     @IBAction func finishSetting(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        
+        activityIndicator.startAnimating()
+        
         let userRef = appDelegate?.db?.collection("Users").document(myAccount!.id!)
         userRef?.updateData([
             "name" : nameTextField.text,
@@ -34,6 +39,8 @@ class SetProfileViewController: UIViewController {
                 appDelegate?.myAccount = self.myAccount
                 appDelegate?.saveMyAccount()
                 
+                self.activityIndicator.stopAnimating()
+                
                 let pvc = self.presentingViewController
                 
                 self.presentingViewController?.dismiss(animated: true) {
@@ -44,6 +51,7 @@ class SetProfileViewController: UIViewController {
                     }
                 }
             } else { // Fail
+                self.activityIndicator.stopAnimating()
                 self.errorAlert("프로필 설정 도중 문제가 발생했습니다.\n다시 시도해주세요.")
                 print(error)
             }
@@ -69,6 +77,8 @@ class SetProfileViewController: UIViewController {
         statusMsgTextField.layer.borderWidth  = 1.0
         statusMsgTextField.layer.cornerRadius = 5.0
         statusMsgTextField.sizeToFit()
+        
+        activityIndicator.stopAnimating()
         
         let tapGestureRecognizer = UITapGestureRecognizer()
         tapGestureRecognizer.addTarget(self, action: #selector(selectImg(_:)))
