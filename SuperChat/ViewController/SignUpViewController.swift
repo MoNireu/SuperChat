@@ -40,6 +40,7 @@ class SignUpViewController: UIViewController {
                 self.appdelegate?.db?.collection("UID").document((result?.user.uid)!).setData(["id" : self.userIdTextField.text!])
                 // create Users document including default dictionary data
                 self.appdelegate?.db?.collection("Users").document(self.userIdTextField.text!).setData(self.defaultDocData as [String : Any])
+                
                 self.infoAlert("회원가입에 성공했습니다.\n다시 로그인 해주세요.") {
                     self.dismiss(animated: true)
                 }
