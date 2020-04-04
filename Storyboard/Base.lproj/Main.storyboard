@@ -538,9 +538,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vf0-Qx-pR7">
-                                                    <rect key="frame" x="345" y="15" width="52" height="30"/>
+                                                    <rect key="frame" x="337" y="15" width="68" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="친구추가"/>
+                                                    <state key="normal" title="  친구추가  "/>
                                                     <connections>
                                                         <action selector="addFriendWithSender:" destination="nqy-uT-lYj" eventType="touchUpInside" id="JCS-sc-ojg"/>
                                                     </connections>
@@ -562,6 +562,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="addFriendBtn" destination="vf0-Qx-pR7" id="Uww-nt-rX7"/>
                                             <outlet property="name" destination="D2p-r0-UCV" id="IUq-nL-swu"/>
                                             <outlet property="profileImg" destination="xAf-8B-nw9" id="Jrh-OB-yye"/>
                                         </connections>

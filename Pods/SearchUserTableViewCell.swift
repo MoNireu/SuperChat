@@ -12,6 +12,7 @@ class SearchUserTableViewCell: UITableViewCell {
 
     @IBOutlet var profileImg: UIImageView!
     @IBOutlet var name: UILabel!
+    @IBOutlet var addFriendBtn: UIButton!
     @IBAction func addFriend(sender: UIButton) {
         print("Add Friend")
     }
@@ -19,6 +20,11 @@ class SearchUserTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         profileImg.makeRoundImage()
+        addFriendBtn.layer.cornerRadius = addFriendBtn.frame.height / 1.9
+        addFriendBtn.layer.borderColor = UIColor.systemBlue.cgColor
+        addFriendBtn.backgroundColor = .systemBlue
+        addFriendBtn.setTitleColor(.white, for: .normal)
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -27,8 +27,6 @@ class SearchUserViewController: UIViewController {
         tableView.dataSource = self
         
         searchBar.placeholder = "상대방의 아이디를 입력해주세요."
-        
-        // Do any additional setup after loading the view.
     }
 
 }
