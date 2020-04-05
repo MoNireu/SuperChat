@@ -20,6 +20,9 @@ class SearchUserTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         profileImg.makeRoundImage()
+        profileImg.contentMode = .scaleAspectFill
+        
+        // Make "AddFriend"Button round
         addFriendBtn.layer.cornerRadius = addFriendBtn.frame.height / 1.9
         addFriendBtn.layer.borderColor = UIColor.systemBlue.cgColor
         addFriendBtn.backgroundColor = .systemBlue

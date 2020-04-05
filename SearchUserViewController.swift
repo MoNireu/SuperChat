@@ -17,6 +17,7 @@ class SearchUserViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet var noSearchResultLbl: UILabel!
     
     @IBAction func dismiss(_ sender: Any) {
         self.dismiss(animated: true)
@@ -36,6 +37,10 @@ class SearchUserViewController: UIViewController {
         searchBar.delegate = self
         searchBar.placeholder = "상대방의 아이디를 입력해주세요."
         searchBar.autocapitalizationType = .none
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        searchBar.becomeFirstResponder()
     }
 
 }
@@ -61,7 +66,7 @@ extension SearchUserViewController: UISearchBarDelegate {
         if !searchBar.text!.isEmpty {
             let ref = appdelegate?.db?.collection("Users").document(searchBar.text!)
             ref?.getDocument(completion: { (doc, error) in
-                if doc!.exists {
+                if doc!.exists { //Success
                     let result = doc?.data()
                     
                     let name = result?["name"] as? String
@@ -75,11 +80,16 @@ extension SearchUserViewController: UISearchBarDelegate {
                     self.searchFriendResultList.append(searchFriendResult)
                     self.tableView.reloadData()
                 }
+                else {
+                    self.noSearchResultLbl.isHidden = false
+                }
             })
         }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        noSearchResultLbl.isHidden = true
+        
         if searchBar.text!.isEmpty {
             searchFriendResultList.removeAll()
             tableView.reloadData()

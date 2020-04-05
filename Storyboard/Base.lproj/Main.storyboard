@@ -355,7 +355,7 @@
                     <tabBarItem key="tabBarItem" title="친구목록" id="s7D-Jt-V58"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="3Xe-fB-o4d">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -615,6 +615,7 @@
                         <viewLayoutGuide key="safeArea" id="ZB8-Kp-8dj"/>
                     </view>
                     <connections>
+                        <outlet property="noSearchResultLbl" destination="Bow-UM-XBb" id="FkD-sq-gZn"/>
                         <outlet property="searchBar" destination="WFO-tN-rUs" id="ZqX-41-foY"/>
                         <outlet property="tableView" destination="CfF-Mr-O0G" id="5ml-zV-G79"/>
                     </connections>
