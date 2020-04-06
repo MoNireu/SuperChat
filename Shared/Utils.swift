@@ -62,7 +62,7 @@ extension UIViewController {
             object.setValue(value.statusMsg, forKey: "statusMsg")
             object.setValue(value.profileImg, forKey: "profileImg")
             object.setValue(value.backgroundImg, forKey: "backgroundImg")
-            object.setValue(value.chatRoom, forKey: "chatRoom")
+            object.setValue(value.friends, forKey: "friends")
             
             do {
                 try context?.save()

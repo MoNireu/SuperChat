@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 class ProfileViewController: UIViewController {
     
@@ -18,9 +20,10 @@ class ProfileViewController: UIViewController {
     @IBOutlet var button2: UIButton!
     @IBOutlet var button3: UIButton!
     
-    
-    
+    let appdelegate = UIApplication.shared.delegate as? AppDelegate
     var accountVO: AccountVO?
+    var ref: DatabaseReference!
+    
     weak var delegate: FriendListViewController?
     
     @IBAction func closeAction(_ sender: Any) {
@@ -34,6 +37,8 @@ class ProfileViewController: UIViewController {
             chatRoomVC.accountVO = self.accountVO
             chatRoomVC.myAccount = delegate?.myAccount
             
+            
+            
             self.dismiss(animated: false) {
                 self.delegate?.navigationController!.pushViewController(chatRoomVC, animated: true)
                 self.delegate?.hidesBottomBarWhenPushed = false
@@ -45,8 +50,8 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
+        ref = appdelegate?.ref
         
         profileImg.makeRoundImage()
         button1.imageView?.makeRoundImage()

@@ -11,6 +11,7 @@ import UIKit
 struct SearchFriendResult {
     var name: String
     var profileImg: UIImage
+    var id: String
 }
 
 class SearchUserViewController: UIViewController {
@@ -19,12 +20,13 @@ class SearchUserViewController: UIViewController {
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var noSearchResultLbl: UILabel!
     
+    
     @IBAction func dismiss(_ sender: Any) {
         self.dismiss(animated: true)
     }
     
     let appdelegate = UIApplication.shared.delegate as? AppDelegate
-    var searchFriendResultList = [SearchFriendResult]()
+    var searchFriendResult: SearchFriendResult?
     
     
     override func viewDidLoad() {
@@ -47,13 +49,19 @@ class SearchUserViewController: UIViewController {
 
 extension SearchUserViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchFriendResultList.count
+        if searchFriendResult == nil {
+            return 0
+        }
+        else {
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "searchUserCell") as? SearchUserTableViewCell
-        cell!.name.text = searchFriendResultList.first?.name
-        cell!.profileImg.image = searchFriendResultList.first?.profileImg ?? UIImage(named: "default_user_profile")
+        cell!.name.text = searchFriendResult?.name
+        cell!.profileImg.image = searchFriendResult?.profileImg ?? UIImage(named: "default_user_profile")
+        cell?.friendID = searchFriendResult?.id
         
         
         return cell!
@@ -71,13 +79,13 @@ extension SearchUserViewController: UISearchBarDelegate {
                     
                     let name = result?["name"] as? String
                     
-                    let profileImgData = result?["profileImg"] as? String
+                    let profileImgData   = result?["profileImg"] as? String
                     let profileImgString = Data(base64Encoded: profileImgData!)
-                    let profileImg = UIImage(data: profileImgString!)
+                    let profileImg       = UIImage(data: profileImgString!)
                     
-                    let searchFriendResult = SearchFriendResult(name: name!, profileImg: profileImg!)
+                    self.searchFriendResult = SearchFriendResult(name: name!, profileImg: profileImg!, id: searchBar.text!)
                     
-                    self.searchFriendResultList.append(searchFriendResult)
+//                    self.searchFriendResultList.append(searchFriendResult)
                     self.tableView.reloadData()
                 }
                 else {
@@ -91,7 +99,10 @@ extension SearchUserViewController: UISearchBarDelegate {
         noSearchResultLbl.isHidden = true
         
         if searchBar.text!.isEmpty {
-            searchFriendResultList.removeAll()
+            let cell = tableView.cellForRow(at: [0, 0]) as? SearchUserTableViewCell
+            cell?.addFriendBtn.isEnabled = true
+            
+            searchFriendResult = nil
             tableView.reloadData()
         }
     }

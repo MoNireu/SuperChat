@@ -92,7 +92,6 @@ class SignInViewController: UIViewController {
     }
     
     func getUserID(_ userID: String, complete: @escaping () -> ()) {
-        
         guard userID != nil else {return}
         
         let docRef = self.appdelegate?.db?.collection("Users").document(userID)
@@ -117,7 +116,6 @@ class SignInViewController: UIViewController {
                     let backgroundImg = UIImage(data: backgroundImgData!)
                     account.backgroundImg = backgroundImg
                 }
-                account.chatRoom      = result!["chatRoom"] as? [String]
                 
                 self.appdelegate?.myAccount = account
                 
@@ -128,7 +126,6 @@ class SignInViewController: UIViewController {
                 print(account.statusMsg)        // TestCode
                 print(account.profileImg)       // TestCode
                 print(account.backgroundImg)    // TestCode
-                print(account.chatRoom)         // TestCode
             } else {
                 print("ERROR!")
             }

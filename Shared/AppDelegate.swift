@@ -11,11 +11,13 @@ import CoreData
 import Firebase
 import FirebaseFirestore
 import FirebaseAuth
+import FirebaseDatabase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var db: Firestore?
+    var ref: DatabaseReference!
     var myAccount: AccountVO?
     var isSignedIn: Bool?
     
@@ -24,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         db = Firestore.firestore()
+        ref = Database.database().reference()
         
 //        self.signOut()  // TestCode
         
