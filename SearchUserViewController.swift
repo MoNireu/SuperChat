@@ -16,10 +16,27 @@ struct SearchFriendResult {
 
 class SearchUserViewController: UIViewController {
 
-    @IBOutlet var tableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var noSearchResultLbl: UILabel!
+    @IBOutlet var profileImg: UIImageView!
+    @IBOutlet var name: UILabel!
+    @IBOutlet var addFriendBtn: UIButton!
     
+    @IBAction func addFriend(sender: UIButton) {
+        let appdelegate = UIApplication.shared.delegate as? AppDelegate
+        let collectionRef = appdelegate?.db?.collection("Users").document((appdelegate?.myAccount?.id)!)
+        collectionRef?.updateData(["friends.\(searchFriendResult?.id)" : ""]) { (error) in
+            if error == nil { // Success
+                appdelegate?.myAccount?.friends?.updateValue("\(self.searchFriendResult?.id)", forKey: "")
+                self.addFriendBtn.isEnabled = false
+                self.addFriendBtn.layer.borderColor = UIColor.systemGray.cgColor
+                self.addFriendBtn.backgroundColor = .systemGray
+            }
+            else {
+                print(error?.localizedDescription)
+            }
+        }
+    }
     
     @IBAction func dismiss(_ sender: Any) {
         self.dismiss(animated: true)
@@ -31,42 +48,46 @@ class SearchUserViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.allowsSelection = false
         
         searchBar.delegate = self
         searchBar.placeholder = "상대방의 아이디를 입력해주세요."
         searchBar.autocapitalizationType = .none
+        
+        profileImg.makeRoundImage()
+        profileImg.contentMode = .scaleAspectFill
+        
+        // Make "AddFriend"Button round
+        addFriendBtn.isEnabled = true
+        addFriendBtn.layer.cornerRadius = addFriendBtn.frame.height / 1.9
+        addFriendBtn.layer.borderColor = UIColor.systemBlue.cgColor
+        addFriendBtn.backgroundColor = .systemBlue
+        addFriendBtn.setTitleColor(.white, for: .normal)
+        addFriendBtn.setTitle("   친구추가   ", for: .normal)
+        
+        hideResult()
+        noSearchResultLbl.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         searchBar.becomeFirstResponder()
     }
 
-}
-
-extension SearchUserViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchFriendResult == nil {
-            return 0
-        }
-        else {
-            return 1
-        }
+    func showResult() {
+        name.text        = searchFriendResult?.name
+        profileImg.image = searchFriendResult?.profileImg ?? UIImage(named: "default_user_profile")
+        
+        name.isHidden         = false
+        profileImg.isHidden   = false
+        addFriendBtn.isHidden = false
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "searchUserCell") as? SearchUserTableViewCell
-        cell!.name.text = searchFriendResult?.name
-        cell!.profileImg.image = searchFriendResult?.profileImg ?? UIImage(named: "default_user_profile")
-        cell?.friendID = searchFriendResult?.id
-        
-        
-        return cell!
+    func hideResult() {
+        name.isHidden         = true
+        profileImg.isHidden   = true
+        addFriendBtn.isHidden = true
     }
 }
+
 
 extension SearchUserViewController: UISearchBarDelegate {
 
@@ -85,8 +106,8 @@ extension SearchUserViewController: UISearchBarDelegate {
                     
                     self.searchFriendResult = SearchFriendResult(name: name!, profileImg: profileImg!, id: searchBar.text!)
                     
-//                    self.searchFriendResultList.append(searchFriendResult)
-                    self.tableView.reloadData()
+                    self.showResult()
+                    
                 }
                 else {
                     self.noSearchResultLbl.isHidden = false
@@ -99,11 +120,10 @@ extension SearchUserViewController: UISearchBarDelegate {
         noSearchResultLbl.isHidden = true
         
         if searchBar.text!.isEmpty {
-            let cell = tableView.cellForRow(at: [0, 0]) as? SearchUserTableViewCell
-            cell?.addFriendBtn.isEnabled = true
+            addFriendBtn.isEnabled = true
             
             searchFriendResult = nil
-            tableView.reloadData()
+            hideResult()
         }
     }
 }
