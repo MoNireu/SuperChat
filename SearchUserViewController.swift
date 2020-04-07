@@ -21,18 +21,22 @@ class SearchUserViewController: UIViewController {
     @IBOutlet var profileImg: UIImageView!
     @IBOutlet var name: UILabel!
     @IBOutlet var addFriendBtn: UIButton!
+    @IBOutlet var activiyIndicator: UIActivityIndicatorView!
     
     @IBAction func addFriend(sender: UIButton) {
+        activiyIndicator.startAnimating()
         let appdelegate = UIApplication.shared.delegate as? AppDelegate
         let collectionRef = appdelegate?.db?.collection("Users").document((appdelegate?.myAccount?.id)!)
         collectionRef?.updateData(["friends.\(searchFriendResult?.id)" : ""]) { (error) in
             if error == nil { // Success
                 appdelegate?.myAccount?.friends?.updateValue("\(self.searchFriendResult?.id)", forKey: "")
+                self.activiyIndicator.stopAnimating()
                 self.addFriendBtn.isEnabled = false
                 self.addFriendBtn.layer.borderColor = UIColor.systemGray.cgColor
                 self.addFriendBtn.backgroundColor = .systemGray
             }
             else {
+                self.activiyIndicator.stopAnimating()
                 print(error?.localizedDescription)
             }
         }
@@ -92,6 +96,11 @@ class SearchUserViewController: UIViewController {
 extension SearchUserViewController: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        searchFriendResult = nil
+        hideResult()
+        activiyIndicator.startAnimating()
+        
         if !searchBar.text!.isEmpty {
             let ref = appdelegate?.db?.collection("Users").document(searchBar.text!)
             ref?.getDocument(completion: { (doc, error) in
@@ -106,10 +115,12 @@ extension SearchUserViewController: UISearchBarDelegate {
                     
                     self.searchFriendResult = SearchFriendResult(name: name!, profileImg: profileImg!, id: searchBar.text!)
                     
+                    self.activiyIndicator.stopAnimating()
                     self.showResult()
                     
                 }
                 else {
+                    self.activiyIndicator.stopAnimating()
                     self.noSearchResultLbl.isHidden = false
                 }
             })

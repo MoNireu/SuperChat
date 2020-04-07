@@ -559,12 +559,16 @@
                                     <action selector="addFriendWithSender:" destination="NfF-m3-tGS" eventType="touchUpInside" id="qEO-xG-9a9"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="WVH-NI-Bxx">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="wfK-fb-8A9" firstAttribute="top" secondItem="Oec-DF-Smr" secondAttribute="bottom" constant="60" id="2BB-0v-6Hf"/>
                             <constraint firstItem="WFO-tN-rUs" firstAttribute="top" secondItem="nuo-f9-nQz" secondAttribute="bottom" id="8D4-Lz-SkF"/>
                             <constraint firstItem="WFO-tN-rUs" firstAttribute="leading" secondItem="ZB8-Kp-8dj" secondAttribute="leading" id="FBo-bj-a9c"/>
+                            <constraint firstItem="WVH-NI-Bxx" firstAttribute="centerX" secondItem="D1E-Jg-pIX" secondAttribute="centerX" id="Ofg-Pd-sa7"/>
                             <constraint firstItem="WFO-tN-rUs" firstAttribute="trailing" secondItem="ZB8-Kp-8dj" secondAttribute="trailing" id="Tef-b9-He5"/>
                             <constraint firstItem="nuo-f9-nQz" firstAttribute="leading" secondItem="D1E-Jg-pIX" secondAttribute="leading" id="cUw-7m-mBH"/>
                             <constraint firstItem="nuo-f9-nQz" firstAttribute="top" secondItem="D1E-Jg-pIX" secondAttribute="top" id="e8F-fQ-7nD"/>
@@ -573,6 +577,7 @@
                             <constraint firstItem="Oec-DF-Smr" firstAttribute="top" secondItem="maD-TB-OlZ" secondAttribute="bottom" constant="10" id="jRw-bN-5At"/>
                             <constraint firstItem="wfK-fb-8A9" firstAttribute="centerX" secondItem="D1E-Jg-pIX" secondAttribute="centerX" id="kmH-Ai-DUz"/>
                             <constraint firstItem="suX-Cq-VeI" firstAttribute="centerX" secondItem="D1E-Jg-pIX" secondAttribute="centerX" id="nfL-Ds-efQ"/>
+                            <constraint firstItem="WVH-NI-Bxx" firstAttribute="centerY" secondItem="D1E-Jg-pIX" secondAttribute="centerY" id="nk0-fX-r5m"/>
                             <constraint firstItem="Oec-DF-Smr" firstAttribute="centerX" secondItem="D1E-Jg-pIX" secondAttribute="centerX" id="qDg-O7-EcM"/>
                             <constraint firstItem="maD-TB-OlZ" firstAttribute="centerX" secondItem="D1E-Jg-pIX" secondAttribute="centerX" id="vsw-5y-Htk"/>
                             <constraint firstItem="maD-TB-OlZ" firstAttribute="top" secondItem="suX-Cq-VeI" secondAttribute="bottom" constant="10" id="zh4-vw-xFb"/>
@@ -580,6 +585,7 @@
                         <viewLayoutGuide key="safeArea" id="ZB8-Kp-8dj"/>
                     </view>
                     <connections>
+                        <outlet property="activiyIndicator" destination="WVH-NI-Bxx" id="RaY-3q-xoA"/>
                         <outlet property="addFriendBtn" destination="wfK-fb-8A9" id="ICo-ps-PCa"/>
                         <outlet property="name" destination="Oec-DF-Smr" id="hIK-Jv-8lj"/>
                         <outlet property="noSearchResultLbl" destination="maD-TB-OlZ" id="PhW-rv-vaI"/>
