@@ -67,6 +67,7 @@ class SearchUserViewController: UIViewController {
         addFriendBtn.backgroundColor = .systemBlue
         addFriendBtn.setTitleColor(.white, for: .normal)
         addFriendBtn.setTitle("   친구추가   ", for: .normal)
+        addFriendBtn.setTitle("   추가완료   ", for: .disabled)
         
         hideResult()
         noSearchResultLbl.isHidden = true
@@ -74,6 +75,10 @@ class SearchUserViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         searchBar.becomeFirstResponder()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        searchBar.resignFirstResponder()
     }
 
     func showResult() {
@@ -100,6 +105,7 @@ extension SearchUserViewController: UISearchBarDelegate {
         searchFriendResult = nil
         hideResult()
         activiyIndicator.startAnimating()
+        searchBar.resignFirstResponder()
         
         if !searchBar.text!.isEmpty {
             let ref = appdelegate?.db?.collection("Users").document(searchBar.text!)
