@@ -95,6 +95,11 @@ class SearchUserViewController: UIViewController {
         profileImg.isHidden   = true
         addFriendBtn.isHidden = true
     }
+    
+    func noResult() {
+        self.activiyIndicator.stopAnimating()
+        self.noSearchResultLbl.isHidden = false
+    }
 }
 
 
@@ -114,6 +119,7 @@ extension SearchUserViewController: UISearchBarDelegate {
                     let result = doc?.data()
                     
                     let name = result?["name"] as? String
+                    guard !name!.isEmpty else {self.noResult(); return}
                     
                     let profileImgData   = result?["profileImg"] as? String
                     let profileImgString = Data(base64Encoded: profileImgData!)
@@ -126,9 +132,9 @@ extension SearchUserViewController: UISearchBarDelegate {
                     
                 }
                 else {
-                    self.activiyIndicator.stopAnimating()
-                    self.noSearchResultLbl.isHidden = false
+                    self.noResult()
                 }
+                
             })
         }
     }
