@@ -18,7 +18,6 @@ class SetProfileViewController: UIViewController {
     @IBOutlet var statusMsgTextField: UITextView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
-    
     @IBAction func finishSetting(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         
@@ -62,6 +61,8 @@ class SetProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.addKeyboardNotifications()
+        
         // UI init
         profileImg.makeRoundImage()
         profileImg.contentMode = .scaleAspectFill
@@ -122,12 +123,59 @@ class SetProfileViewController: UIViewController {
         
         self.present(alert, animated: true)
     }
-
-}
-
-extension SetProfileViewController: UITextFieldDelegate {
     
+    func addKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRect = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRect.height
+            
+            if self.view.frame.origin.y == 0 {
+                guard statusMsgTextField.isFirstResponder else {return}
+                
+                let keyboardY = self.view.frame.height - keyboardHeight - 20
+                let activatedTVBottom = (statusMsgTextField?.frame.origin.y)! + (statusMsgTextField?.frame.height)!
+                let interval = keyboardY - activatedTVBottom
+                
+                print(keyboardY)
+                print(activatedTVBottom)
+                print(interval)
+                
+                if  interval > 0 {
+                    return
+                }
+                else {
+                    self.view.frame.origin.y += interval
+                }
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        self.view.frame.origin.y = 0
+    }
+    
+
 }
+
+//extension SetProfileViewController: UITextFieldDelegate {
+//}
+//
+//extension SetProfileViewController: UITextViewDelegate {
+//
+//    func textViewDidBeginEditing(_ textView: UITextView) {
+//        activatedTV = textView
+//        print(activatedTV)
+//    }
+//
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//        activatedTV = nil
+//    }
+//}
 
 extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

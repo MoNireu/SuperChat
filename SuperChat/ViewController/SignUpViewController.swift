@@ -31,8 +31,31 @@ class SignUpViewController: UIViewController {
     @IBOutlet var passwordCheckWarningLbl: UILabel!
     @IBOutlet var userIdWarningLbl: UILabel!
     
-    
     @IBOutlet var completeBtn: UIButton!
+    
+    var activatedTF: UITextField?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.addKeyboardNotifications()
+        
+        hideLabel(emailWarningLbl)
+        hideLabel(passwordCheckWarningLbl)
+        hideLabel(userIdWarningLbl)
+        
+        emailTextField.delegate         = self
+        passwordTextField.delegate      = self
+        passwordCheckTextField.delegate = self
+        userIdTextField.delegate        = self
+        
+        completeBtn.isEnabled = false
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     @IBAction func complete(_ sender: Any) {
         Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (result, error) in
             if error == nil { // success
@@ -51,26 +74,6 @@ class SignUpViewController: UIViewController {
         }
     }
     
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        hideLabel(emailWarningLbl)
-        hideLabel(passwordCheckWarningLbl)
-        hideLabel(userIdWarningLbl)
-        
-        emailTextField.delegate         = self
-        passwordTextField.delegate      = self
-        passwordCheckTextField.delegate = self
-        userIdTextField.delegate        = self
-        
-        completeBtn.isEnabled = false
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
     
     func everyTextFieldFilled() -> Bool {
         if emailTextField.text!.isEmpty {return false}
@@ -112,11 +115,42 @@ class SignUpViewController: UIViewController {
             passwordWarningLbl.textColor = .systemGray
         }
     }
+    
+    func addKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRect = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRect.height
+            
+            if self.view.frame.origin.y == 0 {
+                let keyboardY = self.view.frame.height - keyboardHeight - 20
+                let activatedTFBottom = (activatedTF?.frame.origin.y)! + (activatedTF?.frame.height)!
+                let interval = keyboardY - activatedTFBottom
+                if  interval > 0 {
+                    return
+                }
+                else {
+                    self.view.frame.origin.y += interval
+                }
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(_ notification: Notification) {
+        self.view.frame.origin.y = 0
+    }
+    
 }
 
 
 extension SignUpViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        activatedTF = nil
         
         if everyTextFieldFilled(), everyTextFieldCorrect() {
             completeBtn.isEnabled = true
@@ -166,6 +200,9 @@ extension SignUpViewController: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        activatedTF = textField
+        
         switch textField {
         case emailTextField:
             hideLabel(emailWarningLbl)

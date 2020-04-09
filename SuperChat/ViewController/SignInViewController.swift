@@ -64,8 +64,6 @@ class SignInViewController: UIViewController {
         emailTextField.clearButtonMode    = .whileEditing
         passwordTextField.clearButtonMode = .whileEditing
         
-        print("SignInViewDidLoad!!!") // TestCode
-//        emailTextField.text = "coreahr@naver.com" //TestCode
         passwordTextField.text = "000000" // TestCode
     }
     
