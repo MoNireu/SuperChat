@@ -53,10 +53,10 @@ class ProfileViewController: UIViewController {
         
         ref = appdelegate?.ref
         
-        profileImg.makeRoundImage()
-        button1.imageView?.makeRoundImage()
-        button2.imageView?.makeRoundImage()
-        button3.imageView?.makeRoundImage()
+        profileImg.makeImageRound()
+        button1.imageView?.makeImageRound()
+        button2.imageView?.makeImageRound()
+        button3.imageView?.makeImageRound()
         
         profileImg.image       = accountVO?.profileImg ?? UIImage(named: "default_user_profile.png")
         profileImg.contentMode = .scaleAspectFill

@@ -15,11 +15,21 @@ enum LocalDB: String {
 }
 
 extension UIImageView {
-    func makeRoundImage() {
+    func makeImageRound() {
         self.layer.borderWidth = 1
         self.layer.masksToBounds = false
         self.layer.borderColor = UIColor.clear.cgColor
         self.layer.cornerRadius = self.frame.height / 2.55
+        self.clipsToBounds = true
+    }
+}
+
+extension UIButton {
+    func makeButtonRound() {
+        self.layer.borderWidth = 1
+        self.layer.masksToBounds = false
+        self.layer.borderColor = UIColor.clear.cgColor
+        self.layer.cornerRadius = self.frame.height / 2
         self.clipsToBounds = true
     }
 }

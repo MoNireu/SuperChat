@@ -57,7 +57,7 @@ class SearchUserViewController: UIViewController {
         searchBar.placeholder = "상대방의 아이디를 입력해주세요."
         searchBar.autocapitalizationType = .none
         
-        profileImg.makeRoundImage()
+        profileImg.makeImageRound()
         profileImg.contentMode = .scaleAspectFill
         
         // Make "AddFriend"Button round

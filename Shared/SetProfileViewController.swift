@@ -17,8 +17,9 @@ class SetProfileViewController: UIViewController {
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var statusMsgTextField: UITextView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet var finishBtn: UIButton!
     
-    @IBAction func finishSetting(_ sender: Any) {
+    @IBAction func finish(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         
         activityIndicator.startAnimating()
@@ -64,7 +65,7 @@ class SetProfileViewController: UIViewController {
         self.addKeyboardNotifications()
         
         // UI init
-        profileImg.makeRoundImage()
+        profileImg.makeImageRound()
         profileImg.contentMode = .scaleAspectFill
         
         nameTextField.placeholder       = "이름을 입력하세요."
@@ -78,6 +79,10 @@ class SetProfileViewController: UIViewController {
         statusMsgTextField.layer.borderWidth  = 1.0
         statusMsgTextField.layer.cornerRadius = 5.0
         statusMsgTextField.sizeToFit()
+        
+        finishBtn.layer.cornerRadius = finishBtn.frame.height / 2
+        finishBtn.backgroundColor = .systemBlue
+        finishBtn.setTitleColor(.white, for: .normal)
         
         activityIndicator.stopAnimating()
         

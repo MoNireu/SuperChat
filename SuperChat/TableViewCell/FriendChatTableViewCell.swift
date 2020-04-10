@@ -20,7 +20,7 @@ class FriendChatTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         profileImg.contentMode = .scaleAspectFill
-        profileImg.makeRoundImage()
+        profileImg.makeImageRound()
         
         chatBubble.image = UIImage(named: "FriendChatBubble")?.stretchableImage(withLeftCapWidth: 15, topCapHeight: 15)
     }

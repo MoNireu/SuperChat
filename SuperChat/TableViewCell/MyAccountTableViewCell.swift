@@ -18,7 +18,7 @@ class MyAccountTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        profileImg.makeRoundImage()
+        profileImg.makeImageRound()
         profileImg.contentMode = .scaleAspectFill
         name.sizeToFit()
         statMsg.sizeToFit()
