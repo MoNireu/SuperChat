@@ -184,14 +184,23 @@
                                 <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kk8-hc-ePZ">
+                                <rect key="frame" x="364" y="64" width="30" height="30"/>
+                                <state key="normal" title="취소"/>
+                                <connections>
+                                    <action selector="dismiss:" destination="B2Q-eC-gEc" eventType="touchUpInside" id="1Zc-kt-TTw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="rIB-XK-Ofa" firstAttribute="trailing" secondItem="Yc6-an-kVf" secondAttribute="trailing" constant="40" id="1Zh-Wk-w3D"/>
+                            <constraint firstItem="Kk8-hc-ePZ" firstAttribute="top" secondItem="rIB-XK-Ofa" secondAttribute="top" constant="20" id="1iT-VY-sbk"/>
                             <constraint firstItem="R9t-YO-OAm" firstAttribute="leading" secondItem="rIB-XK-Ofa" secondAttribute="leading" constant="40" id="2c3-A5-pU7"/>
                             <constraint firstItem="IpR-Bg-TII" firstAttribute="top" secondItem="exB-F1-F4X" secondAttribute="bottom" constant="1" id="3cI-eQ-oFM"/>
                             <constraint firstItem="rIB-XK-Ofa" firstAttribute="trailing" secondItem="m0o-mv-adl" secondAttribute="trailing" constant="40" id="6Km-bm-TEI"/>
                             <constraint firstItem="am1-1Z-Mqe" firstAttribute="leading" secondItem="rIB-XK-Ofa" secondAttribute="leading" constant="40" id="6yX-ud-Qe9"/>
+                            <constraint firstItem="rIB-XK-Ofa" firstAttribute="trailing" secondItem="Kk8-hc-ePZ" secondAttribute="trailing" constant="20" id="7VJ-l1-nt2"/>
                             <constraint firstItem="exB-F1-F4X" firstAttribute="top" secondItem="H0s-Yr-jyJ" secondAttribute="bottom" constant="1" id="7rv-C2-lkh"/>
                             <constraint firstItem="m0o-mv-adl" firstAttribute="leading" secondItem="rIB-XK-Ofa" secondAttribute="leading" constant="40" id="D83-ye-AQt"/>
                             <constraint firstItem="Yc6-an-kVf" firstAttribute="top" secondItem="m0o-mv-adl" secondAttribute="bottom" constant="1" id="ED7-gR-TDw"/>
@@ -996,7 +1005,7 @@
                     <tabBarItem key="tabBarItem" title="대화목록" id="9f7-08-cb0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="unL-zf-TlM">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

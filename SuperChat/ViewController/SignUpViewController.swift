@@ -20,7 +20,6 @@ class SignUpViewController: UIViewController {
         "backgroundImg" : ""
         ] as [String : Any?]
     
-    
     @IBOutlet var emailTextField: UITextField!
     @IBOutlet var passwordTextField: UITextField!
     @IBOutlet var passwordCheckTextField: UITextField!
@@ -72,6 +71,10 @@ class SignUpViewController: UIViewController {
                 print(error)
             }
         }
+    }
+    
+    @IBAction func dismiss(_ sender: Any) {
+        self.dismiss(animated: true)
     }
     
     
