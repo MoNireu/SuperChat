@@ -23,31 +23,19 @@ class SearchUserViewController: UIViewController {
     @IBOutlet var addFriendBtn: UIButton!
     @IBOutlet var activiyIndicator: UIActivityIndicatorView!
     
-    @IBAction func addFriend(sender: UIButton) {
-        activiyIndicator.startAnimating()
-        let appdelegate = UIApplication.shared.delegate as? AppDelegate
-        let collectionRef = appdelegate?.db?.collection("Users").document((appdelegate?.myAccount?.id)!)
-        collectionRef?.updateData(["friends.\(searchFriendResult?.id)" : ""]) { (error) in
-            if error == nil { // Success
-                appdelegate?.myAccount?.friends?.updateValue("\(self.searchFriendResult?.id)", forKey: "")
-                self.activiyIndicator.stopAnimating()
-                self.addFriendBtn.isEnabled = false
-                self.addFriendBtn.layer.borderColor = UIColor.systemGray.cgColor
-                self.addFriendBtn.backgroundColor = .systemGray
+    let appdelegate = UIApplication.shared.delegate as? AppDelegate
+    var searchFriendResult: SearchFriendResult?
+    var btnState: UIButton.State? {
+        willSet(newValue) {
+            let state = newValue
+            if state == .normal {
+                addFriendBtn.backgroundColor = .systemBlue
             }
             else {
-                self.activiyIndicator.stopAnimating()
-                print(error?.localizedDescription)
+                addFriendBtn.backgroundColor = .systemGray
             }
         }
     }
-    
-    @IBAction func dismiss(_ sender: Any) {
-        self.dismiss(animated: true)
-    }
-    
-    let appdelegate = UIApplication.shared.delegate as? AppDelegate
-    var searchFriendResult: SearchFriendResult?
     
     
     override func viewDidLoad() {
@@ -61,10 +49,9 @@ class SearchUserViewController: UIViewController {
         profileImg.contentMode = .scaleAspectFill
         
         // Make "AddFriend"Button round
-        addFriendBtn.isEnabled = true
+        enableAddFriend()
         addFriendBtn.layer.cornerRadius = addFriendBtn.frame.height / 1.9
         addFriendBtn.layer.borderColor = UIColor.systemBlue.cgColor
-        addFriendBtn.backgroundColor = .systemBlue
         addFriendBtn.setTitleColor(.white, for: .normal)
         addFriendBtn.setTitle("   친구추가   ", for: .normal)
         addFriendBtn.setTitle("   추가완료   ", for: .disabled)
@@ -79,6 +66,32 @@ class SearchUserViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         searchBar.resignFirstResponder()
+    }
+    
+    @IBAction func addFriend(sender: UIButton) {
+        activiyIndicator.startAnimating()
+        let appdelegate = UIApplication.shared.delegate as? AppDelegate
+        let docRef = appdelegate?.db?.collection("Users").document((appdelegate?.myAccount?.id)!).collection("friends").document("friendList")
+        docRef?.setData([(searchFriendResult?.id)! : true]) { (error) in
+            if error == nil { // Success
+                if appdelegate?.myAccount?.friendList == nil {appdelegate?.myAccount?.friendList = [String : Bool]()}
+                appdelegate?.myAccount?.friendList?.updateValue(true, forKey: self.searchFriendResult!.id)
+                appdelegate?.saveMyAccount()
+                print(appdelegate?.myAccount?.friendList)
+                self.activiyIndicator.stopAnimating()
+                self.disableAddFriend()
+                self.addFriendBtn.layer.borderColor = UIColor.systemGray.cgColor
+                self.addFriendBtn.backgroundColor = .systemGray
+            }
+            else {
+                self.activiyIndicator.stopAnimating()
+                print(error?.localizedDescription.description)
+            }
+        }
+    }
+    
+    @IBAction func dismiss(_ sender: Any) {
+        self.dismiss(animated: true)
     }
 
     func showResult() {
@@ -100,6 +113,16 @@ class SearchUserViewController: UIViewController {
         self.activiyIndicator.stopAnimating()
         self.noSearchResultLbl.isHidden = false
     }
+    
+    func enableAddFriend() {
+        self.addFriendBtn.isEnabled = true
+        self.btnState = self.addFriendBtn.state
+    }
+    
+    func disableAddFriend() {
+        self.addFriendBtn.isEnabled = false
+        self.btnState = self.addFriendBtn.state
+    }
 }
 
 
@@ -119,7 +142,9 @@ extension SearchUserViewController: UISearchBarDelegate {
                     let result = doc?.data()
                     
                     let name = result?["name"] as? String
+                    // 상세정보가 입력되지 않은 계정이라면 검색 불가
                     guard !name!.isEmpty else {self.noResult(); return}
+                    
                     
                     let profileImgData   = result?["profileImg"] as? String
                     let profileImgString = Data(base64Encoded: profileImgData!)
@@ -130,6 +155,10 @@ extension SearchUserViewController: UISearchBarDelegate {
                     self.activiyIndicator.stopAnimating()
                     self.showResult()
                     
+                    // 이미 추가된 계정이라면 추가 불가
+                    if self.appdelegate?.myAccount?.friendList?["\(searchBar.text!)"] != nil {
+                        self.disableAddFriend()
+                    }
                 }
                 else {
                     self.noResult()
@@ -142,8 +171,9 @@ extension SearchUserViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         noSearchResultLbl.isHidden = true
         
+        
         if searchBar.text!.isEmpty {
-            addFriendBtn.isEnabled = true
+            enableAddFriend()
             
             searchFriendResult = nil
             hideResult()

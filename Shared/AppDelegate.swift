@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         db = Firestore.firestore()
         ref = Database.database().reference()
         
-        self.signOut()  // TestCode
+//        self.signOut()  // TestCode
         
         isSignedIn = Auth.auth().currentUser != nil ? true : false
         print(isSignedIn)
@@ -156,6 +156,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         myAccount.id = plist.string(forKey: "id")
         myAccount.name = plist.string(forKey: "name")
         myAccount.statusMsg = plist.string(forKey: "statusMsg")
+        myAccount.friendList = plist.dictionary(forKey: "friendList") as! [String : Bool]?
         
         if let profileImgData = plist.object(forKey: "profileImg") as? NSData {
             myAccount.profileImg = UIImage(data: profileImgData as Data)
@@ -180,6 +181,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         plist.set(myAccount?.id, forKey: "id")
         plist.set(myAccount?.name, forKey: "name")
         plist.set(myAccount?.statusMsg, forKey: "statusMsg")
+        plist.set(myAccount?.friendList, forKey: "friendList")
         
         let profileImgData = myAccount?.profileImg?.jpegData(compressionQuality: 0.5)
         plist.set(profileImgData, forKey: "profileImg")

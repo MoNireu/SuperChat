@@ -78,7 +78,7 @@ class CoreDataUtils {
         object.setValue(value.statusMsg, forKey: "statusMsg")
         object.setValue(value.profileImg, forKey: "profileImg")
         object.setValue(value.backgroundImg, forKey: "backgroundImg")
-        object.setValue(value.friends, forKey: "friends")
+        object.setValue(value.friendList, forKey: "friendList")
         
         do {
             try context?.save()
