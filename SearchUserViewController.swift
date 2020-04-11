@@ -54,7 +54,7 @@ class SearchUserViewController: UIViewController {
         addFriendBtn.layer.borderColor = UIColor.systemBlue.cgColor
         addFriendBtn.setTitleColor(.white, for: .normal)
         addFriendBtn.setTitle("   친구추가   ", for: .normal)
-        addFriendBtn.setTitle("   추가완료   ", for: .disabled)
+//        addFriendBtn.setTitle("   추가완료   ", for: .disabled)
         
         hideResult()
         noSearchResultLbl.isHidden = true
@@ -72,20 +72,39 @@ class SearchUserViewController: UIViewController {
         activiyIndicator.startAnimating()
         let appdelegate = UIApplication.shared.delegate as? AppDelegate
         let docRef = appdelegate?.db?.collection("Users").document((appdelegate?.myAccount?.id)!).collection("friends").document("friendList")
-        docRef?.setData([(searchFriendResult?.id)! : true]) { (error) in
+        docRef?.updateData([(searchFriendResult?.id)! : true]) { (error) in
             if error == nil { // Success
-                if appdelegate?.myAccount?.friendList == nil {appdelegate?.myAccount?.friendList = [String : Bool]()}
-                appdelegate?.myAccount?.friendList?.updateValue(true, forKey: self.searchFriendResult!.id)
+                // UserDefualts에 저장
+                var userDefaultsFriendList = appdelegate?.myAccount?.friendList
+                if userDefaultsFriendList == nil {userDefaultsFriendList = [String : Bool]()}
+                userDefaultsFriendList?.updateValue(true, forKey: self.searchFriendResult!.id)
                 appdelegate?.saveMyAccount()
                 print(appdelegate?.myAccount?.friendList)
+                
                 self.activiyIndicator.stopAnimating()
                 self.disableAddFriend()
-                self.addFriendBtn.layer.borderColor = UIColor.systemGray.cgColor
-                self.addFriendBtn.backgroundColor = .systemGray
             }
             else {
                 self.activiyIndicator.stopAnimating()
-                print(error?.localizedDescription.description)
+                let errorDescription = error?.localizedDescription
+                if (errorDescription?.contains("No document"))! {
+                    docRef?.setData([(self.searchFriendResult?.id)! : true]) { (error) in
+                        if error == nil {  // Success
+                            // UserDefualts에 저장
+                            var userDefaultsFriendList = appdelegate?.myAccount?.friendList
+                            if userDefaultsFriendList == nil {userDefaultsFriendList = [String : Bool]()}
+                            userDefaultsFriendList?.updateValue(true, forKey: self.searchFriendResult!.id)
+                            appdelegate?.saveMyAccount()
+                            print(appdelegate?.myAccount?.friendList)
+                            
+                            self.activiyIndicator.stopAnimating()
+                            self.disableAddFriend()
+                        }
+                        else {
+                            print(error?.localizedDescription)
+                        }
+                    }
+                }
             }
         }
     }
@@ -144,7 +163,10 @@ extension SearchUserViewController: UISearchBarDelegate {
                     let name = result?["name"] as? String
                     // 상세정보가 입력되지 않은 계정이라면 검색 불가
                     guard !name!.isEmpty else {self.noResult(); return}
-                    
+                    // 이미 추가된 계정이라면 추가 불가
+                    if self.appdelegate?.myAccount?.friendList?["\(searchBar.text!)"] != nil {
+                        self.disableAddFriend()
+                    }
                     
                     let profileImgData   = result?["profileImg"] as? String
                     let profileImgString = Data(base64Encoded: profileImgData!)
@@ -155,9 +177,9 @@ extension SearchUserViewController: UISearchBarDelegate {
                     self.activiyIndicator.stopAnimating()
                     self.showResult()
                     
-                    // 이미 추가된 계정이라면 추가 불가
-                    if self.appdelegate?.myAccount?.friendList?["\(searchBar.text!)"] != nil {
-                        self.disableAddFriend()
+                    // 검색한 것이 나의 계정이라면 버튼 숨기기
+                    if searchBar.text == self.appdelegate?.myAccount?.id {
+                        self.addFriendBtn.isHidden = true
                     }
                 }
                 else {
