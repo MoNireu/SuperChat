@@ -47,6 +47,7 @@ class SignUpViewController: UIViewController {
         passwordTextField.delegate      = self
         passwordCheckTextField.delegate = self
         userIdTextField.delegate        = self
+        userIdTextField.keyboardType = .asciiCapable
         
         completeBtn.isEnabled = false
     }
@@ -190,6 +191,7 @@ extension SignUpViewController: UITextFieldDelegate {
             guard !userIdTextField.text!.isEmpty else {hideLabel(userIdWarningLbl); return}
             let docRef = appdelegate?.db?.collection("Users").document(userIdTextField.text!)
             docRef?.getDocument(){ (result, error) in
+                guard result != nil else {return}
                 if result!.exists { // UserID already exist
                     self.showLabel(self.userIdWarningLbl)
                 } else {
@@ -218,6 +220,25 @@ extension SignUpViewController: UITextFieldDelegate {
         default:
             return
         }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == userIdTextField {
+            do {
+                let regex = try NSRegularExpression(pattern: "[a-z0-9]")
+                print(textField.text?.count)
+                let matchCount = regex.numberOfMatches(in: string, options: [], range: NSRange(location: 0, length: textField.text!.count))
+                if matchCount ==  textField.text!.count {
+                    return true
+                }
+                else {
+                    return false
+                }
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+        return true
     }
     
 }

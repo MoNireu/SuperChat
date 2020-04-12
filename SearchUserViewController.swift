@@ -193,10 +193,8 @@ extension SearchUserViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         noSearchResultLbl.isHidden = true
         
-        
         if searchBar.text!.isEmpty {
             enableAddFriend()
-            
             searchFriendResult = nil
             hideResult()
         }

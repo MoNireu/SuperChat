@@ -20,8 +20,36 @@ class FriendListViewController: UIViewController {
     }()
     var friendList: [AccountVO]?
     
-    
     @IBOutlet var tableView: UITableView!
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("Hello from viewcon") //TestCode
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        
+//        let userDefaultsUtils = UserDefaultsUtils()
+        
+        appdelegate?.myAccount = appdelegate?.fetchMyAccount()
+        
+        myAccount = appdelegate?.myAccount
+        print("myaccount name = \(myAccount?.name)")
+        
+        
+        let friendListData = FriendListData()
+        friendList = [AccountVO]()
+        friendList?.append(contentsOf: friendListData.data())
+
+        tableView.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.hidesBottomBarWhenPushed = true
+    }
+    
     @IBAction func signOut(_ sender: Any) {
         appdelegate?.isSignedIn = false
         
@@ -51,38 +79,9 @@ class FriendListViewController: UIViewController {
             self.present(searchUserVC, animated: true)
         }
     }
-    
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print("Hello from viewcon") //TestCode
-        tableView.delegate = self
-        tableView.dataSource = self
-        
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        
-//        let userDefaultsUtils = UserDefaultsUtils()
-        
-        appdelegate?.myAccount = appdelegate?.fetchMyAccount()
-        
-        myAccount = appdelegate?.myAccount
-        print("myaccount name = \(myAccount?.name)")
-        
-        
-        let friendListData = FriendListData()
-        friendList = [AccountVO]()
-        friendList?.append(contentsOf: friendListData.data())
-
-        tableView.reloadData()
-        
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        self.hidesBottomBarWhenPushed = true
-    }
 }
+
+
 
 extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
