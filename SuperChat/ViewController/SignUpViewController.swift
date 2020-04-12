@@ -225,13 +225,22 @@ extension SignUpViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == userIdTextField {
             do {
-                let regex = try NSRegularExpression(pattern: "[a-z0-9]")
-                print(textField.text?.count)
-                let matchCount = regex.numberOfMatches(in: string, options: [], range: NSRange(location: 0, length: textField.text!.count))
-                if matchCount ==  textField.text!.count {
+                let isBackSpace = string.cString(using: .utf8)
+                if (isBackSpace == [0]) {
+                    return true
+                }
+                let regex = try NSRegularExpression(pattern: "[a-z0-9_]")
+                print(string)
+                
+                let matchCount = regex.numberOfMatches(in: string, options: [], range: NSRange(location: 0, length: 1))
+                if matchCount == 1 {
                     return true
                 }
                 else {
+                    textField.resignFirstResponder()
+                    self.infoAlert("영문 소문자, 숫자 및 특수문자 '_' 만을 사용해주세요.") {
+                        textField.becomeFirstResponder()
+                    }
                     return false
                 }
             } catch let error {
