@@ -336,7 +336,7 @@
                         <outlet property="activityIndicator" destination="42y-gY-iYt" id="zjl-lf-Nkj"/>
                         <outlet property="finishBtn" destination="e6N-O4-3HX" id="x76-d1-fEA"/>
                         <outlet property="nameTextField" destination="wKc-eS-ZcW" id="VVP-40-hGu"/>
-                        <outlet property="profileImg" destination="4NR-tE-gvf" id="l9s-N7-4QQ"/>
+                        <outlet property="profileImgView" destination="4NR-tE-gvf" id="l9s-N7-4QQ"/>
                         <outlet property="statusMsgTextField" destination="Wuk-wn-fJG" id="OBs-SG-Y2S"/>
                     </connections>
                 </viewController>

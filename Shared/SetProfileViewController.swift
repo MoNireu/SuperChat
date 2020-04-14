@@ -13,7 +13,7 @@ class SetProfileViewController: UIViewController {
     
     var myAccount: AccountVO?
     
-    @IBOutlet var profileImg: UIImageView!
+    @IBOutlet var profileImgView: UIImageView!
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var statusMsgTextField: UITextView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
@@ -24,17 +24,29 @@ class SetProfileViewController: UIViewController {
         
         activityIndicator.startAnimating()
         
+        var profileImg: UIImage?
+        if profileImgView.image == UIImage(named: "default_user_profile") {
+            print("default Image!")
+            profileImg = nil
+        }
+        else {
+            profileImg = profileImgView.image
+        }
+        
+        print(profileImg)
+        print(UIImage(named: "default_user_profile"))
+        
         let userRef = appDelegate?.db?.collection("Users").document(myAccount!.id!)
         userRef?.updateData([
-            "name" : nameTextField.text,
+            "name" : nameTextField.text!,
             "statusMsg" : statusMsgTextField.text ?? "",
-            "profileImg" : profileImg.image?.jpegData(compressionQuality: 0.5)?.base64EncodedString()
+            "profileImg" : profileImg?.jpegData(compressionQuality: 0.5)?.base64EncodedString() ?? ""
         ]) { error in
             if error == nil {   // Success
                 
                 self.myAccount?.name       = self.nameTextField.text
                 self.myAccount?.statusMsg  = self.statusMsgTextField.text
-                self.myAccount?.profileImg = self.profileImg.image
+                self.myAccount?.profileImg = self.profileImgView.image
                 
                 appDelegate?.myAccount = self.myAccount
                 appDelegate?.saveMyAccount()
@@ -65,8 +77,8 @@ class SetProfileViewController: UIViewController {
         self.addKeyboardNotifications()
         
         // UI init
-        profileImg.makeImageRound()
-        profileImg.contentMode = .scaleAspectFill
+        profileImgView.makeImageRound()
+        profileImgView.contentMode = .scaleAspectFill
         
         nameTextField.placeholder       = "이름을 입력하세요."
         nameTextField.layer.borderColor = UIColor.lightGray.cgColor
@@ -88,12 +100,12 @@ class SetProfileViewController: UIViewController {
         
         let tapGestureRecognizer = UITapGestureRecognizer()
         tapGestureRecognizer.addTarget(self, action: #selector(selectImg(_:)))
-        profileImg.addGestureRecognizer(tapGestureRecognizer)
+        profileImgView.addGestureRecognizer(tapGestureRecognizer)
         
         // Data init
         let appdelegate = UIApplication.shared.delegate as? AppDelegate
         myAccount = appdelegate?.myAccount
-        profileImg.image        = myAccount?.profileImg ?? UIImage(named: "default_user_profile")
+        profileImgView.image        = myAccount?.profileImg ?? UIImage(named: "default_user_profile")
         nameTextField.text      = myAccount?.name
         statusMsgTextField.text = myAccount?.statusMsg
     }
@@ -192,7 +204,7 @@ extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigatio
         
         picker.dismiss(animated: true) {
             if let selectedImg = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-                self.profileImg.image = selectedImg
+                self.profileImgView.image = selectedImg
             }
         }
         
