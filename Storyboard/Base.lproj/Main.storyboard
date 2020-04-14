@@ -191,6 +191,9 @@
                                     <action selector="dismiss:" destination="B2Q-eC-gEc" eventType="touchUpInside" id="1Zc-kt-TTw"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="euS-05-Zhe">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -211,6 +214,7 @@
                             <constraint firstItem="3w0-4B-aaX" firstAttribute="leading" secondItem="rIB-XK-Ofa" secondAttribute="leading" constant="40" id="I7t-uD-gir"/>
                             <constraint firstItem="3w0-4B-aaX" firstAttribute="top" secondItem="ANz-8O-sSN" secondAttribute="bottom" constant="8" id="J2w-6Z-xO6"/>
                             <constraint firstItem="RSw-sr-MnU" firstAttribute="top" secondItem="Yc6-an-kVf" secondAttribute="bottom" constant="15" id="LKE-tM-Y7t"/>
+                            <constraint firstItem="euS-05-Zhe" firstAttribute="centerY" secondItem="Ys5-mb-2M2" secondAttribute="centerY" id="Lzp-e9-0g4"/>
                             <constraint firstItem="am1-1Z-Mqe" firstAttribute="top" secondItem="8QG-GB-txM" secondAttribute="bottom" constant="1" id="N8M-YN-FS3"/>
                             <constraint firstItem="ivf-zn-IvE" firstAttribute="top" secondItem="R9t-YO-OAm" secondAttribute="bottom" constant="15" id="QbR-YG-APp"/>
                             <constraint firstItem="8QG-GB-txM" firstAttribute="top" secondItem="Lud-Lg-vbp" secondAttribute="bottom" constant="8" id="R7G-qg-ksz"/>
@@ -218,6 +222,7 @@
                             <constraint firstItem="exB-F1-F4X" firstAttribute="leading" secondItem="rIB-XK-Ofa" secondAttribute="leading" constant="40" id="Tas-IG-E8h"/>
                             <constraint firstItem="8QG-GB-txM" firstAttribute="leading" secondItem="rIB-XK-Ofa" secondAttribute="leading" constant="40" id="XCT-YO-lsn"/>
                             <constraint firstItem="ivf-zn-IvE" firstAttribute="leading" secondItem="rIB-XK-Ofa" secondAttribute="leading" constant="40" id="XN3-3m-0UA"/>
+                            <constraint firstItem="euS-05-Zhe" firstAttribute="centerX" secondItem="Ys5-mb-2M2" secondAttribute="centerX" id="Xgp-Ll-MDM"/>
                             <constraint firstItem="6OM-LM-FKx" firstAttribute="top" secondItem="exB-F1-F4X" secondAttribute="bottom" constant="40" id="Xkc-La-k7H"/>
                             <constraint firstItem="6OM-LM-FKx" firstAttribute="centerX" secondItem="Ys5-mb-2M2" secondAttribute="centerX" id="ZI2-gQ-F9N"/>
                             <constraint firstItem="m0o-mv-adl" firstAttribute="top" secondItem="ivf-zn-IvE" secondAttribute="bottom" constant="8" id="aCt-WC-Cpx"/>
@@ -237,6 +242,7 @@
                         <viewLayoutGuide key="safeArea" id="rIB-XK-Ofa"/>
                     </view>
                     <connections>
+                        <outlet property="actIndicator" destination="euS-05-Zhe" id="tTl-7z-guR"/>
                         <outlet property="completeBtn" destination="6OM-LM-FKx" id="7vZ-hI-D0C"/>
                         <outlet property="emailTextField" destination="8QG-GB-txM" id="mDA-qL-CnO"/>
                         <outlet property="emailWarningLbl" destination="am1-1Z-Mqe" id="ZQi-a8-0CX"/>
@@ -1006,7 +1012,7 @@
                     <tabBarItem key="tabBarItem" title="대화목록" id="9f7-08-cb0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="unL-zf-TlM">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

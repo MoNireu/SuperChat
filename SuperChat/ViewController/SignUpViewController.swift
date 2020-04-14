@@ -30,6 +30,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet var passwordCheckWarningLbl: UILabel!
     @IBOutlet var userIdWarningLbl: UILabel!
     
+    @IBOutlet var actIndicator: UIActivityIndicatorView!
     @IBOutlet var completeBtn: UIButton!
     
     var activatedTF: UITextField?
@@ -48,6 +49,7 @@ class SignUpViewController: UIViewController {
         passwordCheckTextField.delegate = self
         userIdTextField.delegate        = self
         userIdTextField.keyboardType = .asciiCapable
+        actIndicator.hidesWhenStopped = true
         
         completeBtn.isEnabled = false
     }
@@ -57,6 +59,8 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func complete(_ sender: Any) {
+        actIndicator.startAnimating()
+        
         Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (result, error) in
             if error == nil { // success
                 // create UID document including userID
@@ -64,12 +68,14 @@ class SignUpViewController: UIViewController {
                 // create Users document including default dictionary data
                 self.appdelegate?.db?.collection("Users").document(self.userIdTextField.text!).setData(self.defaultDocData as [String : Any])
                 
+                self.actIndicator.stopAnimating()
                 self.infoAlert("회원가입에 성공했습니다.\n다시 로그인 해주세요.") {
                     self.dismiss(animated: true)
                 }
             }
             else {
                 print(error)
+                self.actIndicator.stopAnimating()
             }
         }
     }
