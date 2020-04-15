@@ -19,6 +19,11 @@ class SetProfileViewController: UIViewController {
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var finishBtn: UIButton!
     
+    
+    @IBAction func dismiss(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
+    
     @IBAction func finish(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         

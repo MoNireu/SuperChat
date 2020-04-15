@@ -21,6 +21,29 @@ class SignInViewController: UIViewController {
     var handle: AuthStateDidChangeListenerHandle?
     var appdelegate = UIApplication.shared.delegate as? AppDelegate
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        actIndicator.hidesWhenStopped = true
+        
+        emailTextField.delegate    = self
+        passwordTextField.delegate = self
+        
+        emailTextField.clearButtonMode    = .whileEditing
+        passwordTextField.clearButtonMode = .whileEditing
+        
+        passwordTextField.text = "000000" // TestCode
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    
     @IBAction func signIn(_ sender: Any) {
         actIndicator.startAnimating()
         let email = emailTextField.text
@@ -55,24 +78,6 @@ class SignInViewController: UIViewController {
             signUpVC.modalPresentationStyle = .automatic
             self.present(signUpVC, animated: true)
         }
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        actIndicator.hidesWhenStopped = true
-        
-        emailTextField.clearButtonMode    = .whileEditing
-        passwordTextField.clearButtonMode = .whileEditing
-        
-        passwordTextField.text = "000000" // TestCode
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
     }
     
     func getDocumentFrom(_ uid: String, complete: @escaping () -> ()) {
@@ -131,6 +136,20 @@ class SignInViewController: UIViewController {
     }
 }
 
+
+extension SignInViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case emailTextField:
+            passwordTextField.becomeFirstResponder()
+        case passwordTextField:
+            signIn(self)
+        default:
+            return false
+        }
+        return false
+    }
+}
     /*
     // MARK: - Navigation
 

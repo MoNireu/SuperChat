@@ -41,12 +41,12 @@
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="비밀번호" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cm1-7r-ais">
                                 <rect key="frame" x="40" y="431" width="334" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="이메일" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gKh-5J-h3M">
                                 <rect key="frame" x="40" y="389" width="334" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DSZ-nJ-kZv">
                                 <rect key="frame" x="187.5" y="485" width="39" height="30"/>
@@ -310,10 +310,18 @@
                                     <action selector="finish:" destination="DYF-ap-C10" eventType="touchUpInside" id="neM-dA-RSV"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FrM-8P-L7r">
+                                <rect key="frame" x="364" y="44" width="30" height="30"/>
+                                <state key="normal" title="취소"/>
+                                <connections>
+                                    <action selector="dismiss:" destination="DYF-ap-C10" eventType="touchUpInside" id="Den-ah-mkJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="7sx-vo-fDz" firstAttribute="top" secondItem="4NR-tE-gvf" secondAttribute="bottom" constant="49" id="1Tr-qQ-L36"/>
+                            <constraint firstItem="FrM-8P-L7r" firstAttribute="top" secondItem="haL-8C-5vh" secondAttribute="top" id="22z-qB-PF2"/>
                             <constraint firstItem="haL-8C-5vh" firstAttribute="trailing" secondItem="Wuk-wn-fJG" secondAttribute="trailing" constant="40" id="4Gc-UE-R73"/>
                             <constraint firstItem="haL-8C-5vh" firstAttribute="trailing" secondItem="wKc-eS-ZcW" secondAttribute="trailing" constant="40" id="9bI-yz-pUM"/>
                             <constraint firstItem="42y-gY-iYt" firstAttribute="centerX" secondItem="WTZ-zU-Pwh" secondAttribute="centerX" id="Lxo-5o-vY1"/>
@@ -328,6 +336,7 @@
                             <constraint firstItem="wKc-eS-ZcW" firstAttribute="leading" secondItem="7sx-vo-fDz" secondAttribute="leading" id="r1k-if-5wc"/>
                             <constraint firstItem="Wuk-wn-fJG" firstAttribute="leading" secondItem="pwK-mH-4xr" secondAttribute="leading" id="sYv-Bg-SXe"/>
                             <constraint firstItem="4NR-tE-gvf" firstAttribute="centerX" secondItem="WTZ-zU-Pwh" secondAttribute="centerX" id="wht-jc-MhI"/>
+                            <constraint firstItem="haL-8C-5vh" firstAttribute="trailing" secondItem="FrM-8P-L7r" secondAttribute="trailing" constant="20" id="xBM-yL-z50"/>
                             <constraint firstItem="wKc-eS-ZcW" firstAttribute="centerY" secondItem="WTZ-zU-Pwh" secondAttribute="centerY" id="zch-5R-RkO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="haL-8C-5vh"/>
@@ -342,7 +351,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YaA-bL-UBS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3181" y="149"/>
+            <point key="canvasLocation" x="-3181.1594202898555" y="148.66071428571428"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="G8D-sk-7WW">
@@ -1012,7 +1021,7 @@
                     <tabBarItem key="tabBarItem" title="대화목록" id="9f7-08-cb0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="unL-zf-TlM">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
