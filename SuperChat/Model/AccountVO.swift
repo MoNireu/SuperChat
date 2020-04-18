@@ -16,5 +16,5 @@ class AccountVO{
     var statusMsg: String?
     var profileImg: UIImage?
     var backgroundImg: UIImage?
-    var friendList: [String : Bool]? // [user_id : isAccepted]
+    var friendList: [String : Bool]? // [user_id : isFriend]
 }

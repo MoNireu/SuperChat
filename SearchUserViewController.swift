@@ -147,6 +147,8 @@ extension SearchUserViewController: UISearchBarDelegate {
                     // 상세정보가 입력되지 않은 계정이라면 검색 불가
                     guard !name!.isEmpty else {self.noResult(); return}
                     // 이미 추가된 계정이라면 추가 불가
+                    print(self.appdelegate?.myAccount?.friendList?["\(searchBar.text!)"])
+                    print(self.appdelegate?.myAccount?.friendList)
                     if self.appdelegate?.myAccount?.friendList?["\(searchBar.text!)"] != nil {
                         self.disableAddFriend()
                     }

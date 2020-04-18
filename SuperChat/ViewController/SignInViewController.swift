@@ -56,6 +56,9 @@ class SignInViewController: UIViewController {
                     guard let uid = user?.user.uid else {return}
                     
                     
+                    let userID =
+                    
+                    
                     self.getDocumentFrom(uid) {
                         if let setProfileVC = self.storyboard?.instantiateViewController(identifier: "setProfileViewController") {
                             setProfileVC.modalPresentationStyle = .fullScreen

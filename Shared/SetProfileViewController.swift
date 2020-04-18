@@ -19,6 +19,49 @@ class SetProfileViewController: UIViewController {
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var finishBtn: UIButton!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.addKeyboardNotifications()
+        
+        // UI init
+        profileImgView.makeImageRound()
+        profileImgView.contentMode = .scaleAspectFill
+        
+        nameTextField.placeholder       = "이름을 입력하세요."
+        nameTextField.layer.borderColor = UIColor.lightGray.cgColor
+        nameTextField.layer.borderWidth = 1.0
+        nameTextField.layer.cornerRadius = 5.0
+        
+        statusMsgTextField.text               = "상태 메시지를 입력해주세요."
+        statusMsgTextField.textColor          = .lightGray
+        statusMsgTextField.layer.borderColor  = UIColor.lightGray.cgColor
+        statusMsgTextField.layer.borderWidth  = 1.0
+        statusMsgTextField.layer.cornerRadius = 5.0
+        statusMsgTextField.sizeToFit()
+        
+        finishBtn.layer.cornerRadius = finishBtn.frame.height / 2
+        finishBtn.backgroundColor = .systemBlue
+        finishBtn.setTitleColor(.white, for: .normal)
+        
+        activityIndicator.stopAnimating()
+        
+        let tapGestureRecognizer = UITapGestureRecognizer()
+        tapGestureRecognizer.addTarget(self, action: #selector(selectImg(_:)))
+        profileImgView.addGestureRecognizer(tapGestureRecognizer)
+        
+        // Data init
+        let appdelegate = UIApplication.shared.delegate as? AppDelegate
+        myAccount = appdelegate?.myAccount
+        profileImgView.image    = myAccount?.profileImg ?? UIImage(named: "default_user_profile")
+        nameTextField.text      = myAccount?.name
+        statusMsgTextField.text = myAccount?.statusMsg
+        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     
     @IBAction func dismiss(_ sender: Any) {
         self.dismiss(animated: true)
@@ -76,48 +119,7 @@ class SetProfileViewController: UIViewController {
     }
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        self.addKeyboardNotifications()
-        
-        // UI init
-        profileImgView.makeImageRound()
-        profileImgView.contentMode = .scaleAspectFill
-        
-        nameTextField.placeholder       = "이름을 입력하세요."
-        nameTextField.layer.borderColor = UIColor.lightGray.cgColor
-        nameTextField.layer.borderWidth = 1.0
-        nameTextField.layer.cornerRadius = 5.0
-        
-        statusMsgTextField.text               = "상태 메시지를 입력해주세요."
-        statusMsgTextField.textColor          = .lightGray
-        statusMsgTextField.layer.borderColor  = UIColor.lightGray.cgColor
-        statusMsgTextField.layer.borderWidth  = 1.0
-        statusMsgTextField.layer.cornerRadius = 5.0
-        statusMsgTextField.sizeToFit()
-        
-        finishBtn.layer.cornerRadius = finishBtn.frame.height / 2
-        finishBtn.backgroundColor = .systemBlue
-        finishBtn.setTitleColor(.white, for: .normal)
-        
-        activityIndicator.stopAnimating()
-        
-        let tapGestureRecognizer = UITapGestureRecognizer()
-        tapGestureRecognizer.addTarget(self, action: #selector(selectImg(_:)))
-        profileImgView.addGestureRecognizer(tapGestureRecognizer)
-        
-        // Data init
-        let appdelegate = UIApplication.shared.delegate as? AppDelegate
-        myAccount = appdelegate?.myAccount
-        profileImgView.image        = myAccount?.profileImg ?? UIImage(named: "default_user_profile")
-        nameTextField.text      = myAccount?.name
-        statusMsgTextField.text = myAccount?.statusMsg
-    }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
     
     @objc func selectImg(_ sender: Any) {
         let imgPicker = UIImagePickerController()
