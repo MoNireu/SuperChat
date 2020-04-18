@@ -17,6 +17,12 @@ class ChatRoomBottomBar: UIView, UITextViewDelegate {
     weak var delegate: ChatRoomViewController?
     
     var msgHeightConst: NSLayoutConstraint?
+    var oldMsgHeight: CGFloat?
+    
+    var newBarY: CGFloat?
+    var oldBarY: CGFloat?
+    var barYInterval: CGFloat?
+    
     
     func setup() {
         messageField.delegate = self
@@ -27,6 +33,11 @@ class ChatRoomBottomBar: UIView, UITextViewDelegate {
         messageField.isScrollEnabled = false
         msgHeightConst = messageField.heightAnchor.constraint(equalToConstant: 33)
         msgHeightConst!.isActive = true
+    }
+    
+    override func layoutIfNeeded() {
+        newBarY = self.frame.origin.y
+        print("newBarY set")
     }
     
     func addKeyboardNotifications() {
@@ -41,6 +52,7 @@ class ChatRoomBottomBar: UIView, UITextViewDelegate {
             
             if self.superview?.frame.origin.y == 0 {
                 self.superview?.frame.origin.y -= keyboardHeight - (delegate?.emptyBar.frame.height)!
+                oldBarY = self.frame.origin.y
             }
         }
     }
@@ -51,11 +63,14 @@ class ChatRoomBottomBar: UIView, UITextViewDelegate {
     
     
     func textViewDidChange(_ textView: UITextView) {
-            changeTextViewHeight()
-        delegate?.scrollToBottom(animate: true)
+        print(delegate?.tableView.contentOffset)
+        changeTextViewHeight()
+//        delegate?.scrollToBottom(animate: true)
+//        delegate?.view.frame.origin.y  //TestCode
     }
     
     func changeTextViewHeight() {
+        
         let fixedWidth = messageField.frame.width
         let newMsgSize = messageField.sizeThatFits(CGSize(width: fixedWidth, height: 100))
         
@@ -75,18 +90,14 @@ class ChatRoomBottomBar: UIView, UITextViewDelegate {
         //            self.msgHeightConst = self.messageField.heightAnchor.constraint(equalToConstant: newMsgSize.height)
         self.msgHeightConst?.constant = newMsgSize.height
         //            self.msgHeightConst?.isActive = true
-        self.delegate?.tableView.layoutIfNeeded()
-        
-//        messageField.frame.size = newMsgSize
-//        self.frame.size = newBarSize
-        
-        
-        
-        print(messageField.frame.height)
-        print(newMsgSize.height)
-        print(self.frame.height)
-        print(delegate?.tableView.frame.height)
-        
+        self.layoutIfNeeded()
+//
+        print("Old \(oldBarY) / New \(newBarY)")
+        let barYInterval = oldBarY! - newBarY!
+//        print("Interval : \(barYInterval)")
+//        delegate?.tableView.frame.origin.y -= barYInterval
+//        delegate?.tableView.contentOffset.y -= barYInterval
+//        oldBarY = newBarY
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {

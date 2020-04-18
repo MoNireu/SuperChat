@@ -71,8 +71,9 @@ class SearchUserViewController: UIViewController {
     @IBAction func addFriend(sender: UIButton) {
         activiyIndicator.startAnimating()
         let appdelegate = UIApplication.shared.delegate as? AppDelegate
-        let docRef = appdelegate?.db?.collection("Users").document((appdelegate?.myAccount?.id)!).collection("friends").document("friendList")
-        docRef?.updateData([(searchFriendResult?.id)! : true]) { (error) in
+        let docRef = appdelegate?.db?.collection("Users").document((appdelegate?.myAccount?.id)!).collection("friends").document("\((searchFriendResult?.id)!)")
+        
+        docRef?.setData(["isFriend" : true]) { (error) in
             if error == nil { // Success
                 // UserDefualts에 저장
                 var userDefaultsFriendList = appdelegate?.myAccount?.friendList
@@ -85,26 +86,8 @@ class SearchUserViewController: UIViewController {
                 self.disableAddFriend()
             }
             else {
-                self.activiyIndicator.stopAnimating()
-                let errorDescription = error?.localizedDescription
-                if (errorDescription?.contains("No document"))! {
-                    docRef?.setData([(self.searchFriendResult?.id)! : true]) { (error) in
-                        if error == nil {  // Success
-                            // UserDefualts에 저장
-                            var userDefaultsFriendList = appdelegate?.myAccount?.friendList
-                            if userDefaultsFriendList == nil {userDefaultsFriendList = [String : Bool]()}
-                            userDefaultsFriendList?.updateValue(true, forKey: self.searchFriendResult!.id)
-                            appdelegate?.saveMyAccount()
-                            print(appdelegate?.myAccount?.friendList)
-                            
-                            self.activiyIndicator.stopAnimating()
-                            self.disableAddFriend()
-                        }
-                        else {
-                            print(error?.localizedDescription)
-                        }
-                    }
-                }
+                self.errorAlert("친구 추가에 실패했습니다.")
+                print(error?.localizedDescription)
             }
         }
     }
