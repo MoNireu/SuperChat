@@ -56,9 +56,6 @@ class SignInViewController: UIViewController {
                     guard let uid = user?.user.uid else {return}
                     
                     
-                    let userID =
-                    
-                    
                     self.getDocumentFrom(uid) {
                         if let setProfileVC = self.storyboard?.instantiateViewController(identifier: "setProfileViewController") {
                             setProfileVC.modalPresentationStyle = .fullScreen
@@ -90,7 +87,8 @@ class SignInViewController: UIViewController {
             if let document = document, document.exists {
                 let result = document.data()
                 userID = result?["id"] as? String ?? nil
-                self.getUserID(userID!, complete: complete)
+//                self.getUserID(userID!, complete: complete)
+                self.appdelegate?.getMyAccount(userID: userID, complete: complete)
             } else {
                 self.errorAlert(error as? String)
             }

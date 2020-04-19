@@ -121,15 +121,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     
-    func getMyAccount(userID: String?) {
+    func getMyAccount(userID: String?, complete: (() -> Void)? = nil) {
         guard userID != nil else {self.signOut(); return}
         let docRef = db?.collection("Users").document(userID!)
         docRef?.getDocument { (result, error) in
-            if error == nil { // Success
+            if result != nil, result!.exists { // Success
+                self.myAccount = AccountVO()
                 print("========== getDoc Success! ==========")
                 let data = result?.data()
                 self.myAccount?.id = userID
                 self.myAccount?.name = data!["name"] as? String
+                print(data!["name"])
                 print("appdelegate name = \(self.myAccount?.name)") // TestCode
                 self.myAccount?.statusMsg = data!["statusMsg"] as? String
                 if let profileImgString = data!["profileImg"] as? String {
@@ -145,25 +147,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 let friendsRef = docRef?.collection("friends")
                 friendsRef?.getDocuments { (query, error) in
-                    if error != nil { // Success
+                    if query != nil { // Success
+                        self.myAccount?.friendList = [String : Bool]()
                         let docs = query?.documents
                         for element in docs! {
                             let elementData = element.data()
                             let friend   = element.documentID
                             let isFriend = elementData["isFriend"] as? Bool
                             print("*********Friend: \(friend) / isFriend: \(isFriend)")
-//                            self.myAccount?.friendList?.updateValue(isFriend!, forKey: friend)
-                            self.myAccount?.friendList?["\(friend)"] = isFriend
-                            print(self.myAccount?.friendList) //Test
+                            self.myAccount?.friendList?.updateValue(isFriend!, forKey: friend)
+//                            self.myAccount?.friendList?["\(friend)"] = isFriend
+                            print("FriendList = \(self.myAccount?.friendList)") //Test
                         }
+                        complete?()
                     }
                     else {
-                        print("ERROR : \(error?.localizedDescription)")
+                        print("ERROR2 : \(error)")
+//                        complete?()
                     }
                 }
             }
             else { // Fail
-                print("ERROR: \(error?.localizedDescription)")
+                print("ERROR1: \(error?.localizedDescription)")
             }
         }
     }

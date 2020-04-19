@@ -10,7 +10,7 @@ import UIKit
 
 struct SearchFriendResult {
     var name: String
-    var profileImg: UIImage
+    var profileImg: UIImage?
     var id: String
 }
 
@@ -157,7 +157,7 @@ extension SearchUserViewController: UISearchBarDelegate {
                     let profileImgString = Data(base64Encoded: profileImgData!)
                     let profileImg       = UIImage(data: profileImgString!)
                     
-                    self.searchFriendResult = SearchFriendResult(name: name!, profileImg: profileImg!, id: searchBar.text!)
+                    self.searchFriendResult = SearchFriendResult(name: name!, profileImg: profileImg, id: searchBar.text!)
                     
                     self.activiyIndicator.stopAnimating()
                     self.showResult()
