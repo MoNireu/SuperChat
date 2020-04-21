@@ -14,6 +14,6 @@ class ChatRoomVO {
     var isGroupChat: Bool?
     var lastChat: String?
     var lastChatTime: String?
-    var member: [AccountVO]?
+    var member: [ProfileVO]?
     var chat: [ChatVO]?
 }

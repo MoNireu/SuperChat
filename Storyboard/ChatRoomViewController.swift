@@ -14,8 +14,8 @@ class ChatRoomViewController: UIViewController, UIApplicationDelegate, UIWindowS
     @IBOutlet var bottomBar: ChatRoomBottomBar!
     @IBOutlet var emptyBar: UIView!
     
-    var myAccount: AccountVO?
-    var accountVO: AccountVO?
+    var myAccount: MyAccountVO?
+    var accountVO: MyAccountVO?
     var chatVO: [ChatVO]?
     
     

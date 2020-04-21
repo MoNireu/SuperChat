@@ -11,7 +11,7 @@ import UIKit
 class SetProfileViewController: UIViewController {
 
     
-    var myAccount: AccountVO?
+    var myAccount: MyAccountVO?
     
     @IBOutlet var profileImgView: UIImageView!
     @IBOutlet var nameTextField: UITextField!

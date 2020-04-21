@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var db: Firestore?
     var ref: DatabaseReference!
-    var myAccount: AccountVO?
+    var myAccount: MyAccountVO?
     var isSignedIn: Bool?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -126,7 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let docRef = db?.collection("Users").document(userID!)
         docRef?.getDocument { (result, error) in
             if result != nil, result!.exists { // Success
-                self.myAccount = AccountVO()
+                self.myAccount = MyAccountVO()
                 print("========== getDoc Success! ==========")
                 let data = result?.data()
                 self.myAccount?.id = userID
@@ -173,10 +173,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func fetchMyAccount() -> AccountVO {
+    func fetchMyAccount() -> MyAccountVO {
         let plist = UserDefaults.standard
         
-        let myAccount = AccountVO()
+        let myAccount = MyAccountVO()
         
         myAccount.email = plist.string(forKey: "email")
         myAccount.id = plist.string(forKey: "id")

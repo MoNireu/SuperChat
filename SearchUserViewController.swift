@@ -84,7 +84,7 @@ class SearchUserViewController: UIViewController {
                         var userDefaultsFriendList = appdelegate?.myAccount?.friendList
                         if userDefaultsFriendList == nil {userDefaultsFriendList = [String : Bool]()}
                         userDefaultsFriendList?.updateValue(true, forKey: self.searchFriendResult!.id)
-                        appdelegate?.saveMyAccount()
+                        print(appdelegate?.saveMyAccount())
                         print(appdelegate?.myAccount?.friendList)
                         
                         self.activiyIndicator.stopAnimating()

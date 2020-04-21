@@ -67,7 +67,7 @@ class CoreDataUtils {
         return result!
     }
     
-    func save(entity: String, value: AccountVO) -> Bool {
+    func save(entity: String, value: MyAccountVO) -> Bool {
         let context = appdelegate?.persistentContainer.viewContext
         
         let object = NSEntityDescription.insertNewObject(forEntityName: entity, into: context!)
@@ -92,10 +92,10 @@ class CoreDataUtils {
 
 class UserDefaultsUtils {
     
-    func fetchMyAccount() -> AccountVO {
+    func fetchMyAccount() -> MyAccountVO {
         let plist = UserDefaults.standard
         
-        let myAccount = AccountVO()
+        let myAccount = MyAccountVO()
         
         myAccount.email = plist.string(forKey: "email")
         myAccount.id = plist.string(forKey: "id")

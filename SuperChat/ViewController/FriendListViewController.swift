@@ -14,11 +14,12 @@ class FriendListViewController: UIViewController {
     
     let appdelegate = UIApplication.shared.delegate as? AppDelegate
     
-    var myAccount: AccountVO? = {
+    var myAccount: MyAccountVO? = {
         let appdelegate = UIApplication.shared.delegate as? AppDelegate
         return appdelegate?.myAccount
     }()
-    var friendList: [AccountVO]?
+    var _friendList: [MyAccountVO]?
+    var friendList: [ProfileVO]?
     
     @IBOutlet var tableView: UITableView!
     
@@ -40,15 +41,21 @@ class FriendListViewController: UIViewController {
         
         
         let friendListData = FriendListData()
-        friendList = [AccountVO]()
-        friendList?.append(contentsOf: friendListData.data())
+        _friendList = [MyAccountVO]()
+        _friendList?.append(contentsOf: friendListData.data())
+        
+        loadFriendList()
 
         tableView.reloadData()
+        
+        
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         self.hidesBottomBarWhenPushed = true
     }
+    
     
     @IBAction func signOut(_ sender: Any) {
         appdelegate?.isSignedIn = false
@@ -79,13 +86,67 @@ class FriendListViewController: UIViewController {
             self.present(searchUserVC, animated: true)
         }
     }
+    
+    
+    func loadFriendList() {
+        if let friends = appdelegate?.myAccount?.friendList {
+            friendList = [ProfileVO]()
+            for friend in friends {
+                if friend.value == true {
+                    downloadFriendProfile(id: friend.key) { profile in
+                        self.friendList?.append(profile)
+                        print("Info: Append Friend Profile in FriendList")
+                    }
+                }
+            }
+        }
+    }
+    
+    func downloadFriendProfile(id: String, completion: ((ProfileVO) -> Void)? = nil) {
+        
+        let friendID = appdelegate?.db?.collection("Users").document(id)
+        friendID?.getDocument() { (doc, error) in
+            if doc != nil, doc?.exists == true { //success
+                guard let data = doc?.data() else {return}
+                
+                let friendProfile = ProfileVO()
+                
+                friendProfile.id            = id
+                friendProfile.name          = data["name"] as? String
+                
+                if let profileImgString = data["profileImg"] as? String {
+                    if let profileImgData = Data(base64Encoded: profileImgString) {
+                        friendProfile.profileImg = UIImage(data: profileImgData)
+                    }
+                }
+                else {
+                    friendProfile.profileImg = UIImage(named: "default_user_profile")
+                }
+                
+                
+                if let backgroundImgString = data["backgroundImg"] as? String {
+                    if let backgroundImgData = Data(base64Encoded: backgroundImgString) {
+                        friendProfile.backgroundImg = UIImage(data: backgroundImgData)
+                    }
+                }
+                else {
+                    friendProfile.profileImg = UIImage(named: "default_user_profile")
+                }
+                
+                completion?(friendProfile)
+            }
+            else {
+                print("ERROR: downloadFriendProfile() - \(error?.localizedDescription)")
+            }
+        }
+    }
 }
 
 
 
 extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendList!.count
+        return _friendList!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -104,9 +165,9 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "friendTableViewCell", for: indexPath) as? FriendListTableViewCell
             
-            cell?.profileImg.image = friendList?[indexPath.row].profileImg ?? UIImage(named: "default_user_profile.png")
-            cell?.name.text        = friendList?[indexPath.row].name
-            cell?.statMsg.text     = friendList?[indexPath.row].statusMsg ?? ""
+            cell?.profileImg.image = _friendList?[indexPath.row].profileImg ?? UIImage(named: "default_user_profile.png")
+            cell?.name.text        = _friendList?[indexPath.row].name
+            cell?.statMsg.text     = _friendList?[indexPath.row].statusMsg ?? ""
             cell?.isSelected       = false
             
             return cell!
@@ -115,11 +176,11 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        var accountVO: AccountVO?
+        var accountVO: MyAccountVO?
         if indexPath.row == 0 {
             accountVO = myAccount
         } else {
-            accountVO = friendList?[indexPath.row]
+            accountVO = _friendList?[indexPath.row]
         }
         
         if let profileVC = self.storyboard?.instantiateViewController(identifier: "profileVC") as? ProfileViewController {
