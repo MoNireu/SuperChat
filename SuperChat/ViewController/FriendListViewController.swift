@@ -73,9 +73,11 @@ class FriendListViewController: UIViewController {
         }
     }
     
+    
     @IBAction func searchUser(_ sender: Any) {
         if let searchUserVC = self.storyboard?.instantiateViewController(identifier: "searchUserVC") as? SearchUserViewController {
             searchUserVC.modalPresentationStyle = .automatic
+            searchUserVC.superView = self
             self.present(searchUserVC, animated: true)
         }
     }

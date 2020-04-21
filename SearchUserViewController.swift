@@ -24,6 +24,8 @@ class SearchUserViewController: UIViewController {
     @IBOutlet var activiyIndicator: UIActivityIndicatorView!
     
     let appdelegate = UIApplication.shared.delegate as? AppDelegate
+    
+    weak var superView: FriendListViewController?
     var searchFriendResult: SearchFriendResult?
     var btnState: UIButton.State? {
         willSet(newValue) {
@@ -82,10 +84,13 @@ class SearchUserViewController: UIViewController {
                     if error == nil { // Success
                         // UserDefualts에 저장
                         var userDefaultsFriendList = appdelegate?.myAccount?.friendList
-                        if userDefaultsFriendList == nil {userDefaultsFriendList = [String : Bool]()}
+                        guard userDefaultsFriendList != nil else {userDefaultsFriendList = [String : Bool](); return}
                         userDefaultsFriendList?.updateValue(true, forKey: self.searchFriendResult!.id)
-                        print(appdelegate?.saveMyAccount())
+                        appdelegate?.myAccount?.friendList = userDefaultsFriendList
+                        print(self.searchFriendResult!.id)
                         print(appdelegate?.myAccount?.friendList)
+                        print(appdelegate?.saveMyAccount())
+                        
                         
                         self.activiyIndicator.stopAnimating()
                         self.disableAddFriend()
@@ -103,8 +108,14 @@ class SearchUserViewController: UIViewController {
         }
     }
     
+    
     @IBAction func dismiss(_ sender: Any) {
-        self.dismiss(animated: true)
+//        self.superView = FriendListViewController()
+        self.dismiss(animated: true) {
+            self.superView!.loadFriendList() {
+                self.superView!.tableView.reloadData()
+            }
+        }
     }
 
     func showResult() {
