@@ -21,7 +21,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet var button3: UIButton!
     
     let appdelegate = UIApplication.shared.delegate as? AppDelegate
-    var accountVO: MyAccountVO?
+    var accountVO: ProfileVO?
     var ref: DatabaseReference!
     
     weak var delegate: FriendListViewController?

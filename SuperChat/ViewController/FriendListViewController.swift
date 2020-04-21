@@ -18,7 +18,6 @@ class FriendListViewController: UIViewController {
         let appdelegate = UIApplication.shared.delegate as? AppDelegate
         return appdelegate?.myAccount
     }()
-    var _friendList: [MyAccountVO]?
     var friendList: [ProfileVO]?
     
     @IBOutlet var tableView: UITableView!
@@ -32,22 +31,16 @@ class FriendListViewController: UIViewController {
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
-//        let userDefaultsUtils = UserDefaultsUtils()
-        
         appdelegate?.myAccount = appdelegate?.fetchMyAccount()
         
         myAccount = appdelegate?.myAccount
         print("myaccount name = \(myAccount?.name)")
         
-        
-        let friendListData = FriendListData()
-        _friendList = [MyAccountVO]()
-        _friendList?.append(contentsOf: friendListData.data())
-        
-        loadFriendList()
-
-        tableView.reloadData()
-        
+        loadFriendList() {
+            print("FriendList Element num = \(self.friendList?.count)")
+            self.tableView.reloadData()
+            
+        }
         
     }
     
@@ -88,7 +81,8 @@ class FriendListViewController: UIViewController {
     }
     
     
-    func loadFriendList() {
+    func loadFriendList(completion: (() -> Void)? = nil) {
+        var cnt = 0
         if let friends = appdelegate?.myAccount?.friendList {
             friendList = [ProfileVO]()
             for friend in friends {
@@ -96,6 +90,8 @@ class FriendListViewController: UIViewController {
                     downloadFriendProfile(id: friend.key) { profile in
                         self.friendList?.append(profile)
                         print("Info: Append Friend Profile in FriendList")
+                        cnt += 1
+                        cnt == friends.count ? completion?() : ()
                     }
                 }
             }
@@ -111,8 +107,9 @@ class FriendListViewController: UIViewController {
                 
                 let friendProfile = ProfileVO()
                 
-                friendProfile.id            = id
-                friendProfile.name          = data["name"] as? String
+                friendProfile.id        = id
+                friendProfile.name      = data["name"] as? String
+                friendProfile.statusMsg = data["statusMsg"] as? String
                 
                 if let profileImgString = data["profileImg"] as? String {
                     if let profileImgData = Data(base64Encoded: profileImgString) {
@@ -146,7 +143,7 @@ class FriendListViewController: UIViewController {
 
 extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return _friendList!.count
+        return friendList!.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -164,10 +161,10 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "friendTableViewCell", for: indexPath) as? FriendListTableViewCell
-            
-            cell?.profileImg.image = _friendList?[indexPath.row].profileImg ?? UIImage(named: "default_user_profile.png")
-            cell?.name.text        = _friendList?[indexPath.row].name
-            cell?.statMsg.text     = _friendList?[indexPath.row].statusMsg ?? ""
+            let row = indexPath.row - 1
+            cell?.profileImg.image = friendList?[row].profileImg ?? UIImage(named: "default_user_profile.png")
+            cell?.name.text        = friendList?[row].name
+            cell?.statMsg.text     = friendList?[row].statusMsg ?? ""
             cell?.isSelected       = false
             
             return cell!
@@ -176,16 +173,16 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        var accountVO: MyAccountVO?
+        var selectedAccount: ProfileVO?
         if indexPath.row == 0 {
-            accountVO = myAccount
+            selectedAccount = myAccount
         } else {
-            accountVO = _friendList?[indexPath.row]
+            selectedAccount = friendList?[indexPath.row - 1]
         }
         
         if let profileVC = self.storyboard?.instantiateViewController(identifier: "profileVC") as? ProfileViewController {
             
-            profileVC.accountVO = accountVO
+            profileVC.accountVO = selectedAccount
             profileVC.delegate = self
             
             profileVC.modalPresentationStyle = .fullScreen
