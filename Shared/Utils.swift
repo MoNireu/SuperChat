@@ -51,9 +51,28 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
     
+    func getProfileImageFrom(strData: String) -> UIImage {
+        if let imgData = Data(base64Encoded: strData) {
+            let image = UIImage(data: imgData) ?? UIImage(named: "default_user_profile")!
+            return image
+        }
+        else {
+            return UIImage(named: "default_user_profile")!
+        }
+    }
     
-    
-    
+    func getImgStringDataFrom(img: UIImage) -> String? {
+        if img != UIImage(named: "default_user_profile") {// 이미지가 기본데이터가 아닐경우
+            let imgStringData = img.jpegData(compressionQuality: 0.5)?.base64EncodedString()
+            return imgStringData
+        }
+        else { //이미지가 기본 데이터일 경우
+            return nil
+        }
+    }
+}
+
+extension UIImage {
     
 }
 
@@ -97,19 +116,13 @@ class UserDefaultsUtils {
         
         let myAccount = MyAccountVO()
         
-        myAccount.email = plist.string(forKey: "email")
-        myAccount.id = plist.string(forKey: "id")
-        myAccount.name = plist.string(forKey: "name")
-        myAccount.statusMsg = plist.string(forKey: "statusMsg")
-        
-        if let profileImgData = plist.object(forKey: "profileImg") as? NSData {
-            myAccount.profileImg = UIImage(data: profileImgData as Data)
-        }
-        
-        if let backgroundImgData = plist.object(forKey: "backgroundImg") as? NSData {
-            myAccount.backgroundImg = UIImage(data: backgroundImgData as Data)
-        }
-        
+        myAccount.email         = plist.string(forKey: "email")
+        myAccount.id            = plist.string(forKey: "id")
+        myAccount.name          = plist.string(forKey: "name")
+        myAccount.statusMsg     = plist.string(forKey: "statusMsg")
+        myAccount.profileImg    = plist.string(forKey: "profileImg")
+        myAccount.backgroundImg = plist.string(forKey: "backgroundImg")
+        myAccount.friendList    = plist.dictionary(forKey: "friendList") as! [String : Bool]?
         
         return myAccount
     }
@@ -126,20 +139,28 @@ class UserDefaultsUtils {
         plist.set(myAccount?.id, forKey: "id")
         plist.set(myAccount?.name, forKey: "name")
         plist.set(myAccount?.statusMsg, forKey: "statusMsg")
+        plist.set(myAccount?.profileImg, forKey: "profileImg")
+        plist.set(myAccount?.backgroundImg, forKey: "backgroundImg")
+        plist.set(myAccount?.friendList, forKey: "friendList")
         
-        let profileImgData = myAccount?.profileImg?.jpegData(compressionQuality: 0.5)
-        plist.set(profileImgData, forKey: "profileImg")
-        
-        let backgroundImgData = myAccount?.backgroundImg?.jpegData(compressionQuality: 0.5)
-        plist.set(backgroundImgData, forKey: "backgroundImg")
-        
-        //            plist.set(myAccount.chatRoom, forKey: "chatRoom")
-        
-        
+    
         if plist.synchronize() {
             return true
         } else {
             return false
         }
+    }
+    
+    func removeMyAccount() -> Bool {
+        let plist = UserDefaults.standard
+        
+        plist.removeObject(forKey: "email")
+        plist.removeObject(forKey: "id")
+        plist.removeObject(forKey: "name")
+        plist.removeObject(forKey: "statusMsg")
+        plist.removeObject(forKey: "profileImg")
+        plist.removeObject(forKey: "backgroundImg")
+        
+        return plist.synchronize()
     }
 }

@@ -38,8 +38,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillResignActive(_ scene: UIScene) {
         let appdelegate = UIApplication.shared.delegate as? AppDelegate
+        let userDefaultsUtils = UserDefaultsUtils()
         
-        let result = appdelegate?.saveMyAccount()
+        let result = userDefaultsUtils.saveMyAccount()
         print("Save My Account = \(result)")
         
     }

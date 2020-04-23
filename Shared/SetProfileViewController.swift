@@ -53,7 +53,7 @@ class SetProfileViewController: UIViewController {
         // Data init
         let appdelegate = UIApplication.shared.delegate as? AppDelegate
         myAccount = appdelegate?.myAccount
-        profileImgView.image    = myAccount?.profileImg ?? UIImage(named: "default_user_profile")
+        profileImgView.image    = getProfileImageFrom(strData: (myAccount?.profileImg)!)
         nameTextField.text      = myAccount?.name
         statusMsgTextField.text = myAccount?.statusMsg
         
@@ -69,6 +69,7 @@ class SetProfileViewController: UIViewController {
     
     @IBAction func finish(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let userDefaultsUtils = UserDefaultsUtils()
         
         activityIndicator.startAnimating()
         
@@ -94,10 +95,10 @@ class SetProfileViewController: UIViewController {
                 
                 self.myAccount?.name       = self.nameTextField.text
                 self.myAccount?.statusMsg  = self.statusMsgTextField.text
-                self.myAccount?.profileImg = self.profileImgView.image
+                self.myAccount?.profileImg = self.getImgStringDataFrom(img: self.profileImgView.image!)
                 
                 appDelegate?.myAccount = self.myAccount
-                appDelegate?.saveMyAccount()
+                userDefaultsUtils.saveMyAccount()
                 
                 self.activityIndicator.stopAnimating()
                 

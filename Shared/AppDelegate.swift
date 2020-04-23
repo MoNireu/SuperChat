@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         db = Firestore.firestore()
         ref = Database.database().reference()
         
-//        self.signOut()  // TestCode
+        self.signOut()  // TestCode
         
         isSignedIn = Auth.auth().currentUser != nil ? true : false
         print(isSignedIn)
@@ -129,21 +129,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.myAccount = MyAccountVO()
                 print("========== getDoc Success! ==========")
                 let data = result?.data()
-                self.myAccount?.id = userID
-                self.myAccount?.name = data!["name"] as? String
+                self.myAccount?.id            = userID
+                self.myAccount?.name          = data!["name"] as? String
+                self.myAccount?.statusMsg     = data!["statusMsg"] as? String
+                self.myAccount?.profileImg    = data!["profileImg"] as? String
+                self.myAccount?.backgroundImg = data!["backgroundImg"] as? String
+                
                 print(data!["name"])
                 print("appdelegate name = \(self.myAccount?.name)") // TestCode
-                self.myAccount?.statusMsg = data!["statusMsg"] as? String
-                if let profileImgString = data!["profileImg"] as? String {
-                    let profileImgData = Data(base64Encoded: profileImgString)
-                    let profileImg = UIImage(data: profileImgData!)
-                    self.myAccount?.profileImg = profileImg
-                }
-                if let backgroundImgString = data!["backgroundImg"] as? String {
-                    let backgroundImgData = Data(base64Encoded: backgroundImgString)
-                    let backgroundImg = UIImage(data: backgroundImgData!)
-                    self.myAccount?.backgroundImg = backgroundImg
-                }
                 
                 let friendsRef = docRef?.collection("friends")
                 friendsRef?.getDocuments { (query, error) in
@@ -173,53 +166,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func fetchMyAccount() -> MyAccountVO {
-        let plist = UserDefaults.standard
-        
-        let myAccount = MyAccountVO()
-        
-        myAccount.email = plist.string(forKey: "email")
-        myAccount.id = plist.string(forKey: "id")
-        myAccount.name = plist.string(forKey: "name")
-        myAccount.statusMsg = plist.string(forKey: "statusMsg")
-        myAccount.friendList = plist.dictionary(forKey: "friendList") as! [String : Bool]?
-        
-        if let profileImgData = plist.object(forKey: "profileImg") as? NSData {
-            myAccount.profileImg = UIImage(data: profileImgData as Data)
-        }
-        
-        if let backgroundImgData = plist.object(forKey: "backgroundImg") as? NSData {
-            myAccount.backgroundImg = UIImage(data: backgroundImgData as Data)
-        }
-        
-        
-        return myAccount
-    }
-    
-    
-    
-    func saveMyAccount() -> Bool {
-        let plist = UserDefaults.standard
-        
-        let myAccount = self.myAccount
-        
-        plist.set(myAccount?.email, forKey: "email")
-        plist.set(myAccount?.id, forKey: "id")
-        plist.set(myAccount?.name, forKey: "name")
-        plist.set(myAccount?.statusMsg, forKey: "statusMsg")
-        plist.set(myAccount?.friendList, forKey: "friendList")
-        
-        let profileImgData = myAccount?.profileImg?.jpegData(compressionQuality: 0.5)
-        plist.set(profileImgData, forKey: "profileImg")
-        
-        let backgroundImgData = myAccount?.backgroundImg?.jpegData(compressionQuality: 0.5)
-        plist.set(backgroundImgData, forKey: "backgroundImg")
-        
-        //            plist.set(myAccount.chatRoom, forKey: "chatRoom")
-        
-        
-        return plist.synchronize()
-    }
+//    func fetchMyAccount() -> MyAccountVO {
+//        let plist = UserDefaults.standard
+//
+//        let myAccount = MyAccountVO()
+//
+//        myAccount.email = plist.string(forKey: "email")
+//        myAccount.id = plist.string(forKey: "id")
+//        myAccount.name = plist.string(forKey: "name")
+//        myAccount.statusMsg = plist.string(forKey: "statusMsg")
+//        myAccount.friendList = plist.dictionary(forKey: "friendList") as! [String : Bool]?
+//
+//        if let profileImgData = plist.object(forKey: "profileImg") as? NSData {
+//            myAccount.profileImg = UIImage(data: profileImgData as Data)
+//        }
+//
+//        if let backgroundImgData = plist.object(forKey: "backgroundImg") as? NSData {
+//            myAccount.backgroundImg = UIImage(data: backgroundImgData as Data)
+//        }
+//
+//
+//        return myAccount
+//    }
+//
+//
+//
+//    func saveMyAccount() -> Bool {
+//        let plist = UserDefaults.standard
+//
+//        let myAccount = self.myAccount
+//
+//
+//
+//        plist.set(myAccount?.email, forKey: "email")
+//        plist.set(myAccount?.id, forKey: "id")
+//        plist.set(myAccount?.name, forKey: "name")
+//        plist.set(myAccount?.statusMsg, forKey: "statusMsg")
+//        plist.set(myAccount?.friendList, forKey: "friendList")
+//
+//        let profileImgData = myAccount?.profileImg?.jpegData(compressionQuality: 0.5)
+//        plist.set(profileImgData, forKey: "profileImg")
+//
+//        let backgroundImgData = myAccount?.backgroundImg?.jpegData(compressionQuality: 0.5)
+//        plist.set(backgroundImgData, forKey: "backgroundImg")
+//
+//        //            plist.set(myAccount.chatRoom, forKey: "chatRoom")
+//
+//
+//        return plist.synchronize()
+//    }
     
     
     func removeMyAccount() -> Bool {

@@ -73,6 +73,7 @@ class SearchUserViewController: UIViewController {
     @IBAction func addFriend(sender: UIButton) {
         activiyIndicator.startAnimating()
         let appdelegate = UIApplication.shared.delegate as? AppDelegate
+        let userDefaultsUtils = UserDefaultsUtils()
         
         // Firebase: 나의 계정에 상대 추가
         let myDocRef = appdelegate?.db?.collection("Users").document((appdelegate?.myAccount?.id)!).collection("friends").document((searchFriendResult?.id)!)
@@ -89,7 +90,7 @@ class SearchUserViewController: UIViewController {
                         appdelegate?.myAccount?.friendList = userDefaultsFriendList
                         print(self.searchFriendResult!.id)
                         print(appdelegate?.myAccount?.friendList)
-                        print(appdelegate?.saveMyAccount())
+                        print(userDefaultsUtils.saveMyAccount())
                         
                         
                         self.activiyIndicator.stopAnimating()
@@ -112,7 +113,7 @@ class SearchUserViewController: UIViewController {
     @IBAction func dismiss(_ sender: Any) {
 //        self.superView = FriendListViewController()
         self.dismiss(animated: true) {
-            self.superView!.loadFriendList() {
+            self.superView!.loadFriendProfileList() {
                 self.superView!.tableView.reloadData()
             }
         }

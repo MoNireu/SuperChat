@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-class ProfileVO{
+class ProfileVO: Encodable {
     var id: String?
     var name: String?
     var statusMsg: String?
-    var profileImg: UIImage?
-    var backgroundImg: UIImage?
+    var profileImg: String?
+    var backgroundImg: String?
 }
