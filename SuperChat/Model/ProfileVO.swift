@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ProfileVO: Encodable {
+class ProfileVO: Encodable, Decodable {
     var id: String?
     var name: String?
     var statusMsg: String?

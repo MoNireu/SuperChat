@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         db = Firestore.firestore()
         ref = Database.database().reference()
         
-        self.signOut()  // TestCode
+//        self.signOut()  // TestCode
         
         isSignedIn = Auth.auth().currentUser != nil ? true : false
         print(isSignedIn)

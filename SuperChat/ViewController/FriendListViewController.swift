@@ -40,20 +40,22 @@ class FriendListViewController: UIViewController {
         
         loadFriendProfileList() {
             self.tableView.reloadData()
-//            let plist = UserDefaults.standard
-//            do {
-//                let encoder = JSONEncoder()
-//                let friendProfileListData = encoder.encode(self.friendProfileList)
-////                let friendProfileListData = try NSKeyedArchiver.archivedData(withRootObject: self.friendProfileList, requiringSecureCoding: true)
-//                plist.set(friendProfileListData, forKey: "friendProfileListData")
-//            }
-//            catch let error{
-//                print(error.localizedDescription)
-//            }
-//            
-//            
+            
+            // UserDefaults에 FriendProfileList저장.
+            let plist = UserDefaults.standard
+            do {
+                let encoder = JSONEncoder()
+                let friendProfileListData = try encoder.encode(self.friendProfileList)
+                plist.set(friendProfileListData, forKey: "friendProfileListData")
+            }
+            catch let error{
+                print(error.localizedDescription)
+            }
+            
+//            // UserDefaults에서 FriendProfileList 불러오기.
 //            let friendProfileListData = plist.value(forKey: "friendProfileListData") as? Data
-//            let ud_friendProfileList = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(friendProfileListData!) as? [ProfileVO]?
+//            let decoder = JSONDecoder()
+//            let ud_friendProfileList = try! decoder.decode([ProfileVO].self, from: friendProfileListData!)
 //            print(ud_friendProfileList)
             
         }
@@ -116,19 +118,19 @@ class FriendListViewController: UIViewController {
         }
     }
     
+    
     func downloadFriendProfile(id: String, completion: ((ProfileVO) -> Void)? = nil) {
-        
         let friendID = appdelegate?.db?.collection("Users").document(id)
+        
         friendID?.getDocument() { (doc, error) in
             if doc != nil, doc?.exists == true { //success
                 guard let data = doc?.data() else {return}
-                
                 let friendProfile = ProfileVO()
                 
-                friendProfile.id        = id
-                friendProfile.name      = data["name"] as? String
-                friendProfile.statusMsg = data["statusMsg"] as? String
-                friendProfile.profileImg = data["profileImg"] as? String
+                friendProfile.id            = id
+                friendProfile.name          = data["name"] as? String
+                friendProfile.statusMsg     = data["statusMsg"] as? String
+                friendProfile.profileImg    = data["profileImg"] as? String
                 friendProfile.backgroundImg = data["backgroundImg"] as? String
                 
                 completion?(friendProfile)
