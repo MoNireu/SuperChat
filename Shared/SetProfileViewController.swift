@@ -85,11 +85,16 @@ class SetProfileViewController: UIViewController {
         print(profileImg)
         print(UIImage(named: "default_user_profile"))
         
+//        let dateFormat = DateFormatter().dateFormat
+//        dateFormat = "yyyyMMdd"
+        print(Date())
+        
         let userRef = appDelegate?.db?.collection("Users").document(myAccount!.id!)
         userRef?.updateData([
             "name" : nameTextField.text!,
             "statusMsg" : statusMsgTextField.text ?? "",
-            "profileImg" : profileImg?.jpegData(compressionQuality: 0.5)?.base64EncodedString() ?? ""
+            "profileImg" : profileImg?.jpegData(compressionQuality: 0.5)?.base64EncodedString() ?? "",
+            "latestUpdate" : Date()
         ]) { error in
             if error == nil {   // Success
                 

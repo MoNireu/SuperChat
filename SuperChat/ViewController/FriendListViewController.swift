@@ -118,13 +118,13 @@ class FriendListViewController: UIViewController {
         }
     }
     
-    
+    // TODO: Last Update 확인 기능 추가하기.
     func downloadFriendProfile(id: String, completion: ((ProfileVO) -> Void)? = nil) {
         let friendID = appdelegate?.db?.collection("Users").document(id)
-        
         friendID?.getDocument() { (doc, error) in
             if doc != nil, doc?.exists == true { //success
                 guard let data = doc?.data() else {return}
+                
                 let friendProfile = ProfileVO()
                 
                 friendProfile.id            = id
