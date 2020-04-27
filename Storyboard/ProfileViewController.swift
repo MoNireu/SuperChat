@@ -26,6 +26,39 @@ class ProfileViewController: UIViewController {
     
     weak var delegate: FriendListViewController?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        ref = appdelegate?.ref
+        
+        profileImg.makeImageRound()
+        button1.imageView?.makeImageRound()
+        button2.imageView?.makeImageRound()
+        button3.imageView?.makeImageRound()
+        
+        backgroundImg.image       = self.strDataToImg(strData: (accountVO?.backgroundImg)!)
+        backgroundImg.contentMode = .scaleAspectFill
+        backgroundImg.alpha       = 0.75
+        
+        profileImg.image       = self.strDataToImg(strData: (accountVO?.profileImg)!)
+        profileImg.contentMode = .scaleAspectFill
+        self.view.bringSubviewToFront(profileImg)
+        
+        name.text = accountVO?.name
+        name.sizeToFit()
+        
+        statMsg.text     = accountVO?.statusMsg
+        statMsg.sizeToFit()
+        statMsg.center.x = self.view.frame.width / 2
+        statMsg.center.y = profileImg.frame.minY / 2
+        
+        let swipeGesture = UISwipeGestureRecognizer()
+        swipeGesture.direction = .down
+        swipeGesture.addTarget(self, action: #selector(dismiss(_:)))
+        self.view.addGestureRecognizer(swipeGesture)
+    }
+    
+    
     @IBAction func closeAction(_ sender: Any) {
         self.dismiss(animated: true) {
             self.delegate?.tableView.reloadData()
@@ -45,38 +78,6 @@ class ProfileViewController: UIViewController {
                 
             }
         }
-    }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        ref = appdelegate?.ref
-        
-        profileImg.makeImageRound()
-        button1.imageView?.makeImageRound()
-        button2.imageView?.makeImageRound()
-        button3.imageView?.makeImageRound()
-        
-        profileImg.image?      = self.getProfileImageFrom(strData: (accountVO?.profileImg)!)
-        profileImg.contentMode = .scaleAspectFill
-        
-        backgroundImg.image       = self.getProfileImageFrom(strData: (accountVO?.backgroundImg)!)
-        backgroundImg.contentMode = .scaleAspectFill
-        backgroundImg.alpha       = 0.75
-        
-        name.text = accountVO?.name
-        name.sizeToFit()
-        
-        statMsg.text     = accountVO?.statusMsg
-        statMsg.sizeToFit()
-        statMsg.center.x = self.view.frame.width / 2
-        statMsg.center.y = profileImg.frame.minY / 2
-        
-        let swipeGesture = UISwipeGestureRecognizer()
-        swipeGesture.direction = .down
-        swipeGesture.addTarget(self, action: #selector(dismiss(_:)))
-        self.view.addGestureRecognizer(swipeGesture)
     }
     
     @objc func dismiss(_ sender: Any) {

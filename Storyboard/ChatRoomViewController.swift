@@ -100,7 +100,7 @@ extension ChatRoomViewController: UITableViewDelegate, UITableViewDataSource {
 
                 cell?.content.text = chatVO?[indexPath.row].content as? String
                 cell?.content.sizeToFit()
-                cell?.profileImg.image = getProfileImageFrom(strData: (accountVO?.profileImg)!)
+                cell?.profileImg.image = strDataToImg(strData: (accountVO?.profileImg)!)
                 cell?.name.text = accountVO?.name
                 cell?.time.text    = chatVO?[indexPath.row].time
                 

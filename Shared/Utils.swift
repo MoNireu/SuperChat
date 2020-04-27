@@ -51,7 +51,7 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
     
-    func getProfileImageFrom(strData: String) -> UIImage {
+    func strDataToImg(strData: String) -> UIImage {
         guard strData != "" else {return UIImage(named: "default_user_profile.png")!}
         
         if let imgData = Data(base64Encoded: strData) {
@@ -74,9 +74,7 @@ extension UIViewController {
     }
 }
 
-extension UIImage {
-    
-}
+
 
 class CoreDataUtils {
     lazy var appdelegate = UIApplication.shared.delegate as? AppDelegate

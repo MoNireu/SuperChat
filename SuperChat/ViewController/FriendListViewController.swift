@@ -175,7 +175,7 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "myAccountTableViewCell", for: indexPath) as? MyAccountTableViewCell
             let myAccount = appdelegate?.myAccount
-            cell?.profileImg.image = getProfileImageFrom(strData: (myAccount?.profileImg)!)
+            cell?.profileImg.image = strDataToImg(strData: (myAccount?.profileImg)!)
             cell?.name.text        = myAccount?.name!
             cell?.statMsg.text     = myAccount?.statusMsg!
             cell?.isSelected       = false
@@ -186,7 +186,7 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "friendTableViewCell", for: indexPath) as? FriendListTableViewCell
             let row = indexPath.row - 1
             let data = Array(friendProfileDic!.values)[row]
-            cell?.profileImg.image = getProfileImageFrom(strData: (data.profileImg)!)
+            cell?.profileImg.image = strDataToImg(strData: (data.profileImg)!)
             cell?.name.text        = data.name //friendProfileList?[row].name
             cell?.statMsg.text     = data.statusMsg ?? ""
             cell?.isSelected       = false

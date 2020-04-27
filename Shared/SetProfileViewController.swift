@@ -53,7 +53,7 @@ class SetProfileViewController: UIViewController {
         // Data init
         let appdelegate = UIApplication.shared.delegate as? AppDelegate
         myAccount = appdelegate?.myAccount
-        profileImgView.image    = getProfileImageFrom(strData: (myAccount?.profileImg)!)
+        profileImgView.image    = strDataToImg(strData: (myAccount?.profileImg)!)
         nameTextField.text      = myAccount?.name
         statusMsgTextField.text = myAccount?.statusMsg
         
