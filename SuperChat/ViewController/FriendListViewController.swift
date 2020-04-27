@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 
 class FriendListViewController: UIViewController {
@@ -19,7 +20,7 @@ class FriendListViewController: UIViewController {
         let appdelegate = UIApplication.shared.delegate as? AppDelegate
         return appdelegate?.myAccount
     }()
-    var friendProfileList: [ProfileVO]?
+    var friendProfileDic: [String : ProfileVO]?
     
     @IBOutlet var tableView: UITableView!
     
@@ -44,22 +45,18 @@ class FriendListViewController: UIViewController {
             // UserDefaults에 FriendProfileList저장.
             let plist = UserDefaults.standard
             do {
+                // 인코딩 후 저장
                 let encoder = JSONEncoder()
-                let friendProfileListData = try encoder.encode(self.friendProfileList)
+                let friendProfileListData = try encoder.encode(self.friendProfileDic)
                 plist.set(friendProfileListData, forKey: "friendProfileListData")
+                
+                // latestUpdate 시간 저장
+                plist.set(Date(), forKey: "latestProfileUpdate")
             }
             catch let error{
                 print(error.localizedDescription)
             }
-            
-//            // UserDefaults에서 FriendProfileList 불러오기.
-//            let friendProfileListData = plist.value(forKey: "friendProfileListData") as? Data
-//            let decoder = JSONDecoder()
-//            let ud_friendProfileList = try! decoder.decode([ProfileVO].self, from: friendProfileListData!)
-//            print(ud_friendProfileList)
-            
         }
-        
     }
     
     
@@ -103,12 +100,30 @@ class FriendListViewController: UIViewController {
     
     func loadFriendProfileList(completion: (() -> Void)? = nil) {
         var cnt = 0
+        
+        // UserDefaults에서 FriendProfileList 불러오기.
+        let plist = UserDefaults.standard
+        if let friendProfileListData = plist.value(forKey: "friendProfileListData") as? Data {
+            let decoder = JSONDecoder()
+            do {
+                let ud_friendProfileList = try decoder.decode([String : ProfileVO].self, from: friendProfileListData)
+                friendProfileDic = ud_friendProfileList
+            } catch let error {
+                print("UserDefaults load FriendProfileList ERROR: \(error.localizedDescription)")
+            }
+            
+        }
+        
         if let friends = appdelegate?.myAccount?.friendList {
-            friendProfileList = [ProfileVO]()
+            // friendProfileList 초기화
+            if friendProfileDic == nil {
+                friendProfileDic = [String: ProfileVO]()
+            }
+            
             for friend in friends {
                 if friend.value == true {
                     downloadFriendProfile(id: friend.key) { profile in
-                        self.friendProfileList?.append(profile)
+                        self.friendProfileDic?.updateValue(profile, forKey: friend.key)
                         print("Info: Append Friend Profile in FriendList")
                         cnt += 1
                         cnt == friends.count ? completion?() : ()
@@ -118,11 +133,16 @@ class FriendListViewController: UIViewController {
         }
     }
     
-    // TODO: Last Update 확인 기능 추가하기.
     func downloadFriendProfile(id: String, completion: ((ProfileVO) -> Void)? = nil) {
         let friendID = appdelegate?.db?.collection("Users").document(id)
         friendID?.getDocument() { (doc, error) in
             if doc != nil, doc?.exists == true { //success
+                // 업데이트 되지 않은 프로필 업데이트
+                let timestamp = doc?.get("latestUpdate") as? Timestamp
+                let friendProfileUpdateTime = timestamp?.dateValue()
+                let mylatestUpdate: Date? = UserDefaults.standard.value(forKey: "latestProfileUpdate") as? Date
+                guard mylatestUpdate == nil || mylatestUpdate! < (friendProfileUpdateTime!) else {return}
+                
                 guard let data = doc?.data() else {return}
                 
                 let friendProfile = ProfileVO()
@@ -146,7 +166,7 @@ class FriendListViewController: UIViewController {
 
 extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendProfileList!.count + 1
+        return friendProfileDic!.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -165,9 +185,10 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "friendTableViewCell", for: indexPath) as? FriendListTableViewCell
             let row = indexPath.row - 1
-            cell?.profileImg.image = getProfileImageFrom(strData: (friendProfileList?[row].profileImg)!)
-            cell?.name.text        = friendProfileList?[row].name
-            cell?.statMsg.text     = friendProfileList?[row].statusMsg ?? ""
+            let data = Array(friendProfileDic!.values)[row]
+            cell?.profileImg.image = getProfileImageFrom(strData: (data.profileImg)!)
+            cell?.name.text        = data.name //friendProfileList?[row].name
+            cell?.statMsg.text     = data.statusMsg ?? ""
             cell?.isSelected       = false
             
             return cell!
@@ -180,7 +201,7 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             selectedAccount = myAccount
         } else {
-            selectedAccount = friendProfileList?[indexPath.row - 1]
+            selectedAccount = Array(friendProfileDic!.values)[indexPath.row - 1]
         }
         
         if let profileVC = self.storyboard?.instantiateViewController(identifier: "profileVC") as? ProfileViewController {

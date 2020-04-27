@@ -52,12 +52,14 @@ extension UIViewController {
     }
     
     func getProfileImageFrom(strData: String) -> UIImage {
+        guard strData != "" else {return UIImage(named: "default_user_profile.png")!}
+        
         if let imgData = Data(base64Encoded: strData) {
-            let image = UIImage(data: imgData) ?? UIImage(named: "default_user_profile")!
+            let image = UIImage(data: imgData) ?? UIImage(named: "default_user_profile.png")!
             return image
         }
         else {
-            return UIImage(named: "default_user_profile")!
+            return UIImage(named: "default_user_profile.png")!
         }
     }
     
