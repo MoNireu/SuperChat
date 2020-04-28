@@ -44,12 +44,15 @@ class SignUpViewController: UIViewController {
         hideLabel(passwordCheckWarningLbl)
         hideLabel(userIdWarningLbl)
         
+        passwordTextField.isSecureTextEntry      = true
+        passwordCheckTextField.isSecureTextEntry = true
+        
         emailTextField.delegate         = self
         passwordTextField.delegate      = self
         passwordCheckTextField.delegate = self
         userIdTextField.delegate        = self
-        userIdTextField.keyboardType = .asciiCapable
-        actIndicator.hidesWhenStopped = true
+        userIdTextField.keyboardType    = .asciiCapable
+        actIndicator.hidesWhenStopped   = true
         
         completeBtn.isEnabled = false
     }

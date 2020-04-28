@@ -226,6 +226,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         plist.removeObject(forKey: "statusMsg")
         plist.removeObject(forKey: "profileImg")
         plist.removeObject(forKey: "backgroundImg")
+        plist.removeObject(forKey: "friendList")
+        plist.removeObject(forKey: "friendProfileListData")
+        plist.removeObject(forKey: "latestProfileUpdate")
+        
         
         return plist.synchronize()
     }

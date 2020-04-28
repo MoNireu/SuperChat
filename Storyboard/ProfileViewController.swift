@@ -26,6 +26,7 @@ class ProfileViewController: UIViewController {
     
     weak var delegate: FriendListViewController?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,6 +66,7 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    
     @IBAction func openChatRoom(_ sender: Any) {
         if let chatRoomVC = self.storyboard?.instantiateViewController(identifier: "chatRoomVC") as? ChatRoomViewController {
             chatRoomVC.accountVO = self.accountVO
@@ -79,6 +81,7 @@ class ProfileViewController: UIViewController {
             }
         }
     }
+    
     
     @objc func dismiss(_ sender: Any) {
         self.dismiss(animated: true) {
