@@ -30,6 +30,8 @@
 		E1BF9CB124064CBD00F0998E /* ChatRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BF9CB024064CBD00F0998E /* ChatRoomViewController.swift */; };
 		E1BF9CB3240656F900F0998E /* ChatRoomBottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BF9CB2240656F900F0998E /* ChatRoomBottomBar.swift */; };
 		E1C2AC02240E668900EA2A72 /* FriendChatContinueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C2AC01240E668900EA2A72 /* FriendChatContinueTableViewCell.swift */; };
+		E1C35CA8245986BC00C621F6 /* FriendRequestTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C35CA7245986BC00C621F6 /* FriendRequestTableTableViewController.swift */; };
+		E1C35CAA24599C0C00C621F6 /* FriendRequestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C35CA924599C0C00C621F6 /* FriendRequestTableViewCell.swift */; };
 		E1D2F2942418DE5200AC9FFA /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D2F2932418DE5200AC9FFA /* SignInViewController.swift */; };
 		E1D45B2324067E5D00D8AFFA /* MyChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D45B2224067E5D00D8AFFA /* MyChatTableViewCell.swift */; };
 		E1D45B2524067E6C00D8AFFA /* FriendChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D45B2424067E6C00D8AFFA /* FriendChatTableViewCell.swift */; };
@@ -65,6 +67,8 @@
 		E1BF9CB024064CBD00F0998E /* ChatRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChatRoomViewController.swift; path = Storyboard/ChatRoomViewController.swift; sourceTree = SOURCE_ROOT; };
 		E1BF9CB2240656F900F0998E /* ChatRoomBottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChatRoomBottomBar.swift; path = SuperChat/CustomView/ChatRoomBottomBar.swift; sourceTree = SOURCE_ROOT; };
 		E1C2AC01240E668900EA2A72 /* FriendChatContinueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendChatContinueTableViewCell.swift; sourceTree = "<group>"; };
+		E1C35CA7245986BC00C621F6 /* FriendRequestTableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendRequestTableTableViewController.swift; sourceTree = "<group>"; };
+		E1C35CA924599C0C00C621F6 /* FriendRequestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FriendRequestTableViewCell.swift; path = Pods/FriendRequestTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		E1D2F2932418DE5200AC9FFA /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		E1D45B2224067E5D00D8AFFA /* MyChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyChatTableViewCell.swift; path = SuperChat/TableViewCell/MyChatTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		E1D45B2424067E6C00D8AFFA /* FriendChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendChatTableViewCell.swift; sourceTree = "<group>"; };
@@ -122,6 +126,7 @@
 				E14ED6962403B1D80050310B /* FriendListViewController.swift */,
 				E161D5D52404F39F008024B9 /* ProfileViewController.swift */,
 				E1BF9CB024064CBD00F0998E /* ChatRoomViewController.swift */,
+				E1C35CA7245986BC00C621F6 /* FriendRequestTableTableViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -209,6 +214,7 @@
 		E1CFD8D4240E60E2004A7883 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				E1C35CA924599C0C00C621F6 /* FriendRequestTableViewCell.swift */,
 				E14ED69C2403B6920050310B /* MyAccountTableViewCell.swift */,
 				E14ED69E2403B78D0050310B /* FriendListTableViewCell.swift */,
 				E1D45B2224067E5D00D8AFFA /* MyChatTableViewCell.swift */,
@@ -337,9 +343,11 @@
 			files = (
 				E14ED6922403A93F0050310B /* ChatVO.swift in Sources */,
 				E1FF8E96241F70A400A39077 /* SetProfileViewController.swift in Sources */,
+				E1C35CA8245986BC00C621F6 /* FriendRequestTableTableViewController.swift in Sources */,
 				E17575552403919200558033 /* SuperChat.xcdatamodeld in Sources */,
 				E1BF9CB3240656F900F0998E /* ChatRoomBottomBar.swift in Sources */,
 				E1D45B2524067E6C00D8AFFA /* FriendChatTableViewCell.swift in Sources */,
+				E1C35CAA24599C0C00C621F6 /* FriendRequestTableViewCell.swift in Sources */,
 				E151CF07244F1AF70040FE27 /* ProfileVO.swift in Sources */,
 				E103D6FB2407AC6A009C158A /* ChatDummyData.swift in Sources */,
 				E14ED6902403A8AE0050310B /* ChatRoomVO.swift in Sources */,

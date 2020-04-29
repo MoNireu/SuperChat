@@ -20,6 +20,7 @@ class SignInViewController: UIViewController {
     
     var handle: AuthStateDidChangeListenerHandle?
     var appdelegate = UIApplication.shared.delegate as? AppDelegate
+    let accountUtils = AccountUtils()
     
     
     override func viewDidLoad() {
@@ -56,7 +57,7 @@ class SignInViewController: UIViewController {
                     guard let uid = user?.user.uid else {return}
                     
                     
-                    self.getDocumentFrom(uid) {
+                    self.accountUtils.getDocumentFrom(uid) {
                         if let setProfileVC = self.storyboard?.instantiateViewController(identifier: "setProfileViewController") {
                             setProfileVC.modalPresentationStyle = .fullScreen
                             self.actIndicator.stopAnimating()
@@ -80,19 +81,7 @@ class SignInViewController: UIViewController {
         }
     }
     
-    func getDocumentFrom(_ uid: String, complete: @escaping () -> ()) {
-        let uidRef = self.appdelegate?.db?.collection("UID").document(uid)
-        var userID: String?
-        uidRef?.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let result = document.data()
-                userID = result?["id"] as? String ?? nil
-                self.appdelegate?.getMyAccount(userID: userID, complete: complete)
-            } else {
-                self.errorAlert(error as? String)
-            }
-        }
-    }
+    
     
 //    func getUserID(_ userID: String, complete: @escaping () -> ()) {
 //        guard userID != nil else {return}

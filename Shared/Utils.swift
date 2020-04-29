@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import FirebaseAuth
+import FirebaseFirestore
 
 enum LocalDB: String {
     case myProfile = "MyAccount"
@@ -162,5 +164,127 @@ class UserDefaultsUtils {
         plist.removeObject(forKey: "backgroundImg")
         
         return plist.synchronize()
+    }
+}
+
+
+class AccountUtils {
+    let appdelegate = UIApplication.shared.delegate as? AppDelegate
+    
+    
+    func signOut() {
+        try? Auth.auth().signOut()
+        appdelegate?.isSignedIn = false
+        print("SignOut")
+    }
+    
+    func reloadMyAccount() {
+        // Get UserID from UID collection
+        let uidRef = appdelegate?.db?.collection("UID").document(Auth.auth().currentUser!.uid)
+        uidRef?.getDocument() { result, error in
+            if error == nil {   // Success
+                if let result = result?.data()?["id"] as? String {
+                    self.getMyAccount(userID: result)
+                }
+            } else { // Fail
+                print(error)
+            }
+        }
+    }
+    
+    func getDocumentFrom(_ uid: String, complete: @escaping () -> ()) {
+        // UID 가져오기
+        let uidRef = self.appdelegate?.db?.collection("UID").document(uid)
+        var userID: String?
+        uidRef?.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let result = document.data()
+                userID = result?["id"] as? String ?? nil
+                // 계정 정보 가져오기
+                self.getMyAccount(userID: userID, complete: complete)
+            } else {
+                print(error?.localizedDescription)
+            }
+        }
+    }
+    
+    func getMyAccount(userID: String?, complete: (() -> Void)? = nil) {
+            guard userID != nil else {self.signOut(); return}
+        let docRef = appdelegate?.db?.collection("Users").document(userID!)
+            docRef?.getDocument { (result, error) in
+                if result != nil, result!.exists { // Success
+                    self.appdelegate?.myAccount = MyAccountVO()
+                    
+                    let myAccount = self.appdelegate?.myAccount
+                    print("========== getDoc Success! ==========")
+                    let data = result?.data()
+                    myAccount?.id            = userID
+                    myAccount?.name          = data!["name"] as? String
+                    myAccount?.statusMsg     = data!["statusMsg"] as? String
+                    myAccount?.profileImg    = data!["profileImg"] as? String
+                    myAccount?.backgroundImg = data!["backgroundImg"] as? String
+                    
+                    print(data!["name"])
+                    print("appdelegate name = \(myAccount?.name)") // TestCode
+                    
+                    let friendsRef = docRef?.collection("friends")
+                    friendsRef?.getDocuments { (query, error) in
+                        if query != nil { // Success
+                            myAccount?.friendList = [String : Bool]()
+                            let docs = query?.documents
+                            for element in docs! {
+                                let elementData = element.data()
+                                let friend   = element.documentID
+                                let isFriend = elementData["isFriend"] as? Bool
+                                print("*********Friend: \(friend) / isFriend: \(isFriend)")
+                                myAccount?.friendList?.updateValue(isFriend!, forKey: friend)
+    //                            self.myAccount?.friendList?["\(friend)"] = isFriend
+                                print("FriendList = \(myAccount?.friendList)") //Test
+                            }
+                            
+                            self.appdelegate?.myAccount = myAccount
+                            complete?()
+                        }
+                        else {
+                            print("ERROR2 : \(error)")
+    //                        complete?()
+                        }
+                    }
+                }
+                else { // Fail
+                    print("ERROR1: \(error?.localizedDescription)")
+                }
+            }
+        }
+    
+    func downloadFriendProfile(id: String, isNew: Bool = false, completion: ((ProfileVO) -> Void)? = nil) {
+        let friendID = appdelegate?.db?.collection("Users").document(id)
+        friendID?.getDocument() { (doc, error) in
+            if doc != nil, doc?.exists == true { //success
+                
+                if isNew == false {
+                    // 업데이트 되지 않은 프로필 업데이트
+                    let timestamp = doc?.get("latestUpdate") as? Timestamp
+                    let friendProfileUpdateTime = timestamp?.dateValue()
+                    let mylatestUpdate: Date? = UserDefaults.standard.value(forKey: "latestProfileUpdate") as? Date
+                    guard mylatestUpdate == nil || mylatestUpdate! < (friendProfileUpdateTime!) else {return}
+                }
+                
+                guard let data = doc?.data() else {return}
+                
+                let friendProfile = ProfileVO()
+                
+                friendProfile.id            = id
+                friendProfile.name          = data["name"] as? String
+                friendProfile.statusMsg     = data["statusMsg"] as? String
+                friendProfile.profileImg    = data["profileImg"] as? String
+                friendProfile.backgroundImg = data["backgroundImg"] as? String
+                
+                completion?(friendProfile)
+            }
+            else {
+                print("ERROR: downloadFriendProfile() - \(error?.localizedDescription)")
+            }
+        }
     }
 }

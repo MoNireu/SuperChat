@@ -8,7 +8,6 @@
 
 import UIKit
 import FirebaseAuth
-import FirebaseFirestore
 
 
 class FriendListViewController: UIViewController {
@@ -23,6 +22,7 @@ class FriendListViewController: UIViewController {
     var friendProfileDic: [String : ProfileVO]?
     
     @IBOutlet var tableView: UITableView!
+    let accountUtils = AccountUtils()
     
     
     override func viewDidLoad() {
@@ -122,41 +122,13 @@ class FriendListViewController: UIViewController {
             
             for friend in friends {
                 if friend.value == true {
-                    downloadFriendProfile(id: friend.key) { profile in
+                    accountUtils.downloadFriendProfile(id: friend.key) { profile in
                         self.friendProfileDic?.updateValue(profile, forKey: friend.key)
                         print("Info: Append Friend Profile in FriendList")
                         cnt += 1
                         cnt == friends.count ? completion?() : ()
                     }
                 }
-            }
-        }
-    }
-    
-    func downloadFriendProfile(id: String, completion: ((ProfileVO) -> Void)? = nil) {
-        let friendID = appdelegate?.db?.collection("Users").document(id)
-        friendID?.getDocument() { (doc, error) in
-            if doc != nil, doc?.exists == true { //success
-                // 업데이트 되지 않은 프로필 업데이트
-                let timestamp = doc?.get("latestUpdate") as? Timestamp
-                let friendProfileUpdateTime = timestamp?.dateValue()
-                let mylatestUpdate: Date? = UserDefaults.standard.value(forKey: "latestProfileUpdate") as? Date
-                guard mylatestUpdate == nil || mylatestUpdate! < (friendProfileUpdateTime!) else {return}
-                
-                guard let data = doc?.data() else {return}
-                
-                let friendProfile = ProfileVO()
-                
-                friendProfile.id            = id
-                friendProfile.name          = data["name"] as? String
-                friendProfile.statusMsg     = data["statusMsg"] as? String
-                friendProfile.profileImg    = data["profileImg"] as? String
-                friendProfile.backgroundImg = data["backgroundImg"] as? String
-                
-                completion?(friendProfile)
-            }
-            else {
-                print("ERROR: downloadFriendProfile() - \(error?.localizedDescription)")
             }
         }
     }
