@@ -122,6 +122,7 @@ class FriendListViewController: UIViewController {
             
             for friend in friends {
                 if friend.value == true {
+                    print("$$$ here")
                     accountUtils.downloadFriendProfile(id: friend.key) { profile in
                         self.friendProfileDic?.updateValue(profile, forKey: friend.key)
                         print("Info: Append Friend Profile in FriendList")

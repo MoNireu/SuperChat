@@ -261,9 +261,10 @@ class AccountUtils {
         let friendID = appdelegate?.db?.collection("Users").document(id)
         friendID?.getDocument() { (doc, error) in
             if doc != nil, doc?.exists == true { //success
-                
+                print("$$$ \(isNew)")
                 if isNew == false {
                     // 업데이트 되지 않은 프로필 업데이트
+                    print("$$$") //Test
                     let timestamp = doc?.get("latestUpdate") as? Timestamp
                     let friendProfileUpdateTime = timestamp?.dateValue()
                     let mylatestUpdate: Date? = UserDefaults.standard.value(forKey: "latestProfileUpdate") as? Date

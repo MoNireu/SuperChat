@@ -13,16 +13,21 @@ class FriendRequestTableTableViewController: UITableViewController {
 
     let appdelegate = UIApplication.shared.delegate as? AppDelegate
     var friendRequestDic: [String : ProfileVO]?
-    
+    let actIndicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        downloadFriendRequest()
+        actIndicator.hidesWhenStopped = true
+        actIndicator.center.x = self.view.frame.width / 2
+        actIndicator.center.y = self.view.frame.height / 2
+        self.view.bringSubviewToFront(actIndicator)
         
+        downloadFriendRequest()
     }
     
+    
     func downloadFriendRequest() {
+        actIndicator.startAnimating()
         let db = appdelegate?.db
         let colRef = db!.collection("Users").document((appdelegate?.myAccount?.id)!).collection("friends").whereField("isFriend", isEqualTo: false)
         colRef.getDocuments { (col, error) in
@@ -31,15 +36,20 @@ class FriendRequestTableTableViewController: UITableViewController {
             if let docs = col?.documents {
                 self.friendRequestDic = [String : ProfileVO]()
                 let accountUtils = AccountUtils()
+                var docCnt = 0
                 for doc in docs {
                     accountUtils.downloadFriendProfile(id: doc.documentID, isNew: true) { (profileVO) in
                         self.friendRequestDic?.updateValue(profileVO, forKey: doc.documentID)
-                        print("Friend Request!")
-                        self.tableView.reloadData()
+                        docCnt += 1
+                        print("Friend Request!") //Test
+                        // 마지막 데이터 일 경우
+                        if docCnt == docs.count{
+                            self.actIndicator.stopAnimating()
+                            self.tableView.reloadData()
+                        }
                     }
                 }
             }
-            
         }
         
     }
