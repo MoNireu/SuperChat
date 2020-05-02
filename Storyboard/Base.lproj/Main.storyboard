@@ -41,7 +41,19 @@
                         <view key="tableFooterView" contentMode="scaleToFill" id="i7B-M9-jLd">
                             <rect key="frame" x="0.0" y="126" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="친구 요청 내역이 없습니다." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6GY-Tk-2kl">
+                                    <rect key="frame" x="117" y="11.5" width="180" height="21"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <constraints>
+                                <constraint firstItem="6GY-Tk-2kl" firstAttribute="centerX" secondItem="i7B-M9-jLd" secondAttribute="centerX" id="Rwc-EG-MoS"/>
+                                <constraint firstItem="6GY-Tk-2kl" firstAttribute="centerY" secondItem="i7B-M9-jLd" secondAttribute="centerY" id="qqx-u8-yaV"/>
+                            </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendRequestCell" rowHeight="70" id="4bl-LG-QfB" customClass="FriendRequestTableViewCell" customModule="SuperChat" customModuleProvider="target">
@@ -70,7 +82,7 @@
                                             <rect key="frame" x="348" y="20" width="46" height="30"/>
                                             <state key="normal" title="Button"/>
                                             <connections>
-                                                <action selector="add:" destination="4bl-LG-QfB" eventType="touchUpInside" id="VdT-EF-PnH"/>
+                                                <action selector="acceptFriend:" destination="4bl-LG-QfB" eventType="touchUpInside" id="VdT-EF-PnH"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -84,7 +96,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="addBtn" destination="i3W-TT-eTC" id="VOg-G6-hXK"/>
+                                    <outlet property="acceptFriendBtn" destination="i3W-TT-eTC" id="VOg-G6-hXK"/>
                                     <outlet property="name" destination="RPu-hi-wh1" id="hk3-yd-2gI"/>
                                     <outlet property="profileImg" destination="VhO-DZ-6X8" id="bZL-Lx-07U"/>
                                 </connections>
@@ -96,6 +108,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="친구요청" largeTitleDisplayMode="always" id="XgA-FO-1eu"/>
+                    <connections>
+                        <outlet property="noFriendReqestLbl" destination="6GY-Tk-2kl" id="zYz-Rx-e2V"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VtU-Zt-IOz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -107,7 +122,7 @@
                 <navigationController id="Nan-ID-qam" userLabel="친구요청" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="친구요청" id="fI8-OH-plW" userLabel="친구요청"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="tfl-yp-WqQ">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -469,7 +484,7 @@
                     <tabBarItem key="tabBarItem" title="친구목록" id="s7D-Jt-V58"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="3Xe-fB-o4d">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1110,7 +1125,7 @@
                     <tabBarItem key="tabBarItem" title="대화목록" id="9f7-08-cb0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="unL-zf-TlM">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

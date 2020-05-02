@@ -14,13 +14,19 @@ class FriendRequestTableTableViewController: UITableViewController {
     let appdelegate = UIApplication.shared.delegate as? AppDelegate
     var friendRequestDic: [String : ProfileVO]?
     let actIndicator = UIActivityIndicatorView()
+    @IBOutlet var noFriendReqestLbl: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // UI settings
         actIndicator.hidesWhenStopped = true
         actIndicator.center.x = self.view.frame.width / 2
         actIndicator.center.y = self.view.frame.height / 2
+        self.view.addSubview(actIndicator)
         self.view.bringSubviewToFront(actIndicator)
+        noFriendReqestLbl.isHidden = true
         
         downloadFriendRequest()
     }
@@ -29,11 +35,21 @@ class FriendRequestTableTableViewController: UITableViewController {
     func downloadFriendRequest() {
         actIndicator.startAnimating()
         let db = appdelegate?.db
+        
+        // 친구요청 불러오기
         let colRef = db!.collection("Users").document((appdelegate?.myAccount?.id)!).collection("friends").whereField("isFriend", isEqualTo: false)
         colRef.getDocuments { (col, error) in
             guard error == nil else {print(error?.localizedDescription); return}
             
             if let docs = col?.documents {
+                // 친구 요청이 존재하는지 확인
+                guard docs.count != 0 else {
+                    // 요청이 없을 경우
+                    self.noFriendReqestLbl.isHidden = false
+                    self.actIndicator.stopAnimating()
+                    return
+                }
+                
                 self.friendRequestDic = [String : ProfileVO]()
                 let accountUtils = AccountUtils()
                 var docCnt = 0
@@ -64,16 +80,19 @@ class FriendRequestTableTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "friendRequestCell", for: indexPath) as? FriendRequestTableViewCell
-            let data = Array(friendRequestDic!.values)[indexPath.row]
-            
-            cell?.profileImg.image = strDataToImg(strData: data.profileImg!)
-            cell?.name.text = data.name
+        let data = Array(friendRequestDic!.values)[indexPath.row]
         
+        cell?.profileImg.image     = strDataToImg(strData: data.profileImg!)
+        cell?.name.text            = data.name
+        cell?.id                   = data.id
+        cell?.acceptFriendComplete = {
+            self.friendRequestDic?.removeValue(forKey: data.id!)
+            tableView.reloadData()
+        }
         
         return cell!
     }
     
-
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

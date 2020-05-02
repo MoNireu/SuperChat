@@ -10,10 +10,12 @@ import UIKit
 
 class FriendRequestTableViewCell: UITableViewCell {
 
-    
+    var id: String?
+    var acceptFriendComplete: (() -> Void)?
     @IBOutlet var profileImg: UIImageView!
     @IBOutlet var name: UILabel!
-    @IBOutlet var addBtn: UIButton!
+    @IBOutlet var acceptFriendBtn: UIButton!
+    
     
     
     
@@ -22,8 +24,8 @@ class FriendRequestTableViewCell: UITableViewCell {
         profileImg.makeImageRound()
         name.sizeToFit()
         
-        addBtn.makeButtonRound()
-        addBtn.setTitle("  친구추가  ", for: .normal)
+        acceptFriendBtn.makeButtonRound()
+        acceptFriendBtn.setTitle("  친구추가  ", for: .normal)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -32,9 +34,19 @@ class FriendRequestTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    
-    @IBAction func add(_ sender: Any) {
+
+    @IBAction func acceptFriend(_ sender: Any) {
+        let appdelegate = UIApplication.shared.delegate as? AppDelegate
         
+        let docRef = appdelegate?.db?.collection("Users").document((appdelegate?.myAccount?.id)!).collection("friends").document(self.id!)
+        docRef?.setData(["isFriend" : true]) { (error) in
+            if error == nil { // Success
+                self.acceptFriendComplete?()
+            }
+            else {
+                print("ERROR while add friend - \(error?.localizedDescription)")
+            }
+        }
     }
     
 
