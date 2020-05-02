@@ -53,10 +53,11 @@ extension UIViewController {
         self.present(alert, animated: true)
     }
     
-    func strDataToImg(strData: String) -> UIImage {
-        guard strData != "" else {return UIImage(named: "default_user_profile.png")!}
+    func strDataToImg(strData: String?) -> UIImage {
+        guard strData != "" else { return UIImage(named: "default_user_profile.png")! }
+        guard strData != nil else { return UIImage(named: "default_user_profile.png")! }
         
-        if let imgData = Data(base64Encoded: strData) {
+        if let imgData = Data(base64Encoded: strData!) {
             let image = UIImage(data: imgData) ?? UIImage(named: "default_user_profile.png")!
             return image
         }

@@ -11,11 +11,11 @@ import UIKit
 
 class FriendRequestTableTableViewController: UITableViewController {
 
-    let appdelegate = UIApplication.shared.delegate as? AppDelegate
-    var friendRequestDic: [String : ProfileVO]?
+    let appdelegate  = UIApplication.shared.delegate as? AppDelegate
     let actIndicator = UIActivityIndicatorView()
+    var friendRequestDic: [String : ProfileVO]?
     @IBOutlet var noFriendReqestLbl: UILabel!
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()

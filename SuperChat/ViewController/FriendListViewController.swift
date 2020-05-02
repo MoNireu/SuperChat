@@ -60,11 +60,6 @@ class FriendListViewController: UIViewController {
     }
     
     
-    override func viewDidAppear(_ animated: Bool) {
-        self.hidesBottomBarWhenPushed = true
-    }
-    
-    
     @IBAction func signOut(_ sender: Any) {
         appdelegate?.isSignedIn = false
         
@@ -183,7 +178,9 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
             profileVC.delegate = self
             
             profileVC.modalPresentationStyle = .fullScreen
-            self.present(profileVC, animated: true)
+            self.present(profileVC, animated: true) {
+                self.hidesBottomBarWhenPushed = true
+            }
             
             tableView.cellForRow(at: indexPath)?.isSelected = false
         }

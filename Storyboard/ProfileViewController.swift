@@ -37,11 +37,11 @@ class ProfileViewController: UIViewController {
         button2.imageView?.makeImageRound()
         button3.imageView?.makeImageRound()
         
-        backgroundImg.image       = self.strDataToImg(strData: (accountVO?.backgroundImg)!)
+        backgroundImg.image       = self.strDataToImg(strData: accountVO?.backgroundImg)
         backgroundImg.contentMode = .scaleAspectFill
         backgroundImg.alpha       = 0.75
         
-        profileImg.image       = self.strDataToImg(strData: (accountVO?.profileImg)!)
+        profileImg.image       = self.strDataToImg(strData: accountVO?.profileImg)
         profileImg.contentMode = .scaleAspectFill
         self.view.bringSubviewToFront(profileImg)
         
