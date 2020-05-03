@@ -31,90 +31,99 @@
             <point key="canvasLocation" x="783" y="441"/>
         </scene>
         <!--친구요청-->
-        <scene sceneID="8xM-Ak-99y">
+        <scene sceneID="yZc-HI-avf">
             <objects>
-                <tableViewController id="49O-aF-rjI" userLabel="친구요청" customClass="FriendRequestTableTableViewController" customModule="SuperChat" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="lQO-Bj-dsK">
+                <viewController id="E20-ax-8cS" customClass="FriendRequestViewController" customModule="SuperChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lOq-QW-urE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="i7B-M9-jLd">
-                            <rect key="frame" x="0.0" y="126" width="414" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="친구 요청 내역이 없습니다." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6GY-Tk-2kl">
-                                    <rect key="frame" x="117" y="11.5" width="180" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            <constraints>
-                                <constraint firstItem="6GY-Tk-2kl" firstAttribute="centerX" secondItem="i7B-M9-jLd" secondAttribute="centerX" id="Rwc-EG-MoS"/>
-                                <constraint firstItem="6GY-Tk-2kl" firstAttribute="centerY" secondItem="i7B-M9-jLd" secondAttribute="centerY" id="qqx-u8-yaV"/>
-                            </constraints>
-                        </view>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendRequestCell" rowHeight="70" id="4bl-LG-QfB" customClass="FriendRequestTableViewCell" customModule="SuperChat" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="70"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4bl-LG-QfB" id="Hpw-NM-6TI">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jcp-FP-n8g">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="Dp5-ai-oCo">
+                                    <rect key="frame" x="0.0" y="126" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VhO-DZ-6X8">
-                                            <rect key="frame" x="20" y="10" width="50" height="50"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Oeb-jo-6sA"/>
-                                                <constraint firstAttribute="height" constant="50" id="XLA-Ea-uYD"/>
-                                                <constraint firstAttribute="width" constant="50" id="Yxu-zD-BUx"/>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="baf-xP-c6E"/>
-                                            </constraints>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RPu-hi-wh1">
-                                            <rect key="frame" x="78" y="24.5" width="42" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="친구 요청이 없습니다." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tjo-jT-s1c">
+                                            <rect key="frame" x="134" y="11.5" width="146" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i3W-TT-eTC">
-                                            <rect key="frame" x="348" y="20" width="46" height="30"/>
-                                            <state key="normal" title="Button"/>
-                                            <connections>
-                                                <action selector="acceptFriend:" destination="4bl-LG-QfB" eventType="touchUpInside" id="VdT-EF-PnH"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     <constraints>
-                                        <constraint firstItem="RPu-hi-wh1" firstAttribute="leading" secondItem="VhO-DZ-6X8" secondAttribute="trailing" constant="8" id="8W6-wd-fb2"/>
-                                        <constraint firstItem="i3W-TT-eTC" firstAttribute="trailing" secondItem="Hpw-NM-6TI" secondAttribute="trailingMargin" id="Ngm-D1-mEE"/>
-                                        <constraint firstItem="VhO-DZ-6X8" firstAttribute="centerY" secondItem="Hpw-NM-6TI" secondAttribute="centerY" id="dNT-vD-BUM"/>
-                                        <constraint firstItem="i3W-TT-eTC" firstAttribute="centerY" secondItem="Hpw-NM-6TI" secondAttribute="centerY" id="hLf-te-Mb1"/>
-                                        <constraint firstItem="VhO-DZ-6X8" firstAttribute="leading" secondItem="Hpw-NM-6TI" secondAttribute="leading" constant="20" id="pth-QO-xH3"/>
-                                        <constraint firstItem="RPu-hi-wh1" firstAttribute="centerY" secondItem="Hpw-NM-6TI" secondAttribute="centerY" id="y9Z-2A-6g5"/>
+                                        <constraint firstItem="Tjo-jT-s1c" firstAttribute="centerY" secondItem="Dp5-ai-oCo" secondAttribute="centerY" id="6Hj-J5-sTB"/>
+                                        <constraint firstItem="Tjo-jT-s1c" firstAttribute="centerX" secondItem="Dp5-ai-oCo" secondAttribute="centerX" id="GDM-VF-Bl4"/>
                                     </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="acceptFriendBtn" destination="i3W-TT-eTC" id="VOg-G6-hXK"/>
-                                    <outlet property="name" destination="RPu-hi-wh1" id="hk3-yd-2gI"/>
-                                    <outlet property="profileImg" destination="VhO-DZ-6X8" id="bZL-Lx-07U"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="49O-aF-rjI" id="YF4-WJ-Gpg"/>
-                            <outlet property="delegate" destination="49O-aF-rjI" id="x0a-h3-bKt"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="친구요청" largeTitleDisplayMode="always" id="XgA-FO-1eu"/>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendRequestCell" id="vaj-pC-0NN" customClass="FriendRequestTableViewCell" customModule="SuperChat" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vaj-pC-0NN" id="b3z-x2-0uJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vkK-WC-BvU">
+                                                    <rect key="frame" x="20" y="10" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="KzL-XB-CaQ"/>
+                                                        <constraint firstAttribute="height" constant="50" id="b5j-Al-AX3"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9tu-SO-SM9">
+                                                    <rect key="frame" x="78" y="24.5" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eoa-hP-22o">
+                                                    <rect key="frame" x="348" y="20" width="46" height="30"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <connections>
+                                                        <action selector="acceptFriend:" destination="vaj-pC-0NN" eventType="touchUpInside" id="gP7-29-9Jf"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="eoa-hP-22o" firstAttribute="centerY" secondItem="b3z-x2-0uJ" secondAttribute="centerY" id="2Nr-Jn-579"/>
+                                                <constraint firstItem="vkK-WC-BvU" firstAttribute="centerY" secondItem="b3z-x2-0uJ" secondAttribute="centerY" id="NSd-HP-g9F"/>
+                                                <constraint firstItem="eoa-hP-22o" firstAttribute="trailing" secondItem="b3z-x2-0uJ" secondAttribute="trailingMargin" id="RGo-Gv-o3O"/>
+                                                <constraint firstItem="9tu-SO-SM9" firstAttribute="centerY" secondItem="b3z-x2-0uJ" secondAttribute="centerY" id="UYJ-5z-W7I"/>
+                                                <constraint firstItem="vkK-WC-BvU" firstAttribute="leading" secondItem="b3z-x2-0uJ" secondAttribute="leading" constant="20" id="VVE-Ov-tYa"/>
+                                                <constraint firstItem="9tu-SO-SM9" firstAttribute="leading" secondItem="vkK-WC-BvU" secondAttribute="trailing" constant="8" id="xFE-9v-IS2"/>
+                                                <constraint firstItem="vkK-WC-BvU" firstAttribute="centerY" secondItem="b3z-x2-0uJ" secondAttribute="centerY" id="z3H-Qh-wTc"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="acceptFriendBtn" destination="eoa-hP-22o" id="jry-SS-vQT"/>
+                                            <outlet property="name" destination="9tu-SO-SM9" id="9qs-Et-qGh"/>
+                                            <outlet property="profileImg" destination="vkK-WC-BvU" id="hxe-7L-EC8"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="jcp-FP-n8g" firstAttribute="bottom" secondItem="WVE-gm-q2h" secondAttribute="bottom" id="3Jy-1V-7eE"/>
+                            <constraint firstItem="jcp-FP-n8g" firstAttribute="leading" secondItem="lOq-QW-urE" secondAttribute="leading" id="Lhh-Pv-crl"/>
+                            <constraint firstItem="jcp-FP-n8g" firstAttribute="top" secondItem="WVE-gm-q2h" secondAttribute="top" id="btO-6j-OsZ"/>
+                            <constraint firstItem="jcp-FP-n8g" firstAttribute="trailing" secondItem="WVE-gm-q2h" secondAttribute="trailing" id="s9Q-od-XM6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="WVE-gm-q2h"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="친구요청" id="U6A-t6-i3F"/>
                     <connections>
-                        <outlet property="noFriendReqestLbl" destination="6GY-Tk-2kl" id="zYz-Rx-e2V"/>
+                        <outlet property="noFriendReqestLbl" destination="Tjo-jT-s1c" id="S4o-3c-n03"/>
+                        <outlet property="tableView" destination="jcp-FP-n8g" id="Os4-Os-HYf"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="VtU-Zt-IOz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="suF-qa-1bW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="783" y="1138"/>
+            <point key="canvasLocation" x="782.60869565217399" y="1137.7232142857142"/>
         </scene>
         <!--친구요청-->
         <scene sceneID="SiL-ag-nB5">
@@ -126,7 +135,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="49O-aF-rjI" kind="relationship" relationship="rootViewController" id="RUh-bv-2rU"/>
+                        <segue destination="E20-ax-8cS" kind="relationship" relationship="rootViewController" id="q9x-8q-XRs"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gdf-30-vLg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

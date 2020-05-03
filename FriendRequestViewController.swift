@@ -9,24 +9,29 @@
 import UIKit
 
 
-class FriendRequestTableTableViewController: UITableViewController {
+class FriendRequestViewController: UIViewController {
 
     let appdelegate  = UIApplication.shared.delegate as? AppDelegate
     let actIndicator = UIActivityIndicatorView()
     var friendRequestDic: [String : ProfileVO]?
     @IBOutlet var noFriendReqestLbl: UILabel!
-
+    @IBOutlet var tableView: UITableView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // UI settings
+        tableView.delegate   = self
+        tableView.dataSource = self
+        
         actIndicator.hidesWhenStopped = true
-        actIndicator.center.x = self.view.center.x
-        actIndicator.center.y = self.view.center.y
+        actIndicator.center.x         = self.view.center.x
+        actIndicator.center.y         = self.view.center.y
         self.view.addSubview(actIndicator)
         self.view.bringSubviewToFront(actIndicator)
         noFriendReqestLbl.isHidden = true
+        self.navigationController?.navigationBar.isHidden = false
         
         downloadFriendRequest()
     }
@@ -69,15 +74,20 @@ class FriendRequestTableTableViewController: UITableViewController {
         }
         
     }
+}
 
     // MARK: - Table view data source
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendRequestDic?.count ?? 0
-    }
-
+extension FriendRequestViewController: UITableViewDelegate, UITableViewDataSource {
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(friendRequestDic?.count ?? 0)
+        return friendRequestDic?.count ?? 0
+        
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "friendRequestCell", for: indexPath) as? FriendRequestTableViewCell
         let data = Array(friendRequestDic!.values)[indexPath.row]
@@ -93,3 +103,4 @@ class FriendRequestTableTableViewController: UITableViewController {
         return cell!
     }
 }
+
