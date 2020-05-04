@@ -20,6 +20,7 @@ class FriendListViewController: UIViewController {
         return appdelegate?.myAccount
     }()
     var friendProfileDic: [String : ProfileVO]?
+    var friendProfileList: [ProfileVO]?
     
     @IBOutlet var tableView: UITableView!
     let accountUtils = AccountUtils()
@@ -40,7 +41,9 @@ class FriendListViewController: UIViewController {
         print("myaccount name = \(myAccount?.name)") // Test
         
         loadFriendProfileList() {
+            self.friendProfileList = Array(self.friendProfileDic!.values).sorted(by: {$0.name! < $1.name!})
             self.tableView.reloadData()
+            print("teststsets")
             
             // UserDefaults에 FriendProfileList저장.
             let plist = UserDefaults.standard
@@ -134,7 +137,8 @@ class FriendListViewController: UIViewController {
 
 extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendProfileDic!.count + 1
+        print(friendProfileList?.count) // Test
+        return friendProfileList?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -153,7 +157,7 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "friendTableViewCell", for: indexPath) as? FriendListTableViewCell
             let row = indexPath.row - 1
-            let data = Array(friendProfileDic!.values)[row]
+            let data = friendProfileList![row]
             cell?.profileImg.image = strDataToImg(strData: (data.profileImg)!)
             cell?.name.text        = data.name //friendProfileList?[row].name
             cell?.statMsg.text     = data.statusMsg ?? ""
@@ -169,7 +173,7 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             selectedAccount = myAccount
         } else {
-            selectedAccount = Array(friendProfileDic!.values)[indexPath.row - 1]
+            selectedAccount = friendProfileList![indexPath.row - 1]
         }
         
         if let profileVC = self.storyboard?.instantiateViewController(identifier: "profileVC") as? ProfileViewController {
