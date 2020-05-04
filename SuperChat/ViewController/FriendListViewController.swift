@@ -20,7 +20,6 @@ class FriendListViewController: UIViewController {
         return appdelegate?.myAccount
     }()
     var friendProfileDic: [String : ProfileVO]?
-    var friendProfileList: [ProfileVO]?
     
     @IBOutlet var tableView: UITableView!
     let accountUtils = AccountUtils()
@@ -41,7 +40,6 @@ class FriendListViewController: UIViewController {
         print("myaccount name = \(myAccount?.name)") // Test
         
         loadFriendProfileList() {
-            self.friendProfileList = Array(self.friendProfileDic!.values).sorted(by: {$0.name! < $1.name!})
             self.tableView.reloadData()
             print("teststsets")
             
@@ -137,8 +135,7 @@ class FriendListViewController: UIViewController {
 
 extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(friendProfileList?.count) // Test
-        return friendProfileList?.count ?? 0
+        return friendProfileDic?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -157,7 +154,7 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "friendTableViewCell", for: indexPath) as? FriendListTableViewCell
             let row = indexPath.row - 1
-            let data = friendProfileList![row]
+            let data = Array(friendProfileDic!.values).sorted(by: {$0.name! < $1.name!})[row]
             cell?.profileImg.image = strDataToImg(strData: (data.profileImg)!)
             cell?.name.text        = data.name //friendProfileList?[row].name
             cell?.statMsg.text     = data.statusMsg ?? ""
@@ -173,7 +170,7 @@ extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             selectedAccount = myAccount
         } else {
-            selectedAccount = friendProfileList![indexPath.row - 1]
+            selectedAccount = Array(friendProfileDic!.values).sorted(by: {$0.name! < $1.name!})[indexPath.row - 1]
         }
         
         if let profileVC = self.storyboard?.instantiateViewController(identifier: "profileVC") as? ProfileViewController {
