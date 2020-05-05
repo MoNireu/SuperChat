@@ -135,7 +135,7 @@ class FriendListViewController: UIViewController {
 
 extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendProfileDic?.count ?? 0
+        return friendProfileDic != nil ? friendProfileDic!.count + 1 : 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
