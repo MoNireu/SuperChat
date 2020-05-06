@@ -20,24 +20,36 @@ class FriendListViewController: UIViewController {
         return appdelegate?.myAccount
     }()
     var friendProfileDic: [String : ProfileVO]?
+    let accountUtils = AccountUtils()
+    lazy var refreshControl = UIRefreshControl()
     
     @IBOutlet var tableView: UITableView!
-    let accountUtils = AccountUtils()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Hello from viewcon") //TestCode
+        
+        // TableView Delegate settings
         tableView.delegate = self
         tableView.dataSource = self
         
+        // UI settings
         self.navigationController?.navigationBar.prefersLargeTitles = true
+        
         
         let userDefaultsUtil = UserDefaultsUtils()
         appdelegate?.myAccount = userDefaultsUtil.fetchMyAccount()
         
         myAccount = appdelegate?.myAccount
         print("myaccount name = \(myAccount?.name)") // Test
+        
+//        refreshControl.addTarget(self, action: #selector(refreshFriendProfileList(_:)), for: .valueChanged)
+//        tableView.refreshControl = self.refreshControl
+//        tableView.addSubview(self.refreshControl)
+        
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshFriendProfileList(_:)), for: .valueChanged)
+        
         
         loadFriendProfileList() {
             self.tableView.reloadData()
@@ -94,6 +106,30 @@ class FriendListViewController: UIViewController {
     }
     
     
+    @objc func refreshFriendProfileList(_ refreshControl: UIRefreshControl) {
+        loadFriendProfileList() {
+            self.tableView.reloadData()
+            print("aaa")
+            refreshControl.endRefreshing()
+            print("bbb")
+            
+            // UserDefaults에 FriendProfileList저장.
+            let plist = UserDefaults.standard
+            do {
+                // 인코딩 후 저장
+                let encoder = JSONEncoder()
+                let friendProfileListData = try encoder.encode(self.friendProfileDic)
+                plist.set(friendProfileListData, forKey: "friendProfileListData")
+                
+                // latestUpdate 시간 저장
+                plist.set(Date(), forKey: "latestProfileUpdate")
+            }
+            catch let error{
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     func loadFriendProfileList(completion: (() -> Void)? = nil) {
         var cnt = 0
         
@@ -120,9 +156,12 @@ class FriendListViewController: UIViewController {
                 if friend.value == true {
                     print("$$$ here")
                     accountUtils.downloadFriendProfile(id: friend.key) { profile in
-                        self.friendProfileDic?.updateValue(profile, forKey: friend.key)
-                        print("Info: Append Friend Profile in FriendList")
+                        if let profile = profile {
+                            self.friendProfileDic?.updateValue(profile, forKey: friend.key)
+                            print("Info: Append Friend Profile in FriendList")
+                        }
                         cnt += 1
+                        print("cnt = \(cnt)\ncount = \(friends.count)") //testcode
                         cnt == friends.count ? completion?() : ()
                     }
                 }

@@ -258,18 +258,18 @@ class AccountUtils {
             }
         }
     
-    func downloadFriendProfile(id: String, isNew: Bool = false, completion: ((ProfileVO) -> Void)? = nil) {
+    func downloadFriendProfile(id: String, isNew: Bool = false, completion: ((ProfileVO?) -> Void)? = nil) {
         let friendID = appdelegate?.db?.collection("Users").document(id)
         friendID?.getDocument() { (doc, error) in
             if doc != nil, doc?.exists == true { //success
                 print("$$$ \(isNew)")
-                if isNew == false {
-                    // 업데이트 되지 않은 프로필 업데이트
+                if isNew == false { // 기존 존재하던 프로필일 경우
                     print("$$$") //Test
                     let timestamp = doc?.get("latestUpdate") as? Timestamp
                     let friendProfileUpdateTime = timestamp?.dateValue()
                     let mylatestUpdate: Date? = UserDefaults.standard.value(forKey: "latestProfileUpdate") as? Date
-                    guard mylatestUpdate == nil || mylatestUpdate! < (friendProfileUpdateTime!) else {return}
+                    // 최신 업데이트 되었는지 확인 후 업데이트 진행 유무 결정
+                    guard mylatestUpdate == nil || (mylatestUpdate! < friendProfileUpdateTime!) else {completion?(nil); return}
                 }
                 
                 guard let data = doc?.data() else {return}

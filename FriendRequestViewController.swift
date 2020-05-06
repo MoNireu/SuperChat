@@ -60,7 +60,7 @@ class FriendRequestViewController: UIViewController {
                 var docCnt = 0
                 for doc in docs {
                     accountUtils.downloadFriendProfile(id: doc.documentID, isNew: true) { (profileVO) in
-                        self.friendRequestDic?.updateValue(profileVO, forKey: doc.documentID)
+                        self.friendRequestDic?.updateValue(profileVO!, forKey: doc.documentID)
                         docCnt += 1
                         print("Friend Request!") //Test
                         // 마지막 데이터 일 경우
