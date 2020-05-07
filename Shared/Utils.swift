@@ -216,6 +216,7 @@ class AccountUtils {
                 if result != nil, result!.exists { // Success
                     self.appdelegate?.myAccount = MyAccountVO()
                     
+                    // 계정정보 가져오기
                     let myAccount = self.appdelegate?.myAccount
                     print("========== getDoc Success! ==========")
                     let data = result?.data()
@@ -225,10 +226,12 @@ class AccountUtils {
                     myAccount?.profileImg    = data!["profileImg"] as? String
                     myAccount?.backgroundImg = data!["backgroundImg"] as? String
                     
-                    print(data!["name"])
+                    print(data!["name"]) // Test
                     print("appdelegate name = \(myAccount?.name)") // TestCode
                     
-                    let friendsRef = docRef?.collection("friends")
+                    
+                    // 친구목록 가져오기
+                    let friendsRef = docRef?.collection("friends").whereField("isFriend", isEqualTo: true)
                     friendsRef?.getDocuments { (query, error) in
                         if query != nil { // Success
                             myAccount?.friendList = [String : Bool]()

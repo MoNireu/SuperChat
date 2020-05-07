@@ -43,9 +43,6 @@ class FriendListViewController: UIViewController {
         myAccount = appdelegate?.myAccount
         print("myaccount name = \(myAccount?.name)") // Test
         
-//        refreshControl.addTarget(self, action: #selector(refreshFriendProfileList(_:)), for: .valueChanged)
-//        tableView.refreshControl = self.refreshControl
-//        tableView.addSubview(self.refreshControl)
         
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(refreshFriendProfileList(_:)), for: .valueChanged)
@@ -152,6 +149,7 @@ class FriendListViewController: UIViewController {
                 friendProfileDic = [String: ProfileVO]()
             }
             
+            print(friends) //Test
             for friend in friends {
                 if friend.value == true {
                     print("$$$ here")
