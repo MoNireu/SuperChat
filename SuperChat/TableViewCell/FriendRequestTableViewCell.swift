@@ -25,6 +25,8 @@ class FriendRequestTableViewCell: UITableViewCell {
         name.sizeToFit()
         
         acceptFriendBtn.makeButtonRound()
+        acceptFriendBtn.backgroundColor = .systemBlue
+        acceptFriendBtn.setTitleColor(.white, for: .normal)
         acceptFriendBtn.setTitle("  친구추가  ", for: .normal)
     }
 
