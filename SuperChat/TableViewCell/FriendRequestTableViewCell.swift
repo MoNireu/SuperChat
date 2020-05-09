@@ -37,12 +37,13 @@ class FriendRequestTableViewCell: UITableViewCell {
     }
     
 
-    @IBAction func acceptFriend(_ sender: Any) {
+    @IBAction func acceptFriend(_ sender: UIButton) {
         let appdelegate = UIApplication.shared.delegate as? AppDelegate
         
         let docRef = appdelegate?.db?.collection("Users").document((appdelegate?.myAccount?.id)!).collection("friends").document(self.id!)
         docRef?.setData(["isFriend" : true]) { (error) in
             if error == nil { // Success
+                sender.backgroundColor = .systemGray
                 self.acceptFriendComplete?()
             }
             else {

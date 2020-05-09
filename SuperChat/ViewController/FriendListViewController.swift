@@ -21,6 +21,8 @@ class FriendListViewController: UIViewController {
     }()
     var friendProfileDic: [String : ProfileVO]?
     let accountUtils = AccountUtils()
+    let userDefaultsUtils = UserDefaultsUtils()
+    let friendRequestVC = FriendRequestViewController()
     lazy var refreshControl = UIRefreshControl()
     
     @IBOutlet var tableView: UITableView!
@@ -36,9 +38,7 @@ class FriendListViewController: UIViewController {
         // UI settings
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
-        
-        let userDefaultsUtil = UserDefaultsUtils()
-        appdelegate?.myAccount = userDefaultsUtil.fetchMyAccount()
+        appdelegate?.myAccount = userDefaultsUtils.fetchMyAccount()
         
         myAccount = appdelegate?.myAccount
         print("myaccount name = \(myAccount?.name)") // Test
@@ -52,20 +52,7 @@ class FriendListViewController: UIViewController {
             self.tableView.reloadData()
             print("teststsets")
             
-            // UserDefaults에 FriendProfileList저장.
-            let plist = UserDefaults.standard
-            do {
-                // 인코딩 후 저장
-                let encoder = JSONEncoder()
-                let friendProfileListData = try encoder.encode(self.friendProfileDic)
-                plist.set(friendProfileListData, forKey: "friendProfileListData")
-                
-                // latestUpdate 시간 저장
-                plist.set(Date(), forKey: "latestProfileUpdate")
-            }
-            catch let error{
-                print(error.localizedDescription)
-            }
+            self.userDefaultsUtils.saveFriendProfileList(self.friendProfileDic!)
         }
     }
     
@@ -106,42 +93,16 @@ class FriendListViewController: UIViewController {
     @objc func refreshFriendProfileList(_ refreshControl: UIRefreshControl) {
         loadFriendProfileList() {
             self.tableView.reloadData()
-            print("aaa")
             refreshControl.endRefreshing()
-            print("bbb")
             
-            // UserDefaults에 FriendProfileList저장.
-            let plist = UserDefaults.standard
-            do {
-                // 인코딩 후 저장
-                let encoder = JSONEncoder()
-                let friendProfileListData = try encoder.encode(self.friendProfileDic)
-                plist.set(friendProfileListData, forKey: "friendProfileListData")
-                
-                // latestUpdate 시간 저장
-                plist.set(Date(), forKey: "latestProfileUpdate")
-            }
-            catch let error{
-                print(error.localizedDescription)
-            }
+            self.userDefaultsUtils.saveFriendProfileList(self.friendProfileDic!)
         }
     }
     
     func loadFriendProfileList(completion: (() -> Void)? = nil) {
         var cnt = 0
         
-        // UserDefaults에서 FriendProfileList 불러오기.
-        let plist = UserDefaults.standard
-        if let friendProfileListData = plist.value(forKey: "friendProfileListData") as? Data {
-            let decoder = JSONDecoder()
-            do {
-                let ud_friendProfileList = try decoder.decode([String : ProfileVO].self, from: friendProfileListData)
-                friendProfileDic = ud_friendProfileList
-            } catch let error {
-                print("UserDefaults load FriendProfileList ERROR: \(error.localizedDescription)")
-            }
-            
-        }
+        self.friendProfileDic = self.userDefaultsUtils.fetchFriendProfileList()
         
         if let friends = appdelegate?.myAccount?.friendList {
             // friendProfileList 초기화
@@ -172,6 +133,7 @@ class FriendListViewController: UIViewController {
 
 extension FriendListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(friendProfileDic?.count)
         return friendProfileDic != nil ? friendProfileDic!.count + 1 : 0
     }
     

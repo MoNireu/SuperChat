@@ -163,8 +163,42 @@ class UserDefaultsUtils {
         plist.removeObject(forKey: "statusMsg")
         plist.removeObject(forKey: "profileImg")
         plist.removeObject(forKey: "backgroundImg")
+        plist.removeObject(forKey: "lastProfileUpdate")
+        plist.removeObject(forKey: "friendProfileListData")
         
         return plist.synchronize()
+    }
+    
+    func saveFriendProfileList(_ friendProfileDictionary: [String : ProfileVO]) {
+        // UserDefaults에 FriendProfileList저장.
+        let plist = UserDefaults.standard
+        do {
+            // 인코딩 후 저장
+            let encoder = JSONEncoder()
+            let friendProfileListData = try encoder.encode(friendProfileDictionary)
+            plist.set(friendProfileListData, forKey: "friendProfileListData")
+            
+            // latestUpdate 시간 저장
+            plist.set(Date(), forKey: "latestProfileUpdate")
+        }
+        catch let error{
+            print(error.localizedDescription)
+        }
+    }
+    
+    func fetchFriendProfileList() -> [String : ProfileVO]? {
+        // UserDefaults에서 FriendProfileList 불러오기.
+        let plist = UserDefaults.standard
+        if let friendProfileListData = plist.value(forKey: "friendProfileListData") as? Data {
+            let decoder = JSONDecoder()
+            do {
+                let ud_friendProfileList = try decoder.decode([String : ProfileVO].self, from: friendProfileListData)
+                return ud_friendProfileList
+            } catch let error {
+                print("UserDefaults load FriendProfileList ERROR: \(error.localizedDescription)")
+            }
+        }
+        return nil
     }
 }
 

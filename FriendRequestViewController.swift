@@ -14,6 +14,7 @@ class FriendRequestViewController: UIViewController {
     let appdelegate  = UIApplication.shared.delegate as? AppDelegate
     let actIndicator = UIActivityIndicatorView()
     var friendRequestDic: [String : ProfileVO]?
+    weak var friendListVC_Delegate: FriendListViewController?
     @IBOutlet var noFriendReqestLbl: UILabel!
     @IBOutlet var tableView: UITableView!
     
@@ -34,6 +35,10 @@ class FriendRequestViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = false
         
         downloadFriendRequest()
+        
+        //Test Code Below
+        let friendListVC = FriendListViewController()
+        print(friendListVC.friendProfileDic)
     }
     
     
