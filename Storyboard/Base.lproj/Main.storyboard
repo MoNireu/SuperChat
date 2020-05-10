@@ -272,7 +272,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6OM-LM-FKx">
-                                <rect key="frame" x="192" y="644.5" width="30" height="30"/>
+                                <rect key="frame" x="189" y="644.5" width="36" height="32"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="7" maxX="5" maxY="7"/>
                                 <state key="normal" title="완료"/>
                                 <connections>
                                     <action selector="complete:" destination="B2Q-eC-gEc" eventType="touchUpInside" id="17h-yW-wMr"/>
@@ -416,7 +417,8 @@
                                 <rect key="frame" x="197" y="438" width="20" height="20"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e6N-O4-3HX">
-                                <rect key="frame" x="182" y="657" width="50" height="30"/>
+                                <rect key="frame" x="177" y="657" width="60" height="32"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="7" maxX="5" maxY="7"/>
                                 <state key="normal" title="   완료   "/>
                                 <connections>
                                     <action selector="finish:" destination="DYF-ap-C10" eventType="touchUpInside" id="neM-dA-RSV"/>
@@ -691,7 +693,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wfK-fb-8A9">
-                                <rect key="frame" x="184" y="549.5" width="46" height="30"/>
+                                <rect key="frame" x="179" y="549.5" width="56" height="32"/>
+                                <inset key="contentEdgeInsets" minX="5" minY="7" maxX="5" maxY="7"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="addFriendWithSender:" destination="NfF-m3-tGS" eventType="touchUpInside" id="qEO-xG-9a9"/>
@@ -1134,7 +1137,7 @@
                     <tabBarItem key="tabBarItem" title="대화목록" id="9f7-08-cb0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="unL-zf-TlM">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

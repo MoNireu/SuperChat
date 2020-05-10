@@ -24,10 +24,10 @@ class FriendRequestTableViewCell: UITableViewCell {
         profileImg.makeImageRound()
         name.sizeToFit()
         
-        acceptFriendBtn.makeButtonRound()
         acceptFriendBtn.backgroundColor = .systemBlue
         acceptFriendBtn.setTitleColor(.white, for: .normal)
-        acceptFriendBtn.setTitle("  친구추가  ", for: .normal)
+        acceptFriendBtn.setTitle("친구추가", for: .normal)
+        acceptFriendBtn.makeButtonRound()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
