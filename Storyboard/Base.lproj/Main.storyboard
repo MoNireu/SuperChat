@@ -80,7 +80,8 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eoa-hP-22o">
-                                                    <rect key="frame" x="348" y="20" width="46" height="30"/>
+                                                    <rect key="frame" x="338" y="19" width="56" height="32"/>
+                                                    <inset key="contentEdgeInsets" minX="5" minY="7" maxX="5" maxY="7"/>
                                                     <state key="normal" title="Button"/>
                                                     <connections>
                                                         <action selector="acceptFriend:" destination="vaj-pC-0NN" eventType="touchUpInside" id="gP7-29-9Jf"/>
@@ -131,7 +132,7 @@
                 <navigationController id="Nan-ID-qam" userLabel="친구요청" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="친구요청" id="fI8-OH-plW" userLabel="친구요청"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="tfl-yp-WqQ">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -495,7 +496,7 @@
                     <tabBarItem key="tabBarItem" title="친구목록" id="s7D-Jt-V58"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="3Xe-fB-o4d">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1137,7 +1138,7 @@
                     <tabBarItem key="tabBarItem" title="대화목록" id="9f7-08-cb0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="unL-zf-TlM">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

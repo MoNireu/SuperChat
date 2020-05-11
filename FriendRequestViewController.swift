@@ -31,6 +31,7 @@ class FriendRequestViewController: UIViewController {
         actIndicator.center.y         = self.view.center.y
         self.view.addSubview(actIndicator)
         self.view.bringSubviewToFront(actIndicator)
+        
         noFriendReqestLbl.isHidden = true
         self.navigationController?.navigationBar.isHidden = false
         
@@ -72,6 +73,12 @@ class FriendRequestViewController: UIViewController {
                         if docCnt == docs.count{
                             self.actIndicator.stopAnimating()
                             self.tableView.reloadData()
+                            if docs.count != 0 {
+                                self.navigationController?.tabBarItem.badgeValue = "\((self.friendRequestDic?.count)!)"
+                            }
+                            else {
+                                self.navigationController?.tabBarItem.badgeValue = nil
+                            }
                         }
                     }
                 }

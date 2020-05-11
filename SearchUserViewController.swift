@@ -52,8 +52,7 @@ class SearchUserViewController: UIViewController {
         
         // Make "AddFriend"Button round
         enableAddFriend()
-        addFriendBtn.layer.cornerRadius = addFriendBtn.frame.height / 1.9
-        addFriendBtn.layer.borderColor = UIColor.systemBlue.cgColor
+        addFriendBtn.makeButtonRound()
         addFriendBtn.setTitleColor(.white, for: .normal)
         addFriendBtn.setTitle("   친구추가   ", for: .normal)
 //        addFriendBtn.setTitle("   추가완료   ", for: .disabled)
