@@ -22,7 +22,6 @@ class FriendListViewController: UIViewController {
     var friendProfileDic: [String : ProfileVO]?
     let accountUtils = AccountUtils()
     let userDefaultsUtils = UserDefaultsUtils()
-    let friendRequestVC = FriendRequestViewController()
     lazy var refreshControl = UIRefreshControl()
     
     @IBOutlet var tableView: UITableView!
@@ -54,6 +53,8 @@ class FriendListViewController: UIViewController {
             
             self.userDefaultsUtils.saveFriendProfileList(self.friendProfileDic!)
         }
+        
+        
     }
     
     
@@ -104,14 +105,14 @@ class FriendListViewController: UIViewController {
         
         self.friendProfileDic = self.userDefaultsUtils.fetchFriendProfileList()
         
-        if let friends = appdelegate?.myAccount?.friendList {
-            // friendProfileList 초기화
+        if let friendList = appdelegate?.myAccount?.friendList {
+            // friendProfileList가 존재하지 않는다면 초기화
             if friendProfileDic == nil {
                 friendProfileDic = [String: ProfileVO]()
             }
             
-            print(friends) //Test
-            for friend in friends {
+            print(friendList) //Test
+            for friend in friendList {
                 if friend.value == true {
                     print("$$$ here")
                     accountUtils.downloadFriendProfile(id: friend.key) { profile in
@@ -120,8 +121,8 @@ class FriendListViewController: UIViewController {
                             print("Info: Append Friend Profile in FriendList")
                         }
                         cnt += 1
-                        print("cnt = \(cnt)\ncount = \(friends.count)") //testcode
-                        cnt == friends.count ? completion?() : ()
+                        print("cnt = \(cnt)\ncount = \(friendList.count)") //testcode
+                        cnt == friendList.count ? completion?() : ()
                     }
                 }
             }
