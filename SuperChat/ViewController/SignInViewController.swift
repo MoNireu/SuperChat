@@ -16,6 +16,7 @@ class SignInViewController: UIViewController {
     @IBOutlet var passwordTextField: UITextField!
     
     @IBOutlet var signInBtn: UIButton!
+    @IBOutlet var signUpBtn: UIButton!
     @IBOutlet var actIndicator: UIActivityIndicatorView!
     
     var handle: AuthStateDidChangeListenerHandle?
@@ -32,6 +33,9 @@ class SignInViewController: UIViewController {
         
         emailTextField.clearButtonMode    = .whileEditing
         passwordTextField.clearButtonMode = .whileEditing
+        
+        signInBtn.makeButtonRound()
+        signUpBtn.makeButtonRound()
         
         passwordTextField.text = "000000" // TestCode
     }

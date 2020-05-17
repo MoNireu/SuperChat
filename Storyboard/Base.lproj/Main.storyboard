@@ -169,18 +169,20 @@
                                     </textField>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9lQ-v0-RMb">
-                                <rect key="frame" x="181" y="532" width="52" height="60"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9lQ-v0-RMb">
+                                <rect key="frame" x="176" y="532" width="62" height="74"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DSZ-nJ-kZv">
-                                        <rect key="frame" x="0.0" y="0.0" width="52" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="62" height="32"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="7" maxX="5" maxY="7"/>
                                         <state key="normal" title="로그인"/>
                                         <connections>
                                             <action selector="signIn:" destination="c7H-0x-19r" eventType="touchUpInside" id="bGN-Oc-t5L"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h5C-sg-xpO">
-                                        <rect key="frame" x="0.0" y="30" width="52" height="30"/>
+                                        <rect key="frame" x="0.0" y="42" width="62" height="32"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="7" maxX="5" maxY="7"/>
                                         <state key="normal" title="회원가입"/>
                                         <connections>
                                             <action selector="signUp:" destination="c7H-0x-19r" eventType="touchUpInside" id="Tai-lK-AtG"/>
@@ -207,6 +209,7 @@
                         <outlet property="emailTextField" destination="gKh-5J-h3M" id="eTZ-pc-H3b"/>
                         <outlet property="passwordTextField" destination="cm1-7r-ais" id="Qbn-ni-GW0"/>
                         <outlet property="signInBtn" destination="DSZ-nJ-kZv" id="z0U-ur-YhP"/>
+                        <outlet property="signUpBtn" destination="h5C-sg-xpO" id="HfZ-LM-cn2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J4h-JU-KOl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
