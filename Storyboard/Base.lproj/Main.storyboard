@@ -794,7 +794,7 @@
                                                 </constraints>
                                                 <state key="normal" title="Button" image="default_user_profile.png"/>
                                                 <connections>
-                                                    <action selector="openChatRoom:" destination="M7u-lt-tZK" eventType="touchUpInside" id="dO1-1N-fnR"/>
+                                                    <action selector="presentNextView:" destination="M7u-lt-tZK" eventType="touchUpInside" id="dO1-1N-fnR"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1:1 채팅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZNJ-CD-4z2">
@@ -848,7 +848,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7VT-My-9EZ">
                                 <rect key="frame" x="157" y="559.5" width="100" height="128"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MfN-qy-fIL">
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MfN-qy-fIL">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="Vkb-g3-Gwq"/>
@@ -897,6 +897,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6wb-rA-jZb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1260.8695652173915" y="-908.03571428571422"/>
+        </scene>
+        <!--ProfileImgVC-->
+        <scene sceneID="lBx-q6-vBW">
+            <objects>
+                <viewController storyboardIdentifier="profileImgVC" title="profileImgVC" id="frt-1k-VpW" userLabel="ProfileImgVC" customClass="ProfileImgViewController" customModule="SuperChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Sa9-Xi-SpY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PvN-ZN-Iol">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oHW-L1-FfH">
+                                <rect key="frame" x="20" y="49" width="18" height="22"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="xmark" catalog="system"/>
+                                <connections>
+                                    <action selector="dismiss:" destination="frt-1k-VpW" eventType="touchUpInside" id="Fi7-sK-WLJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="oHW-L1-FfH" firstAttribute="top" secondItem="bV5-ww-2ad" secondAttribute="top" constant="5" id="65L-Yf-OXD"/>
+                            <constraint firstItem="oHW-L1-FfH" firstAttribute="leading" secondItem="bV5-ww-2ad" secondAttribute="leading" constant="20" id="g8G-VR-Ivo"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="bV5-ww-2ad"/>
+                    </view>
+                    <connections>
+                        <outlet property="profileImg" destination="PvN-ZN-Iol" id="WEu-2Z-I1B"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ilz-fF-Cvp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2134.7826086956525" y="-905.35714285714278"/>
         </scene>
         <!--Chat Room View Controller-->
         <scene sceneID="qHs-g2-cx7">
@@ -1179,5 +1215,6 @@
         <image name="default_user_profile.png" width="80" height="80"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="multiply" catalog="system" width="128" height="111"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>
 </document>

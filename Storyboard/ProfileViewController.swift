@@ -32,7 +32,12 @@ class ProfileViewController: UIViewController {
         
         ref = appdelegate?.ref
         
+        let tapRecognizer = UITapGestureRecognizer()
+        tapRecognizer.addTarget(self, action: #selector(showProfileImg(_:)))
+        
         profileImg.makeImageRound()
+        profileImg.addGestureRecognizer(tapRecognizer)
+        
         button1.imageView?.makeImageRound()
         button2.imageView?.makeImageRound()
         button3.imageView?.makeImageRound()
@@ -86,6 +91,14 @@ class ProfileViewController: UIViewController {
     @objc func dismiss(_ sender: Any) {
         self.dismiss(animated: true) {
             self.delegate?.tableView.reloadData()
+        }
+    }
+    
+    @objc func showProfileImg(_ sender: Any) {
+        if let profileImgVC = storyboard?.instantiateViewController(identifier: "profileImgVC") as? ProfileImgViewController {
+            profileImgVC.param_profileImg = profileImg.image ?? UIImage(named: "default_user_profile.png")
+            profileImgVC.modalPresentationStyle = .fullScreen
+            self.present(profileImgVC, animated: true)
         }
     }
 }
