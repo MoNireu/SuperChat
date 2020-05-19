@@ -11,11 +11,11 @@ import UIKit
 class ProfileImgViewController: UIViewController {
 
     @IBOutlet var profileImg: UIImageView!
-    var param_profileImg: UIImage?
+    var param_data: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        profileImg.image = param_profileImg
+        profileImg.image = param_data
         profileImg.contentMode = .scaleAspectFit
         profileImg.backgroundColor = .black
         // Do any additional setup after loading the view.

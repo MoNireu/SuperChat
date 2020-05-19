@@ -32,12 +32,6 @@ class ProfileViewController: UIViewController {
         
         ref = appdelegate?.ref
         
-        let tapRecognizer = UITapGestureRecognizer()
-        tapRecognizer.addTarget(self, action: #selector(showProfileImg(_:)))
-        
-        profileImg.makeImageRound()
-        profileImg.addGestureRecognizer(tapRecognizer)
-        
         button1.imageView?.makeImageRound()
         button2.imageView?.makeImageRound()
         button3.imageView?.makeImageRound()
@@ -45,7 +39,10 @@ class ProfileViewController: UIViewController {
         backgroundImg.image       = self.strDataToImg(strData: accountVO?.backgroundImg)
         backgroundImg.contentMode = .scaleAspectFill
         backgroundImg.alpha       = 0.75
+        backgroundImg.addGestureRecognizer(setGestureRecognizer())
         
+        profileImg.makeImageRound()
+        profileImg.addGestureRecognizer(setGestureRecognizer())
         profileImg.image       = self.strDataToImg(strData: accountVO?.profileImg)
         profileImg.contentMode = .scaleAspectFill
         self.view.bringSubviewToFront(profileImg)
@@ -62,6 +59,13 @@ class ProfileViewController: UIViewController {
         swipeGesture.direction = .down
         swipeGesture.addTarget(self, action: #selector(dismiss(_:)))
         self.view.addGestureRecognizer(swipeGesture)
+    }
+    
+    func setGestureRecognizer() -> UITapGestureRecognizer {
+        let tapRecognizer = UITapGestureRecognizer()
+        tapRecognizer.addTarget(self, action: #selector(showProfileImg(_:)))
+        
+        return tapRecognizer
     }
     
     
@@ -94,11 +98,23 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    @objc func showProfileImg(_ sender: Any) {
-        if let profileImgVC = storyboard?.instantiateViewController(identifier: "profileImgVC") as? ProfileImgViewController {
-            profileImgVC.param_profileImg = profileImg.image ?? UIImage(named: "default_user_profile.png")
-            profileImgVC.modalPresentationStyle = .fullScreen
-            self.present(profileImgVC, animated: true)
+    @objc func showProfileImg(_ sender: UITapGestureRecognizer) {
+        switch sender.view {
+        case profileImg:
+            if let profileImgVC = storyboard?.instantiateViewController(identifier: "profileImgVC") as? ProfileImgViewController {
+                profileImgVC.param_data = profileImg.image
+                profileImgVC.modalPresentationStyle = .fullScreen
+                self.present(profileImgVC, animated: true)
+            }
+        case backgroundImg:
+            if let profileImgVC = storyboard?.instantiateViewController(identifier: "profileImgVC") as? ProfileImgViewController {
+                profileImgVC.param_data = backgroundImg.image
+                profileImgVC.modalPresentationStyle = .fullScreen
+                self.present(profileImgVC, animated: true)
+            }
+        default:
+            ()
         }
+        
     }
 }
