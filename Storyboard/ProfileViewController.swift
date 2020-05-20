@@ -81,8 +81,6 @@ class ProfileViewController: UIViewController {
             chatRoomVC.accountVO = self.accountVO
             chatRoomVC.myAccount = delegate?.myAccount
             
-            
-            
             self.dismiss(animated: false) {
                 self.delegate?.navigationController!.pushViewController(chatRoomVC, animated: true)
                 self.delegate?.hidesBottomBarWhenPushed = false
