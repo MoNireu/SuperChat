@@ -18,6 +18,7 @@ class SetProfileViewController: UIViewController {
     @IBOutlet var statusMsgTextField: UITextView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var finishBtn: UIButton!
+    @IBOutlet var wordCountLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,7 @@ class SetProfileViewController: UIViewController {
         statusMsgTextField.text               = "상태 메시지를 입력해주세요."
         statusMsgTextField.textColor          = .lightGray
         statusMsgTextField.layer.borderColor  = UIColor.lightGray.cgColor
+        statusMsgTextField.delegate = self
         statusMsgTextField.layer.borderWidth  = 1.0
         statusMsgTextField.layer.cornerRadius = 5.0
         statusMsgTextField.sizeToFit()
@@ -43,6 +45,8 @@ class SetProfileViewController: UIViewController {
         finishBtn.layer.cornerRadius = finishBtn.frame.height / 2
         finishBtn.backgroundColor = .systemBlue
         finishBtn.setTitleColor(.white, for: .normal)
+        
+        wordCountLbl.textColor = .systemGray
         
         activityIndicator.stopAnimating()
         
@@ -192,20 +196,14 @@ class SetProfileViewController: UIViewController {
 
 }
 
-//extension SetProfileViewController: UITextFieldDelegate {
-//}
-//
-//extension SetProfileViewController: UITextViewDelegate {
-//
-//    func textViewDidBeginEditing(_ textView: UITextView) {
-//        activatedTV = textView
-//        print(activatedTV)
-//    }
-//
-//    func textViewDidEndEditing(_ textView: UITextView) {
-//        activatedTV = nil
-//    }
-//}
+extension SetProfileViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let currentCharCount = textView.text.count + (text.count - range.length)
+        wordCountLbl.text = "\(currentCharCount)/50"
+        wordCountLbl.sizeToFit()
+        return currentCharCount < 50
+    }
+}
 
 extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
