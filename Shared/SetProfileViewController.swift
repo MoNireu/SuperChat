@@ -201,6 +201,9 @@ extension SetProfileViewController: UITextViewDelegate {
         let currentCharCount = textView.text.count + (text.count - range.length)
         wordCountLbl.text = "\(currentCharCount)/50"
         wordCountLbl.sizeToFit()
+        
+        wordCountLbl.textColor = (currentCharCount < 50) ? .systemGray : .systemRed
+        
         return currentCharCount < 50
     }
 }
