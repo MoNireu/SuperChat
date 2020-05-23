@@ -26,7 +26,6 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        actIndicator.hidesWhenStopped = true
         
         emailTextField.delegate    = self
         passwordTextField.delegate = self
@@ -36,6 +35,9 @@ class SignInViewController: UIViewController {
         
         signInBtn.makeButtonRound()
         signUpBtn.makeButtonRound()
+        
+        actIndicator.hidesWhenStopped = true
+        self.view.bringSubviewToFront(actIndicator)
         
         passwordTextField.text = "000000" // TestCode
     }
