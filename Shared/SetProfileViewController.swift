@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SetProfileViewController: UIViewController {
 
@@ -68,6 +69,12 @@ class SetProfileViewController: UIViewController {
     }
     
     @IBAction func dismiss(_ sender: Any) {
+        do {
+            try Auth.auth().signOut()
+        } catch let error {
+            errorAlert(error.localizedDescription)
+        }
+        
         self.dismiss(animated: true)
     }
     
