@@ -13,13 +13,15 @@ class SetProfileViewController: UIViewController {
 
     
     var myAccount: MyAccountVO?
+    let CHAR_LIMIT = 30
+    let STATUS_MSG_PLACEHOLDER = "상태 메시지를 입력하세요."
     
     @IBOutlet var profileImgView: UIImageView!
     @IBOutlet var nameTextField: UITextField!
     @IBOutlet var statusMsgTextField: UITextView!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var finishBtn: UIButton!
-    @IBOutlet var wordCountLbl: UILabel!
+    @IBOutlet var charCountLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,10 +37,9 @@ class SetProfileViewController: UIViewController {
         nameTextField.layer.borderWidth = 1.0
         nameTextField.layer.cornerRadius = 5.0
         
-        statusMsgTextField.text               = "상태 메시지를 입력해주세요."
         statusMsgTextField.textColor          = .lightGray
         statusMsgTextField.layer.borderColor  = UIColor.lightGray.cgColor
-        statusMsgTextField.delegate = self
+        statusMsgTextField.delegate           = self
         statusMsgTextField.layer.borderWidth  = 1.0
         statusMsgTextField.layer.cornerRadius = 5.0
         statusMsgTextField.sizeToFit()
@@ -46,8 +47,6 @@ class SetProfileViewController: UIViewController {
         finishBtn.layer.cornerRadius = finishBtn.frame.height / 2
         finishBtn.backgroundColor = .systemBlue
         finishBtn.setTitleColor(.white, for: .normal)
-        
-        wordCountLbl.textColor = .systemGray
         
         activityIndicator.stopAnimating()
         
@@ -61,6 +60,16 @@ class SetProfileViewController: UIViewController {
         profileImgView.image    = strDataToImg(strData: (myAccount?.profileImg)!)
         nameTextField.text      = myAccount?.name
         statusMsgTextField.text = myAccount?.statusMsg
+        if statusMsgTextField.text.isEmpty {
+            statusMsgTextField.text = STATUS_MSG_PLACEHOLDER
+            charCountLbl.text = "0/\(CHAR_LIMIT)"
+        }
+        else {
+            charCountLbl.text = "\(statusMsgTextField.text.count)/\(CHAR_LIMIT)"
+        }
+        charCountLbl.textColor = .systemGray
+        
+        
         
     }
     
@@ -206,12 +215,12 @@ class SetProfileViewController: UIViewController {
 extension SetProfileViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         let currentCharCount = textView.text.count + (text.count - range.length)
-        wordCountLbl.text = "\(currentCharCount)/50"
-        wordCountLbl.sizeToFit()
+        charCountLbl.text = "\(currentCharCount)/\(CHAR_LIMIT)"
+        charCountLbl.sizeToFit()
         
-        wordCountLbl.textColor = (currentCharCount < 50) ? .systemGray : .systemRed
+        charCountLbl.textColor = (currentCharCount < CHAR_LIMIT) ? .systemGray : .systemRed
         
-        return currentCharCount < 50
+        return currentCharCount < CHAR_LIMIT
     }
 }
 

@@ -132,7 +132,7 @@
                 <navigationController id="Nan-ID-qam" userLabel="친구요청" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="친구요청" id="fI8-OH-plW" userLabel="친구요청"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="tfl-yp-WqQ">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -406,7 +406,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Wuk-wn-fJG">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Wuk-wn-fJG">
                                 <rect key="frame" x="40" y="517" width="334" height="110"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
@@ -474,11 +474,11 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="42y-gY-iYt" id="zjl-lf-Nkj"/>
+                        <outlet property="charCountLbl" destination="hTh-aD-WqR" id="PYq-nC-QCs"/>
                         <outlet property="finishBtn" destination="e6N-O4-3HX" id="x76-d1-fEA"/>
                         <outlet property="nameTextField" destination="wKc-eS-ZcW" id="VVP-40-hGu"/>
                         <outlet property="profileImgView" destination="4NR-tE-gvf" id="l9s-N7-4QQ"/>
                         <outlet property="statusMsgTextField" destination="Wuk-wn-fJG" id="OBs-SG-Y2S"/>
-                        <outlet property="wordCountLbl" destination="hTh-aD-WqR" id="PYq-nC-QCs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YaA-bL-UBS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
