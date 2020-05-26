@@ -222,6 +222,18 @@ extension SetProfileViewController: UITextViewDelegate {
         
         return currentCharCount < CHAR_LIMIT
     }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == STATUS_MSG_PLACEHOLDER {
+            textView.text = ""
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = STATUS_MSG_PLACEHOLDER
+        }
+    }
 }
 
 extension SetProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
