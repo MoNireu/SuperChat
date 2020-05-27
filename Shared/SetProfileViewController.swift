@@ -105,21 +105,22 @@ class SetProfileViewController: UIViewController {
         print(profileImg)
         print(UIImage(named: "default_user_profile"))
         
-//        let dateFormat = DateFormatter().dateFormat
-//        dateFormat = "yyyyMMdd"
         print(Date())
+        
+        // StatusMSG가 Placeholder일 경우 empty값으로 설정
+        let statusMsg = statusMsgTextField.text == STATUS_MSG_PLACEHOLDER ? "" : statusMsgTextField.text
         
         let userRef = appDelegate?.db?.collection("Users").document(myAccount!.id!)
         userRef?.updateData([
             "name" : nameTextField.text!,
-            "statusMsg" : statusMsgTextField.text ?? "",
+            "statusMsg" : statusMsg!,
             "profileImg" : profileImg?.jpegData(compressionQuality: 0.5)?.base64EncodedString() ?? "",
             "latestUpdate" : Date()
         ]) { error in
             if error == nil {   // Success
                 
                 self.myAccount?.name       = self.nameTextField.text
-                self.myAccount?.statusMsg  = self.statusMsgTextField.text
+                self.myAccount?.statusMsg  = statusMsg!
                 self.myAccount?.profileImg = self.getImgStringDataFrom(img: self.profileImgView.image!)
                 
                 appDelegate?.myAccount = self.myAccount
