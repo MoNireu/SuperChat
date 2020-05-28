@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="c7H-0x-19r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="c7H-0x-19r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -441,7 +441,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTh-aD-WqR">
-                                <rect key="frame" x="343" y="612" width="31" height="15"/>
+                                <rect key="frame" x="338" y="607" width="31" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -452,9 +452,9 @@
                             <constraint firstItem="7sx-vo-fDz" firstAttribute="top" secondItem="4NR-tE-gvf" secondAttribute="bottom" constant="49" id="1Tr-qQ-L36"/>
                             <constraint firstItem="FrM-8P-L7r" firstAttribute="top" secondItem="haL-8C-5vh" secondAttribute="top" id="22z-qB-PF2"/>
                             <constraint firstItem="haL-8C-5vh" firstAttribute="trailing" secondItem="Wuk-wn-fJG" secondAttribute="trailing" constant="40" id="4Gc-UE-R73"/>
-                            <constraint firstItem="hTh-aD-WqR" firstAttribute="bottom" secondItem="Wuk-wn-fJG" secondAttribute="bottom" id="7by-H5-wSY"/>
+                            <constraint firstItem="hTh-aD-WqR" firstAttribute="bottom" secondItem="Wuk-wn-fJG" secondAttribute="bottom" constant="-5" id="7by-H5-wSY"/>
                             <constraint firstItem="haL-8C-5vh" firstAttribute="trailing" secondItem="wKc-eS-ZcW" secondAttribute="trailing" constant="40" id="9bI-yz-pUM"/>
-                            <constraint firstItem="hTh-aD-WqR" firstAttribute="trailing" secondItem="Wuk-wn-fJG" secondAttribute="trailing" id="Dtt-TG-rD4"/>
+                            <constraint firstItem="hTh-aD-WqR" firstAttribute="trailing" secondItem="Wuk-wn-fJG" secondAttribute="trailing" constant="-5" id="Dtt-TG-rD4"/>
                             <constraint firstItem="42y-gY-iYt" firstAttribute="centerX" secondItem="WTZ-zU-Pwh" secondAttribute="centerX" id="Lxo-5o-vY1"/>
                             <constraint firstItem="wKc-eS-ZcW" firstAttribute="top" secondItem="7sx-vo-fDz" secondAttribute="bottom" constant="8" id="MKm-Ce-oSz"/>
                             <constraint firstItem="wKc-eS-ZcW" firstAttribute="leading" secondItem="haL-8C-5vh" secondAttribute="leading" constant="40" id="RpQ-Ar-0Ww"/>
@@ -513,7 +513,7 @@
                     <tabBarItem key="tabBarItem" title="친구목록" id="s7D-Jt-V58"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="3Xe-fB-o4d">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1210,7 +1210,7 @@
                     <tabBarItem key="tabBarItem" title="대화목록" id="9f7-08-cb0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="unL-zf-TlM">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
