@@ -86,49 +86,6 @@ class SignInViewController: UIViewController {
             self.present(signUpVC, animated: true)
         }
     }
-    
-    
-    
-//    func getUserID(_ userID: String, complete: @escaping () -> ()) {
-//        guard userID != nil else {return}
-//
-//        let docRef = self.appdelegate?.db?.collection("Users").document(userID)
-//
-//        docRef?.getDocument { (document, error) in
-//            if let document = document, document.exists {
-//
-//                let result  = document.data()
-//                let account = AccountVO()
-//
-//                account.id            = userID
-//                account.email         = result!["email"] as? String
-//                account.name          = result!["name"] as? String
-//                account.statusMsg     = result!["statusMsg"] as? String
-//                if let profileImgString = result!["profileImg"] as? String {
-//                    let profileImgData = Data(base64Encoded: profileImgString)
-//                    let profileImg = UIImage(data: profileImgData!)
-//                    account.profileImg = profileImg
-//                }
-//                if let backgroundImgString = result!["backgroundImg"] as? String {
-//                    let backgroundImgData = Data(base64Encoded: backgroundImgString)
-//                    let backgroundImg = UIImage(data: backgroundImgData!)
-//                    account.backgroundImg = backgroundImg
-//                }
-//
-//                self.appdelegate?.myAccount = account
-//
-//                complete()
-//
-//                print(account.email)            // TestCode
-//                print(account.name)             // TestCode
-//                print(account.statusMsg)        // TestCode
-//                print(account.profileImg)       // TestCode
-//                print(account.backgroundImg)    // TestCode
-//            } else {
-//                print("ERROR!")
-//            }
-//        }
-//    }
 }
 
 

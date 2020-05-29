@@ -36,6 +36,7 @@ class SetProfileViewController: UIViewController {
         nameTextField.layer.borderColor = UIColor.lightGray.cgColor
         nameTextField.layer.borderWidth = 1.0
         nameTextField.layer.cornerRadius = 5.0
+        nameTextField.clearButtonMode = .whileEditing
         
         statusMsgTextField.textColor          = .lightGray
         statusMsgTextField.layer.borderColor  = UIColor.lightGray.cgColor
