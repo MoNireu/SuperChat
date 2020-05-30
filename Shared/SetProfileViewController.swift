@@ -153,6 +153,7 @@ class SetProfileViewController: UIViewController {
         let imgPicker = UIImagePickerController()
         imgPicker.allowsEditing = true
         imgPicker.delegate = self
+        
         let alert = UIAlertController(title: "프로필 사진 설정", message: nil, preferredStyle: .actionSheet)
         let camera = UIAlertAction(title: "카메라", style: .default) { _ in
             imgPicker.sourceType = .camera
@@ -166,11 +167,15 @@ class SetProfileViewController: UIViewController {
             imgPicker.sourceType = .savedPhotosAlbum
             self.present(imgPicker, animated: true)
         }
+        let defaultImg = UIAlertAction(title: "기본 이미지", style: .default) { (_) in
+            self.profileImgView.image = UIImage(named: "default_user_profile.png")
+        }
         let cancel = UIAlertAction(title: "취소", style: .cancel)
         
         alert.addAction(camera)
         alert.addAction(photoLibrary)
         alert.addAction(savedPhotosAlbum)
+        alert.addAction(defaultImg)
         alert.addAction(cancel)
         
         self.present(alert, animated: true)
