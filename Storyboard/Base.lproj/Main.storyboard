@@ -875,6 +875,10 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLa-2e-yWW">
+                                <rect key="frame" x="364" y="60" width="30" height="30"/>
+                                <state key="normal" title="완료"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -884,11 +888,13 @@
                             <constraint firstItem="cUw-jJ-C5r" firstAttribute="centerX" secondItem="Jqu-V5-LPg" secondAttribute="centerX" id="MpT-yM-7IM"/>
                             <constraint firstItem="80f-rj-wTa" firstAttribute="leading" secondItem="kE0-pC-uYd" secondAttribute="leading" id="Soe-1Z-udD"/>
                             <constraint firstItem="OHH-Fb-pPn" firstAttribute="leading" secondItem="kE0-pC-uYd" secondAttribute="leading" constant="16" id="Szg-4c-WM7"/>
+                            <constraint firstItem="eLa-2e-yWW" firstAttribute="top" secondItem="kE0-pC-uYd" secondAttribute="top" constant="16" id="UTc-vg-ah1"/>
                             <constraint firstItem="kE0-pC-uYd" firstAttribute="bottom" secondItem="cUw-jJ-C5r" secondAttribute="bottom" constant="30" id="VFu-R5-TID"/>
                             <constraint firstItem="7VT-My-9EZ" firstAttribute="centerX" secondItem="Jqu-V5-LPg" secondAttribute="centerX" id="Vkk-WE-dFb"/>
                             <constraint firstItem="f3v-KW-SMs" firstAttribute="centerX" secondItem="Jqu-V5-LPg" secondAttribute="centerX" id="WbW-zo-en8"/>
                             <constraint firstItem="f3v-KW-SMs" firstAttribute="top" secondItem="kE0-pC-uYd" secondAttribute="top" constant="200" id="Wc3-Fl-sXJ"/>
                             <constraint firstItem="80f-rj-wTa" firstAttribute="bottom" secondItem="kE0-pC-uYd" secondAttribute="bottom" constant="34" id="YBb-mh-Y0D"/>
+                            <constraint firstItem="kE0-pC-uYd" firstAttribute="trailing" secondItem="eLa-2e-yWW" secondAttribute="trailing" constant="20" id="dLO-N6-YPT"/>
                             <constraint firstItem="cUw-jJ-C5r" firstAttribute="leading" secondItem="kE0-pC-uYd" secondAttribute="leading" constant="60" id="iC7-kB-waR"/>
                             <constraint firstItem="OHH-Fb-pPn" firstAttribute="top" secondItem="kE0-pC-uYd" secondAttribute="top" constant="16" id="mjx-zW-bfX"/>
                             <constraint firstItem="kE0-pC-uYd" firstAttribute="top" secondItem="80f-rj-wTa" secondAttribute="top" constant="44" id="y7x-xv-E0A"/>
@@ -901,6 +907,8 @@
                         <outlet property="button1" destination="RiC-B9-KIP" id="mRN-Jx-Hqg"/>
                         <outlet property="button2" destination="yst-Fj-8LP" id="C2g-Kq-CTm"/>
                         <outlet property="button3" destination="iSZ-Jk-2hl" id="YVz-cV-9aS"/>
+                        <outlet property="buttonStackView" destination="cUw-jJ-C5r" id="cVC-bh-Vpl"/>
+                        <outlet property="endEditBtn" destination="eLa-2e-yWW" id="LqB-7i-SoV"/>
                         <outlet property="name" destination="4EW-za-Ndv" id="TEw-yg-Pl2"/>
                         <outlet property="profileImg" destination="MfN-qy-fIL" id="jDa-mn-2qF"/>
                         <outlet property="statMsg" destination="f3v-KW-SMs" id="EwS-Q1-UW1"/>

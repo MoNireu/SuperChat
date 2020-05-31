@@ -10,6 +10,11 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
+enum Status {
+    case normal
+    case edit
+}
+
 class ProfileViewController: UIViewController {
     
     @IBOutlet var profileImg: UIImageView!
@@ -19,10 +24,14 @@ class ProfileViewController: UIViewController {
     @IBOutlet var button1: UIButton!
     @IBOutlet var button2: UIButton!
     @IBOutlet var button3: UIButton!
+    @IBOutlet var endEditBtn: UIButton!
+    @IBOutlet var buttonStackView: UIStackView!
     
     let appdelegate = UIApplication.shared.delegate as? AppDelegate
-    var accountVO: ProfileVO?
     var ref: DatabaseReference!
+    var accountVO: ProfileVO?
+    
+    var status: Status = .normal
     
     weak var delegate: FriendListViewController?
     
@@ -32,9 +41,14 @@ class ProfileViewController: UIViewController {
         
         ref = appdelegate?.ref
         
+        endEditBtn.isHidden = true
+        endEditBtn.addTarget(self, action: #selector(endEditMode(_:)), for: .touchUpInside)
+        
         button1.imageView?.makeImageRound()
         button2.imageView?.makeImageRound()
         button3.imageView?.makeImageRound()
+        
+        button3.addTarget(self, action: #selector(startEditMode(_:)), for: .touchUpInside)
         
         backgroundImg.image       = self.strDataToImg(strData: accountVO?.backgroundImg)
         backgroundImg.contentMode = .scaleAspectFill
@@ -73,6 +87,29 @@ class ProfileViewController: UIViewController {
         self.dismiss(animated: true) {
             self.delegate?.tableView.reloadData()
         }
+    }
+    
+    @objc func startEditMode(_ sender: Any) {
+        self.status = .edit
+        
+//        button1.isHidden = true
+//        button2.isHidden = true
+//        button3.isHidden = true
+        buttonStackView.isHidden = true
+        
+        endEditBtn.isHidden = false
+    }
+    
+    @objc func endEditMode(_ sender: Any) {
+        self.status = .normal
+        
+//        button1.isHidden = false
+//        button2.isHidden = false
+//        button3.isHidden = false
+        
+        buttonStackView.isHidden = false
+        
+        endEditBtn.isHidden = true
     }
     
     
