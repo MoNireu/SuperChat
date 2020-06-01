@@ -31,9 +31,11 @@ class ProfileViewController: UIViewController {
     var ref: DatabaseReference!
     var accountVO: ProfileVO?
     
-    var status: Status = .normal
+    private var status: Status = .normal
+    private lazy var pickerImgView = UIImageView()
     
     weak var delegate: FriendListViewController?
+    lazy var imgPicker = UIImagePickerController()
     
     
     override func viewDidLoad() {
@@ -77,7 +79,9 @@ class ProfileViewController: UIViewController {
     
     func setGestureRecognizer() -> UITapGestureRecognizer {
         let tapRecognizer = UITapGestureRecognizer()
-        tapRecognizer.addTarget(self, action: #selector(showProfileImg(_:)))
+        if status == .normal {
+            tapRecognizer.addTarget(self, action: #selector(profileImgTapped(_:)))
+        }
         
         return tapRecognizer
     }
@@ -92,23 +96,14 @@ class ProfileViewController: UIViewController {
     @objc func startEditMode(_ sender: Any) {
         self.status = .edit
         
-//        button1.isHidden = true
-//        button2.isHidden = true
-//        button3.isHidden = true
         buttonStackView.isHidden = true
-        
         endEditBtn.isHidden = false
     }
     
     @objc func endEditMode(_ sender: Any) {
         self.status = .normal
         
-//        button1.isHidden = false
-//        button2.isHidden = false
-//        button3.isHidden = false
-        
         buttonStackView.isHidden = false
-        
         endEditBtn.isHidden = true
     }
     
@@ -121,7 +116,6 @@ class ProfileViewController: UIViewController {
             self.dismiss(animated: false) {
                 self.delegate?.navigationController!.pushViewController(chatRoomVC, animated: true)
                 self.delegate?.hidesBottomBarWhenPushed = false
-                
             }
         }
     }
@@ -133,23 +127,82 @@ class ProfileViewController: UIViewController {
         }
     }
     
-    @objc func showProfileImg(_ sender: UITapGestureRecognizer) {
+    @objc func profileImgTapped(_ sender: UITapGestureRecognizer) {
         switch sender.view {
         case profileImg:
-            if let profileImgVC = storyboard?.instantiateViewController(identifier: "profileImgVC") as? ProfileImgViewController {
-                profileImgVC.param_data = profileImg.image
-                profileImgVC.modalPresentationStyle = .fullScreen
-                self.present(profileImgVC, animated: true)
+            if status == .normal {
+                if let profileImgVC = storyboard?.instantiateViewController(identifier: "profileImgVC") as? ProfileImgViewController {
+                    profileImgVC.param_data = profileImg.image
+                    profileImgVC.modalPresentationStyle = .fullScreen
+                    self.present(profileImgVC, animated: true)
+                }
+            }
+            else {
+                selectImg(sender.view as! UIImageView)
             }
         case backgroundImg:
-            if let profileImgVC = storyboard?.instantiateViewController(identifier: "profileImgVC") as? ProfileImgViewController {
-                profileImgVC.param_data = backgroundImg.image
-                profileImgVC.modalPresentationStyle = .fullScreen
-                self.present(profileImgVC, animated: true)
+            if status == .normal
+            {
+                if let profileImgVC = storyboard?.instantiateViewController(identifier: "profileImgVC") as? ProfileImgViewController {
+                    profileImgVC.param_data = backgroundImg.image
+                    profileImgVC.modalPresentationStyle = .fullScreen
+                    self.present(profileImgVC, animated: true)
+                }
             }
+            else {
+                selectImg(sender.view as! UIImageView)
+            }
+            
         default:
             ()
         }
-        
     }
+}
+
+extension ProfileViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print("cancel")
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true) {
+            if let selectedImg = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+                self.pickerImgView.image = selectedImg
+            }
+        }
+    }
+    
+    @objc func selectImg(_ sender: UIImageView) {
+        imgPicker.allowsEditing = true
+        imgPicker.delegate = self
+        pickerImgView = sender
+        
+        let alert = UIAlertController(title: "프로필 사진 설정", message: nil, preferredStyle: .actionSheet)
+        let camera = UIAlertAction(title: "카메라", style: .default) { _ in
+            self.imgPicker.sourceType = .camera
+            self.present(self.imgPicker, animated: true)
+        }
+        let photoLibrary = UIAlertAction(title: "포토 라이브러리", style: .default) { _ in
+            self.imgPicker.sourceType = .photoLibrary
+            self.present(self.imgPicker, animated: true)
+        }
+        let savedPhotosAlbum = UIAlertAction(title: "저장된 앨범", style: .default) { _ in
+            self.imgPicker.sourceType = .savedPhotosAlbum
+            self.present(self.imgPicker, animated: true)
+        }
+        let defaultImg = UIAlertAction(title: "기본 이미지", style: .default) { (_) in
+            sender.image = UIImage(named: "default_user_profile.png")
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        
+        alert.addAction(camera)
+        alert.addAction(photoLibrary)
+        alert.addAction(savedPhotosAlbum)
+        alert.addAction(defaultImg)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true)
+    }
+    
+    
 }
