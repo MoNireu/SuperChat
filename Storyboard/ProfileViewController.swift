@@ -55,10 +55,10 @@ class ProfileViewController: UIViewController {
         backgroundImg.image       = self.strDataToImg(strData: accountVO?.backgroundImg)
         backgroundImg.contentMode = .scaleAspectFill
         backgroundImg.alpha       = 0.75
-        backgroundImg.addGestureRecognizer(setGestureRecognizer())
+        backgroundImg.addGestureRecognizer(setGestureRecognizer(sender: backgroundImg!))
         
         profileImg.makeImageRound()
-        profileImg.addGestureRecognizer(setGestureRecognizer())
+        profileImg.addGestureRecognizer(setGestureRecognizer(sender: profileImg!))
         profileImg.image       = self.strDataToImg(strData: accountVO?.profileImg)
         profileImg.contentMode = .scaleAspectFill
         self.view.bringSubviewToFront(profileImg)
@@ -68,8 +68,9 @@ class ProfileViewController: UIViewController {
         
         statMsg.text     = accountVO?.statusMsg
         statMsg.sizeToFit()
-        statMsg.center.x = self.view.frame.width / 2
-        statMsg.center.y = profileImg.frame.minY / 2
+        statMsg.addGestureRecognizer(setGestureRecognizer(sender: statMsg!))
+//        statMsg.center.x = self.view.frame.width / 2
+//        statMsg.center.y = profileImg.frame.minY / 2
         
         let swipeGesture = UISwipeGestureRecognizer()
         swipeGesture.direction = .down
@@ -77,10 +78,16 @@ class ProfileViewController: UIViewController {
         self.view.addGestureRecognizer(swipeGesture)
     }
     
-    func setGestureRecognizer() -> UITapGestureRecognizer {
+    func setGestureRecognizer(sender: Any) -> UITapGestureRecognizer {
         let tapRecognizer = UITapGestureRecognizer()
-        if status == .normal {
+        print("sender: \(sender)")
+        switch sender {
+        case is UIImageView:
             tapRecognizer.addTarget(self, action: #selector(profileImgTapped(_:)))
+        case is UILabel:
+            tapRecognizer.addTarget(self, action: #selector(editStatMsg(_:)))
+        default:
+            ()
         }
         
         return tapRecognizer
@@ -105,6 +112,10 @@ class ProfileViewController: UIViewController {
         
         buttonStackView.isHidden = false
         endEditBtn.isHidden = true
+    }
+    
+    @objc func editStatMsg(_ sender: UILabel) {
+        print("start Editting statMsg")
     }
     
     
