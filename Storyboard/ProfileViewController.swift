@@ -20,11 +20,11 @@ class ProfileViewController: UIViewController {
     @IBOutlet var profileImg: UIImageView!
     @IBOutlet var backgroundImg: UIImageView!
     @IBOutlet var name: UILabel!
-    @IBOutlet var statMsg: UILabel!
+    @IBOutlet var statMsg: UITextView!
     @IBOutlet var button1: UIButton!
     @IBOutlet var button2: UIButton!
     @IBOutlet var button3: UIButton!
-    @IBOutlet var endEditBtn: UIButton!
+    @IBOutlet var endProfileEditBtn: UIButton!
     @IBOutlet var buttonStackView: UIStackView!
     
     let appdelegate = UIApplication.shared.delegate as? AppDelegate
@@ -43,8 +43,8 @@ class ProfileViewController: UIViewController {
         
         ref = appdelegate?.ref
         
-        endEditBtn.isHidden = true
-        endEditBtn.addTarget(self, action: #selector(endEditMode(_:)), for: .touchUpInside)
+        endProfileEditBtn.isHidden = true
+        endProfileEditBtn.addTarget(self, action: #selector(endEditMode(_:)), for: .touchUpInside)
         
         button1.imageView?.makeImageRound()
         button2.imageView?.makeImageRound()
@@ -66,11 +66,10 @@ class ProfileViewController: UIViewController {
         name.text = accountVO?.name
         name.sizeToFit()
         
+        statMsg.delegate = self
         statMsg.text     = accountVO?.statusMsg
         statMsg.sizeToFit()
         statMsg.addGestureRecognizer(setGestureRecognizer(sender: statMsg!))
-//        statMsg.center.x = self.view.frame.width / 2
-//        statMsg.center.y = profileImg.frame.minY / 2
         
         let swipeGesture = UISwipeGestureRecognizer()
         swipeGesture.direction = .down
@@ -84,7 +83,7 @@ class ProfileViewController: UIViewController {
         switch sender {
         case is UIImageView:
             tapRecognizer.addTarget(self, action: #selector(profileImgTapped(_:)))
-        case is UILabel:
+        case is UITextView:
             tapRecognizer.addTarget(self, action: #selector(editStatMsg(_:)))
         default:
             ()
@@ -104,18 +103,29 @@ class ProfileViewController: UIViewController {
         self.status = .edit
         
         buttonStackView.isHidden = true
-        endEditBtn.isHidden = false
+        endProfileEditBtn.isHidden = false
     }
     
     @objc func endEditMode(_ sender: Any) {
         self.status = .normal
         
         buttonStackView.isHidden = false
-        endEditBtn.isHidden = true
+        endProfileEditBtn.isHidden = true
     }
     
-    @objc func editStatMsg(_ sender: UILabel) {
-        print("start Editting statMsg")
+    @objc func editStatMsg(_ sender: Any) {
+        let doneBtn = UIBarButtonItem()
+        doneBtn.title = "완료"
+        doneBtn.action = #selector(resignFirstResponder(_:))
+        
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        let toolbar = UIToolbar()
+        toolbar.items = [flexibleSpace, doneBtn]
+        toolbar.sizeToFit()
+        
+        statMsg.inputAccessoryView = toolbar
+        statMsg.becomeFirstResponder()
     }
     
     
@@ -129,6 +139,10 @@ class ProfileViewController: UIViewController {
                 self.delegate?.hidesBottomBarWhenPushed = false
             }
         }
+    }
+    
+    @objc func resignFirstResponder(_ sender: Any) {
+        statMsg.resignFirstResponder()
     }
     
     
@@ -167,6 +181,18 @@ class ProfileViewController: UIViewController {
         default:
             ()
         }
+    }
+}
+
+
+extension ProfileViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        endProfileEditBtn.isHidden = true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        endProfileEditBtn.isHidden = false
     }
 }
 
