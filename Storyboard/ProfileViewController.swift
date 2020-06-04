@@ -102,12 +102,17 @@ class ProfileViewController: UIViewController {
     @objc func startEditMode(_ sender: Any) {
         self.status = .edit
         
+        statMsg.layer.borderColor = UIColor.black.cgColor
+        statMsg.layer.borderWidth = 1.0
+        
         buttonStackView.isHidden = true
         endProfileEditBtn.isHidden = false
     }
     
     @objc func endEditMode(_ sender: Any) {
         self.status = .normal
+        
+        statMsg.layer.borderColor = UIColor.clear.cgColor
         
         buttonStackView.isHidden = false
         endProfileEditBtn.isHidden = true

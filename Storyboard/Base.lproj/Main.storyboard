@@ -132,7 +132,7 @@
                 <navigationController id="Nan-ID-qam" userLabel="친구요청" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="친구요청" id="fI8-OH-plW" userLabel="친구요청"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="tfl-yp-WqQ">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -878,9 +878,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="kTB-Ub-fyF"/>
                                 </constraints>
-                                <string key="text">aaa
-asd
-asdf</string>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
