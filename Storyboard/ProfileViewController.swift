@@ -19,7 +19,7 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet var profileImg: UIImageView!
     @IBOutlet var backgroundImg: UIImageView!
-    @IBOutlet var name: UILabel!
+    @IBOutlet var nameLbl: UILabel!
     @IBOutlet var statMsg: UITextView!
     @IBOutlet var button1: UIButton!
     @IBOutlet var button2: UIButton!
@@ -63,8 +63,8 @@ class ProfileViewController: UIViewController {
         profileImg.contentMode = .scaleAspectFill
         self.view.bringSubviewToFront(profileImg)
         
-        name.text = accountVO?.name
-        name.sizeToFit()
+        nameLbl.text = accountVO?.name
+        nameLbl.sizeToFit()
         
         statMsg.delegate = self
         statMsg.text     = accountVO?.statusMsg
@@ -105,6 +105,10 @@ class ProfileViewController: UIViewController {
         statMsg.layer.borderColor = UIColor.black.cgColor
         statMsg.layer.borderWidth = 1.0
         
+        nameLbl.layer.borderColor = UIColor.black.cgColor
+        nameLbl.layer.borderWidth = 1.0
+
+        
         buttonStackView.isHidden = true
         endProfileEditBtn.isHidden = false
     }
@@ -113,6 +117,8 @@ class ProfileViewController: UIViewController {
         self.status = .normal
         
         statMsg.layer.borderColor = UIColor.clear.cgColor
+        
+        nameLbl.layer.borderColor = UIColor.clear.cgColor
         
         buttonStackView.isHidden = false
         endProfileEditBtn.isHidden = true

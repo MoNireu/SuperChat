@@ -914,7 +914,7 @@
                         <outlet property="button3" destination="iSZ-Jk-2hl" id="YVz-cV-9aS"/>
                         <outlet property="buttonStackView" destination="cUw-jJ-C5r" id="cVC-bh-Vpl"/>
                         <outlet property="endProfileEditBtn" destination="eLa-2e-yWW" id="LqB-7i-SoV"/>
-                        <outlet property="name" destination="4EW-za-Ndv" id="TEw-yg-Pl2"/>
+                        <outlet property="nameLbl" destination="4EW-za-Ndv" id="TEw-yg-Pl2"/>
                         <outlet property="profileImg" destination="MfN-qy-fIL" id="jDa-mn-2qF"/>
                         <outlet property="statMsg" destination="XvV-6z-XhO" id="IV5-lC-GWS"/>
                     </connections>
