@@ -225,7 +225,9 @@ extension ProfileViewController: UIImagePickerControllerDelegate & UINavigationC
         imgPicker.delegate = self
         pickerImgView = sender
         
-        let alert = UIAlertController(title: "프로필 사진 설정", message: nil, preferredStyle: .actionSheet)
+        let alertTitle = (pickerImgView == profileImg) ? "프로필 사진 설정" : "배경 사진 설정"
+        
+        let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .actionSheet)
         let camera = UIAlertAction(title: "카메라", style: .default) { _ in
             self.imgPicker.sourceType = .camera
             self.present(self.imgPicker, animated: true)
