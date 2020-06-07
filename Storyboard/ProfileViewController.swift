@@ -26,6 +26,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet var button3: UIButton!
     @IBOutlet var endProfileEditBtn: UIButton!
     @IBOutlet var buttonStackView: UIStackView!
+    @IBOutlet var statMsgEditImgView: UIImageView!
     
     let appdelegate = UIApplication.shared.delegate as? AppDelegate
     var ref: DatabaseReference!
@@ -65,11 +66,15 @@ class ProfileViewController: UIViewController {
         
         nameLbl.text = accountVO?.name
         nameLbl.sizeToFit()
+        nameLbl.frame.size.height = nameLbl.intrinsicContentSize.height + 10
+        nameLbl.frame.size.width = nameLbl.intrinsicContentSize.width + 10
         
         statMsg.delegate = self
         statMsg.text     = accountVO?.statusMsg
         statMsg.sizeToFit()
         statMsg.addGestureRecognizer(setGestureRecognizer(sender: statMsg!))
+        
+        statMsgEditImgView.isHidden = true
         
         let swipeGesture = UISwipeGestureRecognizer()
         swipeGesture.direction = .down
@@ -107,6 +112,8 @@ class ProfileViewController: UIViewController {
         
         nameLbl.layer.borderColor = UIColor.black.cgColor
         nameLbl.layer.borderWidth = 1.0
+        
+        statMsgEditImgView.isHidden = false
 
         
         buttonStackView.isHidden = true
@@ -119,6 +126,8 @@ class ProfileViewController: UIViewController {
         statMsg.layer.borderColor = UIColor.clear.cgColor
         
         nameLbl.layer.borderColor = UIColor.clear.cgColor
+        
+        statMsgEditImgView.isHidden = true
         
         buttonStackView.isHidden = false
         endProfileEditBtn.isHidden = true
