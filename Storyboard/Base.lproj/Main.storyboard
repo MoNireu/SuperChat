@@ -132,7 +132,7 @@
                 <navigationController id="Nan-ID-qam" userLabel="친구요청" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="친구요청" id="fI8-OH-plW" userLabel="친구요청"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="tfl-yp-WqQ">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -513,7 +513,7 @@
                     <tabBarItem key="tabBarItem" title="친구목록" id="s7D-Jt-V58"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="3Xe-fB-o4d">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -886,6 +886,14 @@
                                 <rect key="frame" x="324" y="299.5" width="20" height="19"/>
                                 <color key="tintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="v7V-G6-T44">
+                                <rect key="frame" x="182" y="585.5" width="50" height="47.5"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="7A7-p0-GNH"/>
+                                    <constraint firstAttribute="width" constant="50" id="Uia-T2-g0c"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -902,9 +910,11 @@
                             <constraint firstItem="kE0-pC-uYd" firstAttribute="bottom" secondItem="cUw-jJ-C5r" secondAttribute="bottom" constant="30" id="VFu-R5-TID"/>
                             <constraint firstItem="7VT-My-9EZ" firstAttribute="centerX" secondItem="Jqu-V5-LPg" secondAttribute="centerX" id="Vkk-WE-dFb"/>
                             <constraint firstItem="80f-rj-wTa" firstAttribute="bottom" secondItem="kE0-pC-uYd" secondAttribute="bottom" constant="34" id="YBb-mh-Y0D"/>
+                            <constraint firstItem="v7V-G6-T44" firstAttribute="centerX" secondItem="Jqu-V5-LPg" secondAttribute="centerX" id="YtV-Mt-V1l"/>
                             <constraint firstItem="0zm-G2-Bwu" firstAttribute="bottom" secondItem="XvV-6z-XhO" secondAttribute="bottom" constant="10" id="bsA-bg-F0Y"/>
                             <constraint firstItem="kE0-pC-uYd" firstAttribute="trailing" secondItem="eLa-2e-yWW" secondAttribute="trailing" constant="20" id="dLO-N6-YPT"/>
                             <constraint firstItem="XvV-6z-XhO" firstAttribute="top" secondItem="kE0-pC-uYd" secondAttribute="top" constant="200" id="gVZ-X0-oSM"/>
+                            <constraint firstItem="v7V-G6-T44" firstAttribute="top" secondItem="MfN-qy-fIL" secondAttribute="top" constant="25" id="gsO-iz-Bn9"/>
                             <constraint firstItem="cUw-jJ-C5r" firstAttribute="leading" secondItem="kE0-pC-uYd" secondAttribute="leading" constant="60" id="iC7-kB-waR"/>
                             <constraint firstItem="OHH-Fb-pPn" firstAttribute="top" secondItem="kE0-pC-uYd" secondAttribute="top" constant="16" id="mjx-zW-bfX"/>
                             <constraint firstItem="kE0-pC-uYd" firstAttribute="top" secondItem="80f-rj-wTa" secondAttribute="top" constant="44" id="y7x-xv-E0A"/>
@@ -921,6 +931,7 @@
                         <outlet property="buttonStackView" destination="cUw-jJ-C5r" id="cVC-bh-Vpl"/>
                         <outlet property="endProfileEditBtn" destination="eLa-2e-yWW" id="LqB-7i-SoV"/>
                         <outlet property="nameLbl" destination="4EW-za-Ndv" id="TEw-yg-Pl2"/>
+                        <outlet property="profileImageEditImgView" destination="v7V-G6-T44" id="S0s-zk-WtU"/>
                         <outlet property="profileImg" destination="MfN-qy-fIL" id="jDa-mn-2qF"/>
                         <outlet property="statMsg" destination="XvV-6z-XhO" id="IV5-lC-GWS"/>
                         <outlet property="statMsgEditImgView" destination="0zm-G2-Bwu" id="VBe-Br-CFI"/>
@@ -1230,7 +1241,7 @@
                     <tabBarItem key="tabBarItem" title="대화목록" id="9f7-08-cb0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="unL-zf-TlM">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1248,6 +1259,7 @@
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="multiply" catalog="system" width="128" height="111"/>
         <image name="pencil.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="photo" catalog="system" width="128" height="93"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>
 </document>
