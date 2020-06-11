@@ -19,7 +19,7 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet var profileImg: UIImageView!
     @IBOutlet var backgroundImg: UIImageView!
-    @IBOutlet var nameLbl: UILabel!
+    @IBOutlet var nameLbl: UIPaddingLabel!
     @IBOutlet var statMsg: UITextView!
     @IBOutlet var button1: UIButton!
     @IBOutlet var button2: UIButton!
