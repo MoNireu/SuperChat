@@ -28,6 +28,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet var buttonStackView: UIStackView!
     @IBOutlet var statMsgEditImgView: UIImageView!
     @IBOutlet var profileImageEditImgView: UIImageView!
+    @IBOutlet var nameLblEditImgView: UIImageView!
     
     let appdelegate = UIApplication.shared.delegate as? AppDelegate
     var ref: DatabaseReference!
@@ -73,7 +74,8 @@ class ProfileViewController: UIViewController {
         statMsg.sizeToFit()
         statMsg.addGestureRecognizer(setGestureRecognizer(sender: statMsg!))
         
-        statMsgEditImgView.isHidden = true
+        statMsgEditImgView.isHidden      = true
+        nameLblEditImgView.isHidden      = true
         profileImageEditImgView.isHidden = true
         
         let swipeGesture = UISwipeGestureRecognizer()
@@ -113,11 +115,12 @@ class ProfileViewController: UIViewController {
         nameLbl.layer.borderColor = UIColor.black.cgColor
         nameLbl.layer.borderWidth = 1.0
         
-        statMsgEditImgView.isHidden = false
+        statMsgEditImgView.isHidden      = false
+        nameLblEditImgView.isHidden      = false
         profileImageEditImgView.isHidden = false
 
         
-        buttonStackView.isHidden = true
+        buttonStackView.isHidden   = true
         endProfileEditBtn.isHidden = false
     }
     
@@ -128,10 +131,11 @@ class ProfileViewController: UIViewController {
         
         nameLbl.layer.borderColor = UIColor.clear.cgColor
         
-        statMsgEditImgView.isHidden = true
+        statMsgEditImgView.isHidden      = true
+        nameLblEditImgView.isHidden      = true
         profileImageEditImgView.isHidden = true
         
-        buttonStackView.isHidden = false
+        buttonStackView.isHidden   = false
         endProfileEditBtn.isHidden = true
     }
     

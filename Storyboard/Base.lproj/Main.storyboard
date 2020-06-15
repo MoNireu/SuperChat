@@ -852,7 +852,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7VT-My-9EZ">
-                                <rect key="frame" x="157" y="559.5" width="100" height="128"/>
+                                <rect key="frame" x="157" y="549.5" width="100" height="138"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MfN-qy-fIL">
                                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
@@ -862,7 +862,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아이디" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4EW-za-Ndv" customClass="UIPaddingLabel" customModule="SuperChat" customModuleProvider="target">
-                                        <rect key="frame" x="30.5" y="110" width="39" height="18"/>
+                                        <rect key="frame" x="23.5" y="110" width="53" height="28"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -901,11 +901,19 @@
                                 <color key="tintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.75" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="v7V-G6-T44">
-                                <rect key="frame" x="182" y="585.5" width="50" height="47.5"/>
+                                <rect key="frame" x="182" y="575.5" width="50" height="47.5"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="7A7-p0-GNH"/>
                                     <constraint firstAttribute="width" constant="50" id="Uia-T2-g0c"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="i9u-ts-wPb">
+                                <rect key="frame" x="223.5" y="678" width="20" height="19"/>
+                                <color key="tintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="2Yc-IO-pYJ"/>
+                                    <constraint firstAttribute="height" constant="20" id="KoB-38-MPA"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -929,9 +937,11 @@
                             <constraint firstItem="kE0-pC-uYd" firstAttribute="trailing" secondItem="eLa-2e-yWW" secondAttribute="trailing" constant="20" id="dLO-N6-YPT"/>
                             <constraint firstItem="XvV-6z-XhO" firstAttribute="top" secondItem="kE0-pC-uYd" secondAttribute="top" constant="200" id="gVZ-X0-oSM"/>
                             <constraint firstItem="v7V-G6-T44" firstAttribute="top" secondItem="MfN-qy-fIL" secondAttribute="top" constant="25" id="gsO-iz-Bn9"/>
+                            <constraint firstItem="i9u-ts-wPb" firstAttribute="trailing" secondItem="4EW-za-Ndv" secondAttribute="trailing" constant="10" id="i7h-kG-Qgs"/>
                             <constraint firstItem="cUw-jJ-C5r" firstAttribute="leading" secondItem="kE0-pC-uYd" secondAttribute="leading" constant="60" id="iC7-kB-waR"/>
                             <constraint firstItem="OHH-Fb-pPn" firstAttribute="top" secondItem="kE0-pC-uYd" secondAttribute="top" constant="16" id="mjx-zW-bfX"/>
                             <constraint firstItem="kE0-pC-uYd" firstAttribute="top" secondItem="80f-rj-wTa" secondAttribute="top" constant="44" id="y7x-xv-E0A"/>
+                            <constraint firstItem="i9u-ts-wPb" firstAttribute="bottom" secondItem="4EW-za-Ndv" secondAttribute="bottom" constant="10" id="yVD-td-K1d"/>
                             <constraint firstItem="XvV-6z-XhO" firstAttribute="leading" secondItem="kE0-pC-uYd" secondAttribute="leading" constant="80" id="zyW-T5-b9o"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kE0-pC-uYd"/>
@@ -945,6 +955,7 @@
                         <outlet property="buttonStackView" destination="cUw-jJ-C5r" id="cVC-bh-Vpl"/>
                         <outlet property="endProfileEditBtn" destination="eLa-2e-yWW" id="LqB-7i-SoV"/>
                         <outlet property="nameLbl" destination="4EW-za-Ndv" id="TEw-yg-Pl2"/>
+                        <outlet property="nameLblEditImgView" destination="i9u-ts-wPb" id="sHc-Ke-cur"/>
                         <outlet property="profileImageEditImgView" destination="v7V-G6-T44" id="S0s-zk-WtU"/>
                         <outlet property="profileImg" destination="MfN-qy-fIL" id="jDa-mn-2qF"/>
                         <outlet property="statMsg" destination="XvV-6z-XhO" id="IV5-lC-GWS"/>
