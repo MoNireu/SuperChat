@@ -38,6 +38,16 @@ extension UIButton {
     }
 }
 
+extension UITextView {
+    func centerVertically() {
+        let fittingSize = CGSize(width: self.bounds.width, height: CGFloat.self.greatestFiniteMagnitude)
+        let size = self.sizeThatFits(fittingSize)
+        let topOffset = (self.bounds.size.height - size.height * zoomScale) / 2
+        let positiveTopOffset = max(1, topOffset)
+        contentOffset.y = -positiveTopOffset
+    }
+}
+
 extension UIViewController {
     func errorAlert(_ msg: String?, complete: (() -> Void)? = nil) {
         let alert = UIAlertController(title: "오류", message: msg, preferredStyle: .alert)

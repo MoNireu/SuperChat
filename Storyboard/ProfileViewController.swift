@@ -52,7 +52,6 @@ class ProfileViewController: UIViewController {
         button1.imageView?.makeImageRound()
         button2.imageView?.makeImageRound()
         button3.imageView?.makeImageRound()
-        
         button3.addTarget(self, action: #selector(startEditMode(_:)), for: .touchUpInside)
         
         backgroundImg.image       = self.strDataToImg(strData: accountVO?.backgroundImg)
@@ -82,6 +81,10 @@ class ProfileViewController: UIViewController {
         swipeGesture.direction = .down
         swipeGesture.addTarget(self, action: #selector(dismiss(_:)))
         self.view.addGestureRecognizer(swipeGesture)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        statMsg.centerVertically()
     }
     
     func setGestureRecognizer(sender: Any) -> UITapGestureRecognizer {
