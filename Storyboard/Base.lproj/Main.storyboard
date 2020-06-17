@@ -513,7 +513,7 @@
                     <tabBarItem key="tabBarItem" title="친구목록" id="s7D-Jt-V58"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="3Xe-fB-o4d">
-                        <rect key="frame" x="0.0" y="44" width="414" height="104.5"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -841,8 +841,8 @@
                                                 </constraints>
                                                 <state key="normal" title="Button" image="default_user_profile.png"/>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HNC-4z-ZGo">
-                                                <rect key="frame" x="9.5" y="60" width="31" height="14.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="편집" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HNC-4z-ZGo">
+                                                <rect key="frame" x="14.5" y="60" width="21" height="14.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -916,11 +916,21 @@
                                     <constraint firstAttribute="height" constant="20" id="KoB-38-MPA"/>
                                 </constraints>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="tdH-Hx-wH8">
+                                <rect key="frame" x="182" y="424" width="50" height="47.5"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Mfa-B4-k0g"/>
+                                    <constraint firstAttribute="width" constant="50" id="cyl-ew-cHa"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="kE0-pC-uYd" firstAttribute="trailing" secondItem="cUw-jJ-C5r" secondAttribute="trailing" constant="60" id="2Ph-OX-kvN"/>
+                            <constraint firstItem="tdH-Hx-wH8" firstAttribute="centerY" secondItem="Jqu-V5-LPg" secondAttribute="centerY" id="8MG-1c-hD6"/>
                             <constraint firstItem="80f-rj-wTa" firstAttribute="trailing" secondItem="kE0-pC-uYd" secondAttribute="trailing" id="9hz-iw-9eT"/>
+                            <constraint firstItem="tdH-Hx-wH8" firstAttribute="centerX" secondItem="Jqu-V5-LPg" secondAttribute="centerX" id="HPU-Ix-yKw"/>
                             <constraint firstItem="XvV-6z-XhO" firstAttribute="centerX" secondItem="Jqu-V5-LPg" secondAttribute="centerX" id="JEV-KZ-QGZ"/>
                             <constraint firstItem="kE0-pC-uYd" firstAttribute="trailing" secondItem="XvV-6z-XhO" secondAttribute="trailing" constant="80" id="Jo4-hX-6L8"/>
                             <constraint firstItem="cUw-jJ-C5r" firstAttribute="top" secondItem="7VT-My-9EZ" secondAttribute="bottom" constant="70" id="JrX-2X-KJ3"/>
@@ -948,6 +958,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="bUK-RB-GA1"/>
                     <connections>
+                        <outlet property="backgroundImageEditImgView" destination="tdH-Hx-wH8" id="h8C-jI-mSH"/>
                         <outlet property="backgroundImg" destination="80f-rj-wTa" id="7U9-Rc-Suh"/>
                         <outlet property="button1" destination="RiC-B9-KIP" id="mRN-Jx-Hqg"/>
                         <outlet property="button2" destination="yst-Fj-8LP" id="C2g-Kq-CTm"/>

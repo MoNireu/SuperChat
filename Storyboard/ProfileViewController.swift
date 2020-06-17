@@ -27,6 +27,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet var endProfileEditBtn: UIButton!
     @IBOutlet var buttonStackView: UIStackView!
     @IBOutlet var statMsgEditImgView: UIImageView!
+    @IBOutlet var backgroundImageEditImgView: UIImageView!
     @IBOutlet var profileImageEditImgView: UIImageView!
     @IBOutlet var nameLblEditImgView: UIImageView!
     
@@ -73,9 +74,10 @@ class ProfileViewController: UIViewController {
         statMsg.sizeToFit()
         statMsg.addGestureRecognizer(setGestureRecognizer(sender: statMsg!))
         
-        statMsgEditImgView.isHidden      = true
-        nameLblEditImgView.isHidden      = true
-        profileImageEditImgView.isHidden = true
+        statMsgEditImgView.isHidden         = true
+        nameLblEditImgView.isHidden         = true
+        profileImageEditImgView.isHidden    = true
+        backgroundImageEditImgView.isHidden = true
         
         let swipeGesture = UISwipeGestureRecognizer()
         swipeGesture.direction = .down
@@ -118,9 +120,10 @@ class ProfileViewController: UIViewController {
         nameLbl.layer.borderColor = UIColor.black.cgColor
         nameLbl.layer.borderWidth = 1.0
         
-        statMsgEditImgView.isHidden      = false
-        nameLblEditImgView.isHidden      = false
-        profileImageEditImgView.isHidden = false
+        statMsgEditImgView.isHidden         = false
+        nameLblEditImgView.isHidden         = false
+        profileImageEditImgView.isHidden    = false
+        backgroundImageEditImgView.isHidden = false
 
         
         buttonStackView.isHidden   = true
@@ -134,9 +137,10 @@ class ProfileViewController: UIViewController {
         
         nameLbl.layer.borderColor = UIColor.clear.cgColor
         
-        statMsgEditImgView.isHidden      = true
-        nameLblEditImgView.isHidden      = true
-        profileImageEditImgView.isHidden = true
+        statMsgEditImgView.isHidden         = true
+        nameLblEditImgView.isHidden         = true
+        profileImageEditImgView.isHidden    = true
+        backgroundImageEditImgView.isHidden = true
         
         buttonStackView.isHidden   = false
         endProfileEditBtn.isHidden = true
