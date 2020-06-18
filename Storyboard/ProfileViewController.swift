@@ -55,14 +55,14 @@ class ProfileViewController: UIViewController {
         button3.imageView?.makeImageRound()
         button3.addTarget(self, action: #selector(startEditMode(_:)), for: .touchUpInside)
         
-        backgroundImg.image       = self.strDataToImg(strData: accountVO?.backgroundImg)
+        backgroundImg.image       = self.strDataToImg(strData: accountVO?.backgroundImg).withRenderingMode(.automatic)
         backgroundImg.contentMode = .scaleAspectFill
         backgroundImg.alpha       = 0.75
         backgroundImg.addGestureRecognizer(setGestureRecognizer(sender: backgroundImg!))
         
         profileImg.makeImageRound()
         profileImg.addGestureRecognizer(setGestureRecognizer(sender: profileImg!))
-        profileImg.image       = self.strDataToImg(strData: accountVO?.profileImg)
+        profileImg.image       = self.strDataToImg(strData: accountVO?.profileImg).withRenderingMode(.automatic)
         profileImg.contentMode = .scaleAspectFill
         self.view.bringSubviewToFront(profileImg)
         
@@ -124,7 +124,9 @@ class ProfileViewController: UIViewController {
         nameLblEditImgView.isHidden         = false
         profileImageEditImgView.isHidden    = false
         backgroundImageEditImgView.isHidden = false
-
+        
+        profileImg.addBlackTint()
+        backgroundImg.addBlackTint()
         
         buttonStackView.isHidden   = true
         endProfileEditBtn.isHidden = false
@@ -141,6 +143,10 @@ class ProfileViewController: UIViewController {
         nameLblEditImgView.isHidden         = true
         profileImageEditImgView.isHidden    = true
         backgroundImageEditImgView.isHidden = true
+        
+        profileImg.removeBlackTint()
+        backgroundImg.removeBlackTint()
+        
         
         buttonStackView.isHidden   = false
         endProfileEditBtn.isHidden = true

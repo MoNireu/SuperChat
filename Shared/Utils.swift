@@ -24,6 +24,18 @@ extension UIImageView {
         self.layer.cornerRadius = self.frame.height / 2.55
         self.clipsToBounds = true
     }
+    
+    func addBlackTint() {
+        let blackCover = UIView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+        blackCover.backgroundColor = .black
+        blackCover.alpha = 0.5
+        
+        self.addSubview(blackCover)
+    }
+    
+    func removeBlackTint() {
+        self.subviews.first?.removeFromSuperview()
+    }
 }
 
 extension UIButton {
