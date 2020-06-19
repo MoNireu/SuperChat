@@ -100,8 +100,17 @@ class ProfileViewController: UIViewController {
         default:
             ()
         }
-        
         return tapRecognizer
+    }
+    
+    func showEditViews(show: Bool) {
+        statMsgEditImgView.isHidden         = !show
+        nameLblEditImgView.isHidden         = !show
+        profileImageEditImgView.isHidden    = !show
+        backgroundImageEditImgView.isHidden = !show
+        
+        buttonStackView.isHidden   = show
+        endProfileEditBtn.isHidden = !show
     }
     
     
@@ -120,36 +129,22 @@ class ProfileViewController: UIViewController {
         nameLbl.layer.borderColor = UIColor.black.cgColor
         nameLbl.layer.borderWidth = 1.0
         
-        statMsgEditImgView.isHidden         = false
-        nameLblEditImgView.isHidden         = false
-        profileImageEditImgView.isHidden    = false
-        backgroundImageEditImgView.isHidden = false
+        showEditViews(show: true)
         
         profileImg.addBlackTint()
         backgroundImg.addBlackTint()
-        
-        buttonStackView.isHidden   = true
-        endProfileEditBtn.isHidden = false
     }
     
     @objc func endEditMode(_ sender: Any) {
         self.status = .normal
         
         statMsg.layer.borderColor = UIColor.clear.cgColor
-        
         nameLbl.layer.borderColor = UIColor.clear.cgColor
         
-        statMsgEditImgView.isHidden         = true
-        nameLblEditImgView.isHidden         = true
-        profileImageEditImgView.isHidden    = true
-        backgroundImageEditImgView.isHidden = true
+        showEditViews(show: false)
         
         profileImg.removeBlackTint()
         backgroundImg.removeBlackTint()
-        
-        
-        buttonStackView.isHidden   = false
-        endProfileEditBtn.isHidden = true
     }
     
     @objc func editStatMsg(_ sender: Any) {
