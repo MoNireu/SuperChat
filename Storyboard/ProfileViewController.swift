@@ -74,10 +74,11 @@ class ProfileViewController: UIViewController {
         statMsg.sizeToFit()
         statMsg.addGestureRecognizer(setGestureRecognizer(sender: statMsg!))
         
-        statMsgEditImgView.isHidden         = true
-        nameLblEditImgView.isHidden         = true
-        profileImageEditImgView.isHidden    = true
-        backgroundImageEditImgView.isHidden = true
+//        statMsgEditImgView.isHidden         = true
+//        nameLblEditImgView.isHidden         = true
+//        profileImageEditImgView.isHidden    = true
+//        backgroundImageEditImgView.isHidden = true
+        showEditViews(show: false)
         
         let swipeGesture = UISwipeGestureRecognizer()
         swipeGesture.direction = .down
